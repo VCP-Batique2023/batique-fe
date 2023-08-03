@@ -2,6 +2,9 @@ import { useState } from 'react'
 import reactLogo from '@/assets/img/react.svg'
 import viteLogo from '/vite.svg'
 import '@/assets/style/App.css'
+import Radio from '@/components/Radio'
+import Checkbox from '@/components/Checkbox'
+import Button from '@/components/Button'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,9 +21,12 @@ function App() {
       </div>
       <h1>Selamat Datang di Batique</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <Button onClick={() => setCount((count) => count + 1)}>
           count is {count}
-        </button>
+        </Button>
+        <Radio name="gender" label="Male"/>
+        <Radio name="gender" label="Female"/>
+        <Checkbox name="confirmation" label="Privacy & Policy"/>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
