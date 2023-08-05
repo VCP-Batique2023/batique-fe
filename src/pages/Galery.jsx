@@ -20,7 +20,7 @@ const imageUrl = [
 export default function Galery() {
     return (
         <>
-            <ImageHeader path={GaleryHeader} />
+            <ImageHeader path={GaleryHeader} height='60vh' />
             <ImageGrid images={imageUrl}/>
         </>
     )
