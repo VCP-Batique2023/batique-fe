@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-
 import ImageHeader from '@/components/ImageHeader';
 import ImageGrid from '@/components/ImageGrid';
 import GaleryHeader from '@/assets/img/1.jpg';
@@ -8,30 +7,40 @@ import GaleryHeader from '@/assets/img/1.jpg';
 
 // Image Dummy Data
 const imageUrl = [
-    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg",
-    "https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?s=612x612&w=0&k=20&c=vcIjhwUrNyjoKbGbAQ5sOcEzDUgOfCsm9ySmJ8gNeRk=",
-    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg",
-    "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Ym9va3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80",
-    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg",
-    "https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?s=612x612&w=0&k=20&c=vcIjhwUrNyjoKbGbAQ5sOcEzDUgOfCsm9ySmJ8gNeRk=",
-    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg",
-    "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Ym9va3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80",
-    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg",
-    "https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?s=612x612&w=0&k=20&c=vcIjhwUrNyjoKbGbAQ5sOcEzDUgOfCsm9ySmJ8gNeRk=",
-    "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Ym9va3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80",
-    "https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?s=612x612&w=0&k=20&c=vcIjhwUrNyjoKbGbAQ5sOcEzDUgOfCsm9ySmJ8gNeRk=",
-    "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Ym9va3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80",
-    "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg",
-    "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Ym9va3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80",
-    "https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?s=612x612&w=0&k=20&c=vcIjhwUrNyjoKbGbAQ5sOcEzDUgOfCsm9ySmJ8gNeRk=",
-    "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Ym9va3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80",
-    "https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?s=612x612&w=0&k=20&c=vcIjhwUrNyjoKbGbAQ5sOcEzDUgOfCsm9ySmJ8gNeRk=",
-    "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Ym9va3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80",
+    "https://storage.googleapis.com/batique-images/30.jpg",
+    "https://storage.googleapis.com/batique-images/31.jpg",
+    "https://storage.googleapis.com/batique-images/33.jpg",
+    "https://storage.googleapis.com/batique-images/34.jpg",
+    "https://storage.googleapis.com/batique-images/35.jpg",
+    "https://storage.googleapis.com/batique-images/36.jpg",
+    "https://storage.googleapis.com/batique-images/37.jpg",
+    "https://storage.googleapis.com/batique-images/38.jpg",
+    "https://storage.googleapis.com/batique-images/39.jpg",
+    "https://storage.googleapis.com/batique-images/40.jpg",
+    "https://storage.googleapis.com/batique-images/a%20(1).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(2).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(3).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(4).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(5).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(6).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(7).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(8).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(9).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(10).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(11).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(12).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(13).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(14).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(15).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(16).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(17).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(18).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(19).jpg",
+    "https://storage.googleapis.com/batique-images/a%20(20).jpg",
 ]
 
 export default function Galery() {
     const [screenWidth, setScreenWidth] = useState((window.innerWidth >= 992) ? '60vh' : '30vh');
-
 
     // For Image Header component (responsive) --> Start
     const resizeScreenHandler = () => {

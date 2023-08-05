@@ -6,22 +6,19 @@ import Button from '@/components/Button.jsx';
 import '@/assets/style/ImageGrid.css';
 
 export default function ImageGrid({ images }) {
-  let imagePerSlide = 10
+  let imagePerSlide = 10;
   const [count, setCount] = useState(imagePerSlide);
-  // console.log(count);
   const loadMoreImageHandler = () => {
     setCount(count + imagePerSlide);
     console.log(count);
-  }
-
+  };
+  
   return (
     <>
-      <div className='gridWrapper'>
-        {
-          images.slice(0, count).map((image, index) => (
-            <ImageGalery url={image} key={index} />
-          ))
-        }
+      <div className="gridWrapper">
+        {images.slice(0, count).map((image, index) => (
+            <ImageGalery url={image} key={index} id={index} />
+        ))}
       </div>
       <div style={ButtonStyle}>
         <Button children="Load More" onClick={loadMoreImageHandler} />
@@ -35,4 +32,4 @@ const ButtonStyle = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-}
+};
