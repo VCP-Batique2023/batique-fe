@@ -1,6 +1,6 @@
 import "@/assets/style/ImageGridStyle.css";
 
-export default function ImageGrid({ url }) {  
+export default function ImageGalery({ url }) {
   return (
     <>
       <div className="imageContainer">
