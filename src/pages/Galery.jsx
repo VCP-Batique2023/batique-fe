@@ -4,6 +4,9 @@ import ImageHeader from '@/components/ImageHeader';
 import ImageGrid from '@/components/ImageGrid';
 import GaleryHeader from '@/assets/img/GaleryHeader.png';
 
+
+
+// Image Dummy Data
 const imageUrl = [
     "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg",
     "https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?s=612x612&w=0&k=20&c=vcIjhwUrNyjoKbGbAQ5sOcEzDUgOfCsm9ySmJ8gNeRk=",
@@ -23,12 +26,11 @@ export default function Galery() {
     const [screenWidth, setScreenWidth] = useState((window.innerWidth >= 992) ? '60vh' : '30vh');
 
 
+    // For Image Header component (responsive) --> Start
     const resizeScreenHandler = () => {
         if (window.innerWidth >= 992) {
-            console.log(window.innerWidth);
             setScreenWidth('60vh');
         } else {
-            // console.log(window.innerWidth);
             setScreenWidth('40vh');
         }
     }
@@ -40,6 +42,7 @@ export default function Galery() {
             window.removeEventListener('resize', resizeScreenHandler);
         };
     }, []);
+    // For Image Header component (responsive) <-- end
 
     return (
         <>
