@@ -1,4 +1,6 @@
+import ImageHeader from '@/components/ImageHeader';
 import ImageGrid from '@/components/ImageGrid';
+import GaleryHeader from '@/assets/img/GaleryHeader.png';
 
 const imageUrl = [
     "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg",
@@ -18,6 +20,7 @@ const imageUrl = [
 export default function Galery() {
     return (
         <>
+            <ImageHeader path={GaleryHeader} />
             <ImageGrid images={imageUrl}/>
         </>
     )

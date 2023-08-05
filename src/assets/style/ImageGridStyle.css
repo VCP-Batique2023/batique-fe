@@ -1,3 +1,9 @@
+.imagerHeader{
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
 .imageContainer {
     width: 100%;
     margin-bottom: 10px;
