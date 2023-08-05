@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 import ImageHeader from '@/components/ImageHeader';
 import ImageGrid from '@/components/ImageGrid';
 import GaleryHeader from '@/assets/img/GaleryHeader.png';
@@ -18,10 +20,31 @@ const imageUrl = [
 ]
 
 export default function Galery() {
+    const [screenWidth, setScreenWidth] = useState((window.innerWidth >= 992) ? '60vh' : '30vh');
+
+
+    const resizeScreenHandler = () => {
+        if (window.innerWidth >= 992) {
+            console.log(window.innerWidth);
+            setScreenWidth('60vh');
+        } else {
+            // console.log(window.innerWidth);
+            setScreenWidth('40vh');
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', resizeScreenHandler);
+
+        return () => {
+            window.removeEventListener('resize', resizeScreenHandler);
+        };
+    }, []);
+
     return (
         <>
-            <ImageHeader path={GaleryHeader} height='60vh' />
-            <ImageGrid images={imageUrl}/>
+            <ImageHeader path={GaleryHeader} height={screenWidth} />
+            <ImageGrid images={imageUrl} />
         </>
     )
 }

@@ -1,9 +1,10 @@
-*{
+* {
     margin: 0;
     padding: 0;
     background-color: #F2F2F2;
 }
-.imagerHeader{
+
+.imagerHeader {
     width: 100%;
     background-size: cover;
     background-position: center;
@@ -12,7 +13,7 @@
 
 .imageContainer {
     width: 100%;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .imageContainer .image {
@@ -22,8 +23,24 @@
 }
 
 .gridWrapper {
-    padding: 10px 15vh;
+    padding: 10px 5vh;
     max-width: 100%;
-    columns: 4;
-    column-gap: 15vh;
-};
+    columns: 2;
+    column-gap: 2vh;
+}
+
+@media only screen and (min-width: 992px) {
+    .imagerHeader {
+        margin-bottom: 5vh;
+    }
+
+    .gridWrapper {
+        padding: 10px 15vh !important;
+        columns: 4 !important;
+        column-gap: 10vh !important;
+    }
+
+    .imageContainer {
+        margin-bottom: 30px !important;
+    }
+}
