@@ -1,25 +1,19 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.image {
-    border-radius: 16px;
-    max-width: 100%;
-    display: block;
-    height: auto;
-}
-
 .imageContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.imageContainer .image {
+    max-width: 100%;
+    border-radius: 15px;
+    break-inside: avoid;
 }
 
 .gridWrapper {
-    display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(auto-fill, 250px);
-    grid-auto-rows: 30px;
+    padding: 10px 200px;
+    background-color: aliceblue;
+    max-width: 100%;
+    margin: 10px;
+    columns: 4;
+    column-gap: 20px;
 };
