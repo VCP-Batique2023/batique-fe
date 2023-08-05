@@ -16,18 +16,21 @@ export default function ImageGrid({ images }) {
     <>
       <div className='gridWrapper'>
         {
-          images.slice(0, count).map(image => (
-            <ImageGalery url={image} key={generateKey()} />
+          images.slice(0, count).map((image, index) => (
+            <ImageGalery url={image} key={index} />
           ))
         }
       </div>
-      <Button children="Load More" onClick={loadMoreImageHandler} />
+      <div style={ButtonStyle}>
+        <Button children="Load More" onClick={loadMoreImageHandler} />
+      </div>
     </>
   );
 }
 
-let key = 0;
-const generateKey = () => {
-  key++;
-  return key;
+const ButtonStyle = {
+  marginTop: '5vh',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 }
