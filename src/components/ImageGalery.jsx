@@ -1,4 +1,4 @@
-import "@/assets/style/ImageGridStyle.css";
+import "@/assets/style/ImageGrid.css";
 
 export default function ImageGalery({ url }) {
   return (

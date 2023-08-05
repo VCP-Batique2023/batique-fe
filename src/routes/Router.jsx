@@ -4,6 +4,7 @@ import DocumentTitle from '@/routes/Title';
 import '@/assets/style/index.css';
 
 const Home = lazy(() => import('@/pages/Home'));
+import Galery from '@/pages/Galery';
 
 export default function Router() {
   return (
@@ -15,6 +16,14 @@ export default function Router() {
             element={
               <DocumentTitle title="Selamat datang di Batique">
                 <Home />
+              </DocumentTitle>
+            }
+          />
+          <Route
+            path="/galery"
+            element={
+              <DocumentTitle title="Galery">
+                <Galery />
               </DocumentTitle>
             }
           />

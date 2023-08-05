@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import ImageHeader from '@/components/ImageHeader';
 import ImageGrid from '@/components/ImageGrid';
-import GaleryHeader from '@/assets/img/GaleryHeader.png';
+import GaleryHeader from '@/assets/img/1.jpg';
 
 
 

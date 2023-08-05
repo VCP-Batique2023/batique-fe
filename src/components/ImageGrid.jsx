@@ -1,7 +1,9 @@
+/* eslint-disable react/no-children-prop */
+/* eslint-disable react/jsx-no-comment-textnodes */
 import { useState } from 'react';
 import ImageGalery from '@/components/ImageGalery.jsx';
 import Button from '@/components/Button.jsx';
-import '@/assets/style/ImageGridStyle.css';
+import '@/assets/style/ImageGrid.css';
 
 export default function ImageGrid({ images }) {
   let imagePerSlide = 10
