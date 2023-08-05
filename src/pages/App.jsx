@@ -1,15 +1,6 @@
-// import { useState } from 'react'
-// import reactLogo from '@/assets/img/react.svg'
-// import viteLogo from '/vite.svg'
-// import '@/assets/style/App.css'
-// import Radio from '@/components/Radio'
-// import Checkbox from '@/components/Checkbox'
-// import Button from '@/components/Button'
-
-import Galery from '@/pages/Galery';
-
-// function App() {
-//   const [count, setCount] = useState(0)
+import '@/assets/style/App.css'
+import Layout from '@/components/Layout'
+import Router from '@/routes/Router'
 
 //   return (
 //     <>
@@ -40,11 +31,11 @@ import Galery from '@/pages/Galery';
 //   )
 // }
 function App() {
-  // const [count, setCount] = useState(0)
 
   return (
     <>
-      <Galery/>
+      <Layout/>
+      <Router/>
     </>
   )
 }
