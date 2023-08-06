@@ -6,12 +6,11 @@ import ImageGalery from '@/components/ImageGalery.jsx';
 import Button from '@/components/Button.jsx';
 import '@/assets/style/ImageGrid.css';
 
-export default function ImageGrid({ images }) {
+export default function ImageGrid({ feeds }) {
   let imagePerSlide = 15;
   const [count, setCount] = useState(imagePerSlide);
   const loadMoreImageHandler = () => {
     setCount(count + imagePerSlide);
-    console.log(count);
   };
   const breakpointColumnsObj = {
     default: 4,
@@ -27,11 +26,11 @@ export default function ImageGrid({ images }) {
         columnClassName="gridWrapperMasonryColumn"
         className="gridWrapperMasonry"
       >
-        {images.slice(0, count).map((image, index) => (
-          <ImageGalery url={image} key={index} />
+        {feeds.slice(0, count).map((feed, index) => (
+          <ImageGalery feedInformation={feed} key={index} />
         ))}
       </Masonry>
-      {count <= images.length - imagePerSlide ? (
+      {count <= feeds.length - imagePerSlide ? (
         <div style={ButtonStyle}>
           <Button children="Load More" onClick={loadMoreImageHandler} />
         </div>

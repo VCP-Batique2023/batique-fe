@@ -51,10 +51,15 @@
   transition: 0.2s ease-in;
 }
 
+.overlay .overlayContentContainer {
+  background-color: transparent;
+  display: flex;
+  justify-content: space-between;
+}
+
 .overlay .postInformation {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   background-color: transparent;
   gap: 10px;
 }
@@ -62,6 +67,7 @@
 .overlay .likeCounter {
   background-color: transparent;
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 
@@ -81,7 +87,9 @@
   .imageContainer {
     margin-bottom: 30px !important;
   }
+}
 
+@media only screen and (min-width: 1200px) {
   .overlay::after {
     content: '';
     position: absolute;
