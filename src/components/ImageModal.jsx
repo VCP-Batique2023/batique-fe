@@ -2,7 +2,7 @@
 import Button from '@/components/Button';
 import '@/assets/style/ImageGrid.css';
 
-export default function ImageModal({ onClick, show }) {
+export default function ImageModal({ onClick, show, data }) {
   return (
     <>
       <div
@@ -11,7 +11,7 @@ export default function ImageModal({ onClick, show }) {
       >
         <div className="detailPost">
           <div className="leftContent">
-            <img src="https://storage.googleapis.com/batique-images/31.jpg" />
+            <img src={data.url} />
           </div>
           <div className="rightContent">
             <div className="postInformation">
@@ -24,8 +24,8 @@ export default function ImageModal({ onClick, show }) {
 
               {/* Profile Information */}
               <div className="profileInformation">
-                <h3>Calvin Danyalson</h3>
-                <p>Write Your Caption Here</p>
+                <h3>{data.username}</h3>
+                <p>{data.title}</p>
               </div>
             </div>
           </div>

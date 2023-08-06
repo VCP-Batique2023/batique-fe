@@ -2,8 +2,11 @@ import ImageOverlay from '@/components/ImageOverlay';
 import '@/assets/style/ImageGrid.css';
 
 export default function ImageGalery({ feedInformation, onClick }) {
+  const sendDataToModal = () => {
+    onClick(feedInformation);
+  };
   return (
-    <div onClick={onClick} style={{ position: 'relative' }}>
+    <div onClick={sendDataToModal} style={{ position: 'relative' }}>
       <div className="imageContainer">
         <img src={feedInformation.url} className="image" />
       </div>

@@ -261,7 +261,8 @@ export default function Galery() {
   const [screenWidth, setScreenWidth] = useState(
     window.innerWidth >= 992 ? '60vh' : '30vh'
   );
-  const [showModal, setShowModal] = useState(0);
+  const [showModal, setShowModal] = useState(-1);
+  const [postData, setPostData] = useState({});
 
   // For Image Header component (responsive) --> Start
   const resizeScreenHandler = () => {
@@ -282,13 +283,14 @@ export default function Galery() {
   // For Image Header component (responsive) <-- end
 
   // For Triggering modal image --> Start
-  const triggerShowModal = () => {
+  const triggerShowModal = (feed = {}) => {
     if (showModal == -1) {
       setShowModal(2);
+      setPostData(feed);
     } else {
       setShowModal(-1);
+      setPostData({});
     }
-    console.log(showModal);
   };
   // For Triggering modal image <-- End
 
@@ -296,7 +298,7 @@ export default function Galery() {
     <>
       <ImageHeader path={GaleryHeader} height={screenWidth} />
       <ImageGrid feeds={feedsList} onClick={triggerShowModal} />
-      <ImageModal onClick={triggerShowModal} show={showModal} />
+      <ImageModal onClick={triggerShowModal} show={showModal} data={postData} />
     </>
   );
 }
