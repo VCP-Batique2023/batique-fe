@@ -1,45 +1,101 @@
 * {
-    margin: 0;
-    padding: 0;
-    background-color: #F2F2F2;
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2;
 }
 
 .imageHeader {
-    width: 100%;
-    background-size: cover;
-    background-position: center;
-    margin-bottom: 5vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 5vh;
 }
 
 .imageContainer {
-    width: 100%;
-    margin-bottom: 20px;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .imageContainer .image {
-    width: 100%;
-    border-radius: 25px;
-    break-inside: avoid;
+  width: 100%;
+  border-radius: 25px;
+  break-inside: avoid;
 }
 
 .gridWrapperMasonry {
-    padding: 10px 3vh;
-    display: flex;
-    width: auto;
+  padding: 10px 3vh;
+  display: flex;
+  width: auto;
 }
 
 .gridWrapperMasonryColumn {
-    padding: 10px 3vh;
-    background-clip: padding-box;
+  padding: 10px 3vh;
+  background-clip: padding-box;
+}
+
+.overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding: 3vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  background-color: transparent;
+  z-index: 100;
+  border-radius: 25px;
+  opacity: 0;
+  transition: 0.2s ease-in;
+}
+
+.overlay .postInformation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: transparent;
+  gap: 10px;
+}
+
+.overlay .likeCounter {
+  background-color: transparent;
+  display: flex;
+  gap: 10px;
+}
+
+.profilePicture,
+.profileInformation,
+.profileInformation h3,
+.profileInformation p,
+.likeCounter p {
+  background-color: transparent;
 }
 
 @media only screen and (min-width: 992px) {
-    .imagerHeader {
-        margin-bottom: 5vh;
-    }
+  .imagerHeader {
+    margin-bottom: 5vh;
+  }
 
+  .imageContainer {
+    margin-bottom: 30px !important;
+  }
 
-    .imageContainer {
-        margin-bottom: 30px !important;
-    }
+  .overlay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5;
+    z-index: -1;
+    border-radius: 25px;
+  }
+
+  .overlay:hover {
+    opacity: 1;
+  }
 }

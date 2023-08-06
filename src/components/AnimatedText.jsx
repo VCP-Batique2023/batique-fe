@@ -2,7 +2,11 @@ import { useEffect, useRef } from 'react';
 import { useInView, useAnimation, motion } from 'framer-motion';
 import '@/assets/style/AnimatedText.css';
 
-export default function AnimatedText({ text, align = 'left', firstWord = false }) {
+export default function AnimatedText({
+  text,
+  align = 'left',
+  firstWord = false,
+}) {
   const alignScope = ['left', 'center', 'right'];
   if (!alignScope.includes(align)) {
     align = 'left';
@@ -50,11 +54,11 @@ export default function AnimatedText({ text, align = 'left', firstWord = false }
                   fontSize: 24,
                 }
               : {
-                fontSize: 36,
-                textIndent: 4,
-                fontWeight: 'bold',
-                translateX: -4
-              }
+                  fontSize: 36,
+                  textIndent: 4,
+                  fontWeight: 'bold',
+                  translateX: -4,
+                }
           }
           aria-hidden="true"
           ref={ref}
