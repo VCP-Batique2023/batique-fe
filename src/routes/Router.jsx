@@ -4,7 +4,7 @@ import DocumentTitle from '@/routes/Title';
 import '@/assets/style/index.css';
 
 const Home = lazy(() => import('@/pages/Home'));
-import Galery from '@/pages/Galery';
+const Galery = lazy(() => import('@/pages/Galery'));
 import PrivateRoute from '@/routes/PrivateRoute';
 
 export default function Router() {
@@ -23,11 +23,13 @@ export default function Router() {
           <Route
             path="/galery"
             element={
-              <PrivateRoute element={
-                <DocumentTitle title="Galery">
-                  <Galery />
-                </DocumentTitle>
-              } />
+              <PrivateRoute
+                element={
+                  <DocumentTitle title="Galery">
+                    <Galery />
+                  </DocumentTitle>
+                }
+              />
             }
           />
         </Routes>
