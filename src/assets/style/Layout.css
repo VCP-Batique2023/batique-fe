@@ -5,10 +5,9 @@ nav {
   z-index: 999;
 }
 
-.logo {
+.nav-flex .logo {
   font-size: 32px;
   cursor: pointer;
-  line-height: 0%;
 }
 
 .nav-container {
@@ -24,12 +23,6 @@ nav {
   gap: 42px;
   align-items: center;
 }
-/* 
-.nav-flex section {
-  display: flex;
-  gap: 24px;
-  align-items: center;
-} */
 
 .nav-flex ul, .nav-flex section {
   display: flex;

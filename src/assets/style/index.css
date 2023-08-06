@@ -16,6 +16,11 @@
   padding: 0;
 }
 
+main {
+  margin-bottom: 96px;
+  min-height: calc(100vh - 80px);
+}
+
 body {
   background-color: #F0EEE6;
 }

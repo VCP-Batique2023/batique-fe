@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import '@/assets/style/AnimatedText.css';
-import { useState } from 'react';
 
 export default function AnimatedText({
   text,
@@ -13,7 +12,7 @@ export default function AnimatedText({
     align = 'start';
   }
 
-  const [textSplit, setTextSplit] = useState(text.split(' '));
+  const textSplit = text.split(' ');
 
   const AnimatedTextVariants = {
     hidden: {
@@ -43,7 +42,7 @@ export default function AnimatedText({
               ? {
                   fontSize: 24,
                 }
-                : {
+              : {
                   fontSize: 36,
                   letterSpacing: 4,
                   fontWeight: 'bold',

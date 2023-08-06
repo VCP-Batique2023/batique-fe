@@ -8,9 +8,10 @@ import img1 from '@/assets/img/1.jpg';
 import img2 from '@/assets/img/2.jpg';
 import img3 from '@/assets/img/3.jpg';
 import img4 from '@/assets/img/4.jpg';
+import img5 from '@/assets/img/5.jpg';
 import '@/assets/style/Home.css';
 
-const arr = [img3, img4, img3, img4, img3, img4];
+const arr = [img3, img1, img5, img4, img3, img3];
 
 export default function Home() {
   const navigate = useNavigate();
@@ -45,64 +46,67 @@ export default function Home() {
   const parallaxY = useParallax(scrollYProgress, 150);
 
   return (
-    <header>
-      <section className="hero-section">
-        <div className="content">
-          <AnimatedText
-            text="Batik, “Melukis Keindahan di Setiap Helaian Kehidupan.”"
-            firstWord
-          />
-        </div>
-        <AnimatedImage src={img1} alt={'Gambar melukis batik'} />
-      </section>
-      <section className="hero-section">
-        <AnimatedImage src={img2} alt={'Gambar tentang batique'} />
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          transition={{
-            delayChildren: 0.35,
-            staggerChildren: 0.25,
-            type: 'tween',
-          }}
-          variants={container}
-          className="content"
-        >
-          <AnimatedText text="Tentang Kami" />
-          <motion.p
-            variants={item}
-            style={{
-              marginTop: 12,
-            }}
-          >
-            Batique hadir sebagai sebuah platform online berbasis web yang
-            memungkinkan seniman muda berbakat yang memiliki minat besar
-            terhadap seni batik untuk mengembangkan kreativitas dan ekspresi
-            seni mereka.
-          </motion.p>
-          <motion.p
-            variants={item}
-            style={{
-              marginTop: 8,
-            }}
-          >
-            Melalui pengadaan program edukasi dan kampanye sosial, batik bisa
-            dihidupkan kembali dan diintegrasikan ke dalam kehidupan sehari-hari
-            generasi muda.
-          </motion.p>
+    <main>
+      <header>
+        <section className="hero-section">
+          <div className="content">
+            <AnimatedText
+              text="Batik, “Melukis Keindahan di Setiap Helaian Kehidupan.”"
+              firstWord
+              background
+            />
+          </div>
+          <AnimatedImage src={img1} alt={'Gambar melukis batik'} />
+        </section>
+        <section className="hero-section">
+          <AnimatedImage src={img2} alt={'Gambar tentang batique'} />
           <motion.div
-            variants={item}
-            style={{
-              marginTop: 28,
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            transition={{
+              delayChildren: 0.35,
+              staggerChildren: 0.25,
+              type: 'tween',
             }}
+            variants={container}
+            className="content"
           >
-            <Button onClick={() => navigate('/tentang')} variant="outlined">
-              Selengkapnya
-            </Button>
+            <AnimatedText text="Tentang Kami" background />
+            <motion.p
+              variants={item}
+              style={{
+                marginTop: 12,
+              }}
+            >
+              Batique hadir sebagai sebuah platform online berbasis web yang
+              memungkinkan seniman muda berbakat yang memiliki minat besar
+              terhadap seni batik untuk mengembangkan kreativitas dan ekspresi
+              seni mereka.
+            </motion.p>
+            <motion.p
+              variants={item}
+              style={{
+                marginTop: 8,
+              }}
+            >
+              Melalui pengadaan program edukasi dan kampanye sosial, batik bisa
+              dihidupkan kembali dan diintegrasikan ke dalam kehidupan
+              sehari-hari generasi muda.
+            </motion.p>
+            <motion.div
+              variants={item}
+              style={{
+                marginTop: 28,
+              }}
+            >
+              <Button onClick={() => navigate('/tentang')} variant="outlined">
+                Selengkapnya
+              </Button>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </section>
+        </section>
+      </header>
       <section className="middle-section">
         <svg
           style={{
@@ -161,10 +165,7 @@ export default function Home() {
             style={{ y: parallaxY }}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: '0px 0px -150px 0px' }}
-            transition={{
-              delay: 0.25,
-            }}
+            viewport={{ once: true, margin: '0px 0px -240px 0px' }}
             className="content-images"
           >
             {arr.map((image, index) => (
@@ -196,6 +197,6 @@ export default function Home() {
           firstWord
         />
       </section>
-    </header>
+    </main>
   );
 }

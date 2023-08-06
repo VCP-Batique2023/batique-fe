@@ -1,19 +1,16 @@
-.hero-section:not(:last-child) {
-  margin-bottom: 20vh;
-}
-
 .hero-section {
   display: flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
   overflow: hidden;
+  margin-bottom: 20vh;
 }
 
 .hero-section .img-content {
   /* aspect-ratio: 1/1; */
-  height: 80vh;
   /* max-height: 540px; */
+  height: 80vh;
   min-width: 50%;
   background-color: #f0e0b0;
 }
@@ -31,16 +28,16 @@
 }
 
 .middle-section {
-  margin-top: 64px;
+  margin-top: -32px;
   margin-bottom: 128px;
 }
 
 .middle-section .content {
   display: flex;
   padding: 0 12%;
-  min-height: 400px;
-  height: 60vh;
-  max-height: 600px;
+  min-height: 280px;
+  height: 40vh;
+  max-height: 540px;
   background-color: #372b22;
   gap: 64px;
 }
@@ -53,10 +50,10 @@
 }
 
 .middle-section .content .content-images {
-  margin-top: -240px;
+  margin-top: -180px;
   overflow: hidden;
   flex-basis: 45%;
-  height: 144%;
+  height: 140%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
