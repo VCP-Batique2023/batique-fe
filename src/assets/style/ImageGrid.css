@@ -17,16 +17,20 @@
 }
 
 .imageContainer .image {
-    max-width: 100%;
+    width: 100%;
     border-radius: 25px;
     break-inside: avoid;
 }
 
-.gridWrapper {
-    padding: 10px 5vh;
-    max-width: 100%;
-    columns: 2;
-    column-gap: 2vh;
+.gridWrapperMasonry {
+    padding: 10px 3vh;
+    display: flex;
+    width: auto;
+}
+
+.gridWrapperMasonryColumn {
+    padding: 10px 3vh;
+    background-clip: padding-box;
 }
 
 @media only screen and (min-width: 992px) {
@@ -34,11 +38,6 @@
         margin-bottom: 5vh;
     }
 
-    .gridWrapper {
-        padding: 10px 15vh !important;
-        columns: 4 !important;
-        column-gap: 10vh !important;
-    }
 
     .imageContainer {
         margin-bottom: 30px !important;

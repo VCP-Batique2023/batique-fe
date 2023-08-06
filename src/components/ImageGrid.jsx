@@ -1,25 +1,36 @@
 /* eslint-disable react/no-children-prop */
 /* eslint-disable react/jsx-no-comment-textnodes */
 import { useState } from 'react';
+import Masonry from 'react-masonry-css';
 import ImageGalery from '@/components/ImageGalery.jsx';
 import Button from '@/components/Button.jsx';
 import '@/assets/style/ImageGrid.css';
 
 export default function ImageGrid({ images }) {
-  let imagePerSlide = 10;
+  let imagePerSlide = 15;
   const [count, setCount] = useState(imagePerSlide);
   const loadMoreImageHandler = () => {
     setCount(count + imagePerSlide);
     console.log(count);
   };
-  
+  const breakpointColumnsObj = {
+    default: 4,
+    1000: 3,
+    700: 2,
+    500: 1,
+  };
+
   return (
     <>
-      <div className="gridWrapper">
+      <Masonry
+        breakpointCols={breakpointColumnsObj}
+        columnClassName="gridWrapperMasonryColumn"
+        className="gridWrapperMasonry"
+      >
         {images.slice(0, count).map((image, index) => (
-            <ImageGalery url={image} key={index} id={index} />
+          <ImageGalery url={image} key={index} />
         ))}
-      </div>
+      </Masonry>
       <div style={ButtonStyle}>
         <Button children="Load More" onClick={loadMoreImageHandler} />
       </div>
