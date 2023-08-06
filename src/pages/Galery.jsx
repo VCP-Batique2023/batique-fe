@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import ImageHeader from '@/components/ImageHeader';
 import ImageGrid from '@/components/ImageGrid';
+import ImageModal from '@/components/ImageModal';
+
 import GaleryHeader from '@/assets/img/1.jpg';
 
 // Image Dummy Data
@@ -259,6 +261,7 @@ export default function Galery() {
   const [screenWidth, setScreenWidth] = useState(
     window.innerWidth >= 992 ? '60vh' : '30vh'
   );
+  const [showModal, setShowModal] = useState(0);
 
   // For Image Header component (responsive) --> Start
   const resizeScreenHandler = () => {
@@ -278,10 +281,22 @@ export default function Galery() {
   }, []);
   // For Image Header component (responsive) <-- end
 
+  // For Triggering modal image --> Start
+  const triggerShowModal = () => {
+    if (showModal == -1) {
+      setShowModal(2);
+    } else {
+      setShowModal(-1);
+    }
+    console.log(showModal);
+  };
+  // For Triggering modal image <-- End
+
   return (
     <>
       <ImageHeader path={GaleryHeader} height={screenWidth} />
-      <ImageGrid feeds={feedsList} />
+      <ImageGrid feeds={feedsList} onClick={triggerShowModal} />
+      <ImageModal onClick={triggerShowModal} show={showModal} />
     </>
   );
 }
