@@ -31,9 +31,13 @@ export default function ImageGrid({ images }) {
           <ImageGalery url={image} key={index} />
         ))}
       </Masonry>
-      <div style={ButtonStyle}>
-        <Button children="Load More" onClick={loadMoreImageHandler} />
-      </div>
+      {count <= images.length - imagePerSlide ? (
+        <div style={ButtonStyle}>
+          <Button children="Load More" onClick={loadMoreImageHandler} />
+        </div>
+      ) : (
+        <div></div>
+      )}
     </>
   );
 }
