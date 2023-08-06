@@ -1,3 +1,16 @@
+nav {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.logo {
+  font-size: 32px;
+  cursor: pointer;
+  line-height: 0%;
+}
+
 .nav-container {
   padding: 0 12%;
   background-color: #f0eee6;
@@ -5,21 +18,23 @@
 }
 
 .nav-flex {
+  display: flex;
   padding: 12px 0;
-  display: flex;
   justify-content: space-between;
+  gap: 42px;
   align-items: center;
 }
+/* 
+.nav-flex section {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+} */
 
-.logo {
-  font-size: 32px;
-  cursor: pointer;
-}
-
-.nav-flex ul {
+.nav-flex ul, .nav-flex section {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 24px;
   list-style: none;
 }
 
