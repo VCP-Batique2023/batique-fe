@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import '@/assets/style/artikelNav.css';
+import '@/assets/style/artikelTabs.css';
 import '@/assets/style/artikelCard.css';
+import '@/assets/style/Layout.css';
+
 import ArtikelCard from './artikelCard';
+import Button from './Button';
 export default function artikelNav() {
     const categories = [
         "History",
@@ -44,40 +47,32 @@ export default function artikelNav() {
 
     return (
         <div className="container">
-            <div className="navigation">
+            <div className="nav-container">
+                <div className="nav-tabs">
                 <ul>
                     {categories.map((category, index) => (
                         <li
-                            className={activeCategory === category ? 'main active' : 'main'}
-                            key={index}
-                            onClick={() => handleCategoryChange(category)}
+                            className='main'
                         >
-                            <a href="#">{category}</a>
+                        <Button
+                        className={`btn-outlined-primary ${activeCategory === category ? 'active' : ''}`}
+                        key={index}
+                        onClick={() => handleCategoryChange(category)}
+                        variant="outlined"
+                        >
+                            {category}
+                        </Button>
+
                         </li>
                     ))}
                 </ul>
-            </div>
-            <div className="container-card">
-            {filteredArtikel.map((item, index) => (
-                <div
-                    key={index}
-                    className="content"
-                >
-                    <div className="card">
-                        <div className="image-wrapper">
-                            <img src={item.img} alt="" />
-                        </div>
-                        <div className="card-header">
-                            <div className="category">
-                                <a href="#">{item.category}</a>
-                            </div>
-                            <a href="#">{item.title}</a>
-                            <p>{item.excerpt}</p>
-                        </div>
-                    </div>
                 </div>
-            ))}
-        </div>
+            </div>
+            <ArtikelCard
+                artikel={filteredArtikel} 
+                categoryColor="secondary" 
+                excerptVisible={true} 
+            />
         </div>
     );
 }

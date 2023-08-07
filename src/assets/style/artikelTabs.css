@@ -1,35 +1,32 @@
-:root {
-    --bg-color: #f2f2f2;
-    --primary-color: #372B22;
-  }
 
-body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--bg-color);
-}
+
+
 .container{
     width: 100vw;
     padding: 0%;
     margin: auto;
 }
-.navigation {
+/* .navigation {
     display: flex;
     background-color: var(--bg-color);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(15px);
-    /* -webkit-backdrop-filter: blur(5px); */
     width: 100vw;
     height: 80px;
     align-items: center;
     justify-content: center;
     font-size: 16px;
+} */     /* -webkit-backdrop-filter: blur(5px); */
+.nav-tabs{
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+    align-items: center;
 }
-.navigation ul li{
+.nav-tabs ul li{
     margin-right: 60px;
     
 }
-.navigation ul{
+.nav-tabs ul{
     display: flex;
     list-style: none;
     padding: 0;
@@ -37,24 +34,10 @@ body {
     padding-left: 60px;
     
 }
-.navigation li.main a {
+.nav-tabs li.main a {
     color: var(--primary-color);
     display: inline-block;
     text-decoration: none;
     padding: 10px 20px;
-    border-radius: 10px;
-    border: 1px solid var(--primary-color);
 }
 
-.navigation li.main a:hover {
-    color: var(--bg-color);
-    padding: 10px 20px;
-    border-radius: 10px;
-    background-color: #372B22;
-}
-.navigation li.main.active a {
-    color: var(--bg-color);
-    padding: 10px 20px;
-    border-radius: 10px;
-    background-color: #372B22;
-}

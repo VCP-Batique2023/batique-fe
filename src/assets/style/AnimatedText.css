@@ -1,0 +1,11 @@
+.animated-text {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    height: fit-content;
+    gap: 6px;
+}
+
+.animated-text .span {
+    display: inline-block;
+}
