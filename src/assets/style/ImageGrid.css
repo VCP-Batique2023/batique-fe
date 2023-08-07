@@ -108,8 +108,8 @@
 .detailPostContainer .detailPost {
   position: relative;
   border-radius: 25px;
-  width: 80%;
-  height: 80vh;
+  width: 60%;
+  height: 70vh;
   display: flex;
 }
 
@@ -120,6 +120,7 @@
   background-color: #372b22;
   border-top-left-radius: 25px;
   border-bottom-left-radius: 25px;
+  overflow: hidden;
 }
 
 .detailPostContainer .detailPost .leftContent img {
