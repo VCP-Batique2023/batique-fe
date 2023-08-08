@@ -115,19 +115,23 @@ export default function artikelNav() {
             
         }
     ]
+    
     const [activeCategory, setActiveCategory] = useState(null);
     const [isSticky, setIsSticky] = useState(false);
-    useEffect(() => {
+
+
+    useEffect(() => { 
         const handleScroll = () => {
-          const scrollPosition = window.scrollY;
-          setIsSticky(scrollPosition > 90); 
+        const scrollPosition = window.scrollY;
+        const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+        setIsSticky(scrollPosition > 0.7 * vh); // Scroll position greater than 70vh
         };
-        
+    
         window.addEventListener('scroll', handleScroll);
         return () => {
           window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+      }, []);
     
     const filteredArtikel = activeCategory ? artikel.filter(item => item.category === activeCategory)
     : artikel;
