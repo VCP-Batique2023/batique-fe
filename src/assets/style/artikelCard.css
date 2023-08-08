@@ -7,27 +7,27 @@ body{
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
-    max-width: calc(350px * 3 + 80px);
+    width: calc(300px * 3 + 80px);
 }
-  
+
 .container-card .card {
-    /* Add shadows to create the "card" effect */
     background-color: white;
     transition: 0.3s;
     height: auto;
-    max-width: 350px;
-    margin: 0 auto;
+    max-width: 300px;
+    /* margin: 0 auto; */
+    padding-bottom: 10px;
     cursor: pointer;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(27, 26, 23, 0.08);
-  }
-  
-  .container-card .card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover for a floating effect */
-  }
+}
+
+.container-card .card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+}
 .container-card .card .card-header{
-padding: 20px 40px;
-margin-bottom: 20px;
+    padding: 20px 40px;
+    margin-bottom: 20px;
 }
 .container-card .card .card-header a,span{
     color: #372B22;
@@ -37,32 +37,32 @@ margin-bottom: 20px;
 .container-card .card .card-header .category a{
     font-weight: 500;
     font-family: 'Outfit', sans-serif;
-    ;
+;
 }
 .container-card .card .card-header a{
     font-family: 'Playfair Display', serif;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 16px;
 }
 .container-card .card .card-header span{
     font-family: 'Outfit', sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     text-align: justify;
     display: block;
     padding-top: 10px;
 }
 .container-card .card .image-wrapper {
-display: flex;
-align-items: center;
-justify-content: center; 
-padding-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    padding-top: 30px;
 
 }
 
 .container-card .card .image-wrapper img {
-width: 280px;
-height: 150px;
-border-radius: 10px;
+    width: 220px;
+    height: 120px;
+    border-radius: 10px;
 
 
 }
@@ -70,5 +70,5 @@ border-radius: 10px;
 
 
 
-  
-  
+
+

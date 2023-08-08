@@ -14,45 +14,67 @@
 .nav-tabs.sticky {
   position: sticky;
   top: 0;
-  z-index: 10; /* Ensure it's above other content */
-  /* Add other styling properties as needed */
+  z-index: 10; 
 }
   
-  .nav-tabs ul {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .nav-tabs ul.dropdown {
-    margin-right: auto;
-  }
-  
-  .nav-tabs ul.title {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .nav-tabs li a {
-    color: var(--primary-color);
-    text-decoration: none;
-    padding: 10px 20px;
-  }
-  
-  .nav-tabs h3 {
-    margin: 0;
-  }
-  
-  .nav-tabs input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
+.nav-tabs ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-tabs ul.dropdown {
+  margin-right: auto;
+}
+
+.nav-tabs ul.title {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-tabs li a {
+  color: var(--primary-color);
+  text-decoration: none;
+  padding: 10px 20px;
+}
+
+.nav-tabs li .search-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.search-input input[type="text"] {
+  padding-right: 30px;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px #372b22;
+  border-radius: 8px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 45px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  padding-bottom: 20px;
+  background-color: black;
+}
+
+.nav-tabs h3 {
+  margin: 0;
+}
+
+.nav-tabs input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
   
