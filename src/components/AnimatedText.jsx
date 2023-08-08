@@ -46,6 +46,7 @@ export default function AnimatedText({
                   fontSize: 36,
                   letterSpacing: 4,
                   fontWeight: 'bold',
+                  marginBottom: -3
                 }
           }
           aria-hidden="true"

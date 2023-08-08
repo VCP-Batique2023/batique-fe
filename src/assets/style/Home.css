@@ -34,7 +34,7 @@
 
 .middle-section .content {
   display: flex;
-  padding: 0 12%;
+  padding: 32px 12%;
   min-height: 280px;
   height: 40vh;
   max-height: 540px;
@@ -92,8 +92,12 @@
   margin-top: -128px;
 }
 
+.most-liked-section {
+  padding: 32px 12%;
+}
+
 .end-section {
-  padding: 0 12%,;
+  padding: 32px 12%,;
 }
 
 @media screen and (max-width: 1366px) {
@@ -103,7 +107,8 @@
   }
 
   .middle-section .content,
+  .most-liked-section,
   .end-section {
-    padding: 0 8%;
+    padding: 24px 8%;
   }
 }
