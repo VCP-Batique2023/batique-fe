@@ -1,24 +1,12 @@
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';;
 import Button from '@/components/Button';
 import '@/assets/style/Layout.css';
 
 export default function Layout() {
   const navigate = useNavigate();
-  const [isSticky, setIsSticky] = useState(false);
-  useEffect(() => {
-      const handleScroll = () => {
-        const scrollPosition = window.scrollY;
-        setIsSticky(scrollPosition > 100); 
-      };
-      
-      window.addEventListener('scroll', handleScroll);
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-      };
-  }, []);
+
   return (
-    <nav className={`nav-container ${isSticky ? 'sticky' : ''}`}>
+    <nav className="nav-container">
       <div className="nav-flex">
         <h2 className="logo">Batique</h2>
         <ul>

@@ -1,3 +1,10 @@
+nav {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 999;
+}
+
 .nav-container {
   padding: 0 12%;
   background-color: #f0eee6;
