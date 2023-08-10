@@ -108,29 +108,38 @@
 .detailPostContainer .detailPost {
   position: relative;
   border-radius: 25px;
-  width: 60%;
-  height: 70vh;
+  width: 90%;
+  height: fit-content;
+  max-height: 70vh;
   display: flex;
+  flex-direction: column;
+  background-color: cadetblue;
 }
 
 .detailPostContainer .detailPost .leftContent {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  width: 60%;
+  width: 100%;
   background-color: #372b22;
   border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
+  border-top-right-radius: 25px;
+  min-height: 20%;
+  max-height: 30%;
   overflow: hidden;
 }
 
 .detailPostContainer .detailPost .leftContent img {
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
   width: 100%;
 }
 
 .detailPostContainer .detailPost .rightContent {
   padding: 40px;
-  width: 40%;
-  border-top-right-radius: 25px;
+  width: 100%;
+  height: fit-content;
+  border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
 }
 
@@ -141,6 +150,35 @@
 
   .imageContainer {
     margin-bottom: 30px !important;
+  }
+
+  .detailPostContainer .detailPost {
+    flex-direction: row !important;
+    width: 70%;
+    height: 100%;
+  }
+
+  .detailPostContainer .detailPost .leftContent {
+    justify-content: center !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0;
+    max-height: 100%;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-top-right-radius: 0;
+  }
+
+  .detailPostContainer .detailPost .leftContent img {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .detailPostContainer .detailPost .rightContent {
+    height: 100% !important;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 0;
   }
 }
 

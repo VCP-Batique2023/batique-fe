@@ -21,11 +21,10 @@ export default function ImageModal({ onClick, show, data }) {
                 style={{ backgroundColor: 'transparent', width: '60px' }}
                 src="https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
               />
-
               {/* Profile Information */}
               <div className="profileInformation">
-                <h3>{data.username}</h3>
-                <p>{data.title}</p>
+                <h3>Calvin Danyalson</h3>
+                <p>{data.caption}</p>
               </div>
             </div>
           </div>
