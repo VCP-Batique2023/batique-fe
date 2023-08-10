@@ -1,0 +1,20 @@
+.container{
+    width: 100%;
+    padding: 5% 8% 0 8%;
+    display: block;
+}
+.container .title{
+    text-align: center;
+    padding-bottom: 5%;
+}
+.container .cover{
+    background-color: black;
+    width: 100%;
+    height: 70vh;
+    border-radius: 10px;
+    margin-bottom: 5%;
+}
+
+.container .content{
+    text-align: justify;
+}

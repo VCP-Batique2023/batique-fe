@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import '@/assets/style/artikelTabs.css';
 import '@/assets/style/artikelCard.css';
 
 
 import ArtikelCard from './artikelCard';
 import Dropdown from './dropdown';
-export default function artikelNav() {
+import Button from './Button';
+import SearchBar from './searchBar';
+
+export default function artikeTabs() {
   
     const options = [
         {  text: 'History' },
         {  text: 'DIY' },
         { text: 'Filter' },
+        {  text: 'Batik Solo' },
+        {  text: 'Batik Modern' },
+        { text: 'Batik Bali' },
         
     ];
     const artikel = [
@@ -118,21 +125,25 @@ export default function artikelNav() {
     
     const [activeCategory, setActiveCategory] = useState(null);
     const [isSticky, setIsSticky] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
 
 
     useEffect(() => { 
         const handleScroll = () => {
         const scrollPosition = window.scrollY;
         const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-        setIsSticky(scrollPosition > 0.7 * vh); // Scroll position greater than 70vh
+        setIsSticky(scrollPosition > 0.5 * vh); 
         };
-    
+
         window.addEventListener('scroll', handleScroll);
         return () => {
-          window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('scroll', handleScroll);
         };
-      }, []);
-    
+        }, []);
+
+
+
     const filteredArtikel = activeCategory ? artikel.filter(item => item.category === activeCategory)
     : artikel;
     const handleCategoryChange = (category) => {
@@ -141,39 +152,40 @@ export default function artikelNav() {
 
     return (
         <div className="container">
-            {/* navigasi tabs */}
-            <div className={`nav-tabs ${isSticky ? 'sticky' : ''}`}>
-                <ul className='dropdown'>
-                    <li>
-                        <Dropdown options={options} onItemClick={(category) => handleCategoryChange(category || null)} />
-                    </li>
-                </ul>   
-                <ul className='title'>
-                    <li>
-                        <span className='nav-header'>Jelajahi Artikel Terbaru</span>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <div className="search-container">
-                            <div className="search-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                            </svg>
-                            </div>
-                            <input type="text" placeholder="Search.." className="search-input" />
-                        </div>
-                    </li>
-                </ul>
-                
-            </div>
-            {/* card tabs */}
-            
+            <div className="cards">
             <ArtikelCard
                 artikel={filteredArtikel} 
-                categoryColor="secondary" 
                 excerptVisible={true} 
+                onClick={(index) => navigate(`/article/${index}`)}
             />
+            </div>
+            <div className='side-menu'>
+                <div className={`categories ${isSticky ? 'active' : ''}`}>
+                        <div className="explore">
+                            <form action="">
+                                <input class="search__input" type="text" placeholder="Jelajahi Berbagai Macam Topik..."/>
+                            </form>
+                        </div>
+                    <div className="head-category">
+                        <span>
+                            Jelajahi Berbagai Macam Topik
+                        </span>
+                    </div>
+                    <div className="content-category">
+                        
+                        {
+                            options.map((option,index)=>(
+                                <Button key={index}  onClick={() => handleCategoryChange(option.text)}
+                                 variant='outlined' size='small' style={{ marginRight: 5,
+                                    marginBottom: 8, borderRadius:20 }}>
+                                {option.text}
+                                </Button>
+                            ))
+                        }
+                        
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

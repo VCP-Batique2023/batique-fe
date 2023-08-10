@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useInView, useAnimation, motion } from 'framer-motion';
+import { useInView, useAnimation, motion, color } from 'framer-motion';
 import '@/assets/style/AnimatedText.css';
 
 export default function AnimatedText({ text, align = 'left', firstWord = false }) {
@@ -39,6 +39,7 @@ export default function AnimatedText({ text, align = 'left', firstWord = false }
       className="animated-text"
       style={{
         fontFamily: ['Playfair Display', 'serif'],
+        color:['#F0EEE6','#372B22']
       }}
       aria-label={text}
     >
@@ -67,6 +68,7 @@ export default function AnimatedText({ text, align = 'left', firstWord = false }
             duration: 0.75,
             ease: [0.2, 0.65, 0.3, 0.9],
           }}
+          
         >
           {word}
         </motion.span>

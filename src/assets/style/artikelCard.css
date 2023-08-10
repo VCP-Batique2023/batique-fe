@@ -3,11 +3,11 @@ body{
 }
 .container-card {
     margin: auto;
-    margin-top: 50px;
     display: flex;
     flex-wrap: wrap;
-    gap: 40px;
-    width: calc(300px * 3 + 80px);
+    gap: 30px;
+    width: calc(300px * 2 + 80px);
+    
 }
 
 .container-card .card {
@@ -63,10 +63,34 @@ body{
     width: 220px;
     height: 120px;
     border-radius: 10px;
-
-
 }
-
+@media only screen and (max-width: 768px) {
+    body{
+        overflow-x: hidden;
+    }
+    .container-card{
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        width: 300px;
+    }
+    .container-card .card{
+        max-width: 400px;
+        margin-bottom: 10px;
+    }
+  }
+/* @media only screen and (max-width:994px){
+    .container-card{
+        margin: auto;
+        padding: 0px 20px;
+        gap: 20px;
+        max-width: calc(250px * 3 + 100px);
+        background: #000;
+    }
+    .container-card .card{
+        max-width: 250px;
+    }
+} */
 
 
 
