@@ -36,7 +36,7 @@
 .overlay {
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: space-between;
   padding: 3vh;
   position: absolute;
   top: 0;
@@ -51,30 +51,30 @@
   transition: 0.2s ease-in;
 }
 
-.overlay .overlayContentContainer {
+.overlay .postTitle {
+  display: flex;
+  font-size: 20px;
   background-color: transparent;
+  width: 90%;
+}
+
+.overlay .postFooter {
   display: flex;
   justify-content: space-between;
-}
-
-.overlay .postInformation {
-  display: flex;
   align-items: center;
-  background-color: transparent;
-  gap: 10px;
 }
 
-.overlay .likeCounter {
-  background-color: transparent;
+.overlay .postFooter .likeCounter {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  gap: 20px;
 }
 
-.profilePicture,
-.profileInformation,
-.profileInformation h3,
-.profileInformation p,
+.postTitle,
+.postTitle p,
+.postFooter,
+.date,
+.likeCounter,
+.likeCounter img,
 .likeCounter p {
   background-color: transparent;
 }
@@ -160,5 +160,14 @@
 
   .overlay:hover {
     opacity: 1;
+  }
+
+  .overlay .postTitle {
+    font-size: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* number of lines to show */
+    -webkit-box-orient: vertical;
   }
 }

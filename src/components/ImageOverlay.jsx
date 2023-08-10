@@ -9,22 +9,9 @@ import '@/assets/style/ImageGrid.css';
 export default function ImageOverlay({ feedInformation }) {
   return (
     <div className="overlay">
-      <div className="overlayContentContainer">
-        <div className="postInformation">
-          {/* Profile Picture */}
-          <img
-            className="profilePicture"
-            style={{ backgroundColor: 'transparent', width: '60px' }}
-            src={feedInformation.profilePicture}
-          />
-
-          {/* Profile Information */}
-          <div className="profileInformation">
-            <h3>{feedInformation.username}</h3>
-            <p>{feedInformation.title}</p>
-          </div>
-        </div>
-        {/* Like Counter */}
+      <div className="postTitle">{feedInformation.caption}</div>
+      <div className="postFooter">
+        <div className="date">{feedInformation.createdAt}</div>
         <div className="likeCounter">
           <img
             src="https://citizenshospitals.com/wp-content/uploads/2016/12/Heart_Icon_White.png"
