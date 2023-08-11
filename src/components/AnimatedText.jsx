@@ -1,27 +1,18 @@
-import { useEffect, useRef } from 'react';
-import { useInView, useAnimation, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import '@/assets/style/AnimatedText.css';
 
-export default function AnimatedText({ text, align = 'left', firstWord = false }) {
-  const alignScope = ['left', 'center', 'right'];
+export default function AnimatedText({
+  text,
+  style,
+  align = 'start',
+  firstWord = false,
+}) {
+  const alignScope = ['start', 'center', 'end'];
   if (!alignScope.includes(align)) {
-    align = 'left';
+    align = 'start';
   }
 
-  const control = useAnimation();
-  const ref = useRef(null);
-  const isInView = useInView(ref, {
-    once: true,
-  });
-
-  useEffect(() => {
-    if (isInView) {
-      control.start('visible');
-    }
-    if (!isInView) {
-      control.start('hidden');
-    }
-  }, [control, isInView]);
+  const textSplit = text.split(' ');
 
   const AnimatedTextVariants = {
     hidden: {
@@ -38,11 +29,13 @@ export default function AnimatedText({ text, align = 'left', firstWord = false }
     <div
       className="animated-text"
       style={{
+        justifyContent: align,
         fontFamily: ['Playfair Display', 'serif'],
+        ...style,
       }}
       aria-label={text}
     >
-      {text.split(' ').map((word, index) => (
+      {textSplit.map((word, index) => (
         <motion.span
           style={
             firstWord && index !== 0
@@ -50,22 +43,22 @@ export default function AnimatedText({ text, align = 'left', firstWord = false }
                   fontSize: 24,
                 }
               : {
-                fontSize: 36,
-                textIndent: 4,
-                fontWeight: 'bold',
-                translateX: -4
-              }
+                  fontSize: 36,
+                  letterSpacing: 4,
+                  fontWeight: 'bold',
+                  marginBottom: -3
+                }
           }
           aria-hidden="true"
-          ref={ref}
           key={index}
           initial="hidden"
-          animate={control}
+          whileInView="visible"
+          viewport={{ once: true }}
           variants={AnimatedTextVariants}
           transition={{
-            delay: index * 0.25,
-            duration: 0.75,
-            ease: [0.2, 0.65, 0.3, 0.9],
+            delay: index * 0.1 + 0.15 * (1 / textSplit.length),
+            duration: 0.5,
+            ease: [0.2, 0.7, 0.3, 0.9],
           }}
         >
           {word}
