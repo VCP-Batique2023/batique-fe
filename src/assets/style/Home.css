@@ -50,10 +50,10 @@
 }
 
 .middle-section .content .content-images {
-  margin-top: -180px;
+  margin-top: -154px;
   overflow: hidden;
   flex-basis: 45%;
-  height: 140%;
+  height: 160%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
