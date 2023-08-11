@@ -1,5 +1,7 @@
 /* eslint-disable react/no-children-prop */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useInView } from 'react-intersection-observer';
+
 import ImageHeader from '@/components/ImageHeader';
 import ImageGrid from '@/components/ImageGrid';
 import ImageModal from '@/components/ImageModal';
@@ -226,7 +228,10 @@ export default function Galery() {
     window.innerWidth >= 992 ? '60vh' : '30vh'
   );
   const [feedsList, setFeedsList] = useState(feedsDummyList);
+
   const [activeSort, setActiveSort] = useState('default');
+  const { ref: targetButtonRef, inView: targetButtonIsVisible } = useInView();
+
   const [showModal, setShowModal] = useState(-1);
   const [postData, setPostData] = useState({});
 
@@ -276,7 +281,11 @@ export default function Galery() {
     <>
       <ImageHeader path={GaleryHeader} height={screenWidth} />
       <div className="sortContainer">
-        <div className="sort" style={{ backgroundColor: '#372B22' }}>
+        <div
+          ref={targetButtonRef}
+          className="sort"
+          style={{ backgroundColor: '#372B22' }}
+        >
           <Button
             children="Most Likes"
             style={activeSort == 'likes' ? { backgroundColor: '#504237' } : ''}
