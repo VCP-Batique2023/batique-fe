@@ -46,7 +46,7 @@ export default function artikelCard({
                   <a href="#">{item.category}</a>
                 </div>
                 <a href="#">{item.title}</a>
-                {excerptVisible && <span>{item.excerpt}</span>}
+                {excerptVisible && <span>{item.content}</span>}
               </div>
             </div>
           </div>

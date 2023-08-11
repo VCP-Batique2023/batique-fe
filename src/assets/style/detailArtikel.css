@@ -1,20 +1,23 @@
 .container-detail{
     width: 100%;
-    padding: 5% 8% 0 8%;
+    padding: 5% 20% 0 20%;
     display: block;
 }
 .container-detail .title{
-    text-align: center;
+    /* text-align: center; */
     padding-bottom: 5%;
 }
 .container-detail .cover{
     background-color: black;
     width: 100%;
-    height: 70vh;
-    border-radius: 10px;
+    height: 50vh;
+    /* border-radius: 10px; */
     margin-bottom: 5%;
 }
 
 .container-detail .content{
-    text-align: justify;
+    /* text-align: justify; */
+    font-size: 20px;
+    padding-bottom: 5%;
+    color: #372b22;
 }

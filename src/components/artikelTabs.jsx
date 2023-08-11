@@ -9,19 +9,10 @@ import Button from './Button';
 
 export default function artikeTabs() {
   
-    const options = [
-        {  text: 'History' },
-        {  text: 'DIY' },
-        { text: 'Filter' },
-        {  text: 'Batik Solo' },
-        {  text: 'Batik Modern' },
-        { text: 'Batik Bali' },
-        
-    ];
     const artikel = [
         {
             title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            excerpt:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
+            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
             category : "History",
             img:"https://source.unsplash.com/random/367x217/?batik",
             link : "#home",
@@ -29,7 +20,7 @@ export default function artikeTabs() {
         },
         {
             title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            excerpt:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
+            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
             category : "DIY",
             img:"https://source.unsplash.com/random/367x217/?batik",
             link : "#about",
@@ -37,7 +28,7 @@ export default function artikeTabs() {
         },
         {
             title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            excerpt:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
+            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
             category : "Filter",
             img:"https://source.unsplash.com/random/367x217/?batik",
             link : "#experience",
@@ -46,7 +37,7 @@ export default function artikeTabs() {
         },
         {
             title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            excerpt:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
+            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
             category : "History",
             img:"https://source.unsplash.com/random/367x217/?batik",
             link : "#home",
@@ -54,7 +45,7 @@ export default function artikeTabs() {
         },
         {
             title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            excerpt:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
+            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
             category : "DIY",
             img:"https://source.unsplash.com/random/367x217/?batik",
             link : "#about",
@@ -62,7 +53,7 @@ export default function artikeTabs() {
         },
         {
             title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            excerpt:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
+            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
             category : "Filter",
             img:"https://source.unsplash.com/random/367x217/?batik",
             link : "#experience",
@@ -71,7 +62,7 @@ export default function artikeTabs() {
         },
         {
             title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            excerpt:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
+            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
             category : "History",
             img:"https://source.unsplash.com/random/367x217/?batik",
             link : "#home",
@@ -79,7 +70,7 @@ export default function artikeTabs() {
         },
         {
             title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            excerpt:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
+            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
             category : "DIY",
             img:"https://source.unsplash.com/random/367x217/?batik",
             link : "#about",
@@ -87,7 +78,7 @@ export default function artikeTabs() {
         },
         {
             title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            excerpt:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
+            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
             category : "Filter",
             img:"https://source.unsplash.com/random/367x217/?batik",
             link : "#experience",
@@ -96,7 +87,7 @@ export default function artikeTabs() {
         },
         {
             title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            excerpt:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
+            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
             category : "History",
             img:"https://source.unsplash.com/random/367x217/?batik",
             link : "#home",
@@ -104,7 +95,7 @@ export default function artikeTabs() {
         },
         {
             title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            excerpt:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
+            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
             category : "DIY",
             img:"https://source.unsplash.com/random/367x217/?batik",
             link : "#about",
@@ -112,7 +103,7 @@ export default function artikeTabs() {
         },
         {
             title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            excerpt:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
+            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
             category : "Filter",
             img:"https://source.unsplash.com/random/367x217/?batik",
             link : "#experience",
@@ -121,7 +112,7 @@ export default function artikeTabs() {
         },
         {
             title:"Ini nyoba artikel",
-            excerpt: "ini ceritanya konten. gak tau mau nulis apa tapi yang penting ada lah yak.",
+            content: "ini ceritanya konten. gak tau mau nulis apa tapi yang penting ada lah yak.",
             category : "Filter",
             img:"https://source.unsplash.com/random/367x217/?batik",
             link : "#experience",
@@ -132,6 +123,8 @@ export default function artikeTabs() {
     
     const [activeCategory, setActiveCategory] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
+    const [selectedCardIndex, setSelectedCardIndex] = useState(null);
+
 
     // const [isSticky, setIsSticky] = useState(false);
     const navigate = useNavigate();
@@ -175,7 +168,10 @@ export default function artikeTabs() {
             <ArtikelCard
                 artikel={filteredArtikel} 
                 excerptVisible={true} 
-                onClick={(index) => navigate(`/article/${index}`)}
+                onClick={(index) => {
+                    setSelectedCardIndex(index)
+                    navigate(`/artikel/${index}`, { state: { artikel } });
+                }}
             />
             </div>
             <div className='side-menu'>
@@ -194,11 +190,11 @@ export default function artikeTabs() {
                     <div className="content-category">
                         
                         {
-                            options.map((option,index)=>(
-                                <Button key={index}  onClick={() => setActiveCategory(option.text)}
+                            artikel.map((item,index)=>(
+                                <Button key={index}  onClick={() => setActiveCategory(item.category)}
                                  variant='outlined' size='small' style={{ marginRight: 5,
                                     marginBottom: 8, borderRadius:20 }}>
-                                {option.text}
+                                {item.category}
                                 </Button>
                             ))
                         }

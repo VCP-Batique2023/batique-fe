@@ -44,7 +44,7 @@ export default function Router() {
             }
           />
           <Route
-            path={`/article/:id`}
+            path={`/artikel/:index`}
             element={
               <DocumentTitle title="detail Artikel">
               <DetailArtikel />
