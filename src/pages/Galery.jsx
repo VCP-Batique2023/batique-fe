@@ -1,10 +1,11 @@
 /* eslint-disable react/no-children-prop */
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import ImageHeader from '@/components/ImageHeader';
 import ImageGrid from '@/components/ImageGrid';
 import ImageModal from '@/components/ImageModal';
+import AddImageModal from '@/components/AddImageModal';
 import Button from '@/components/Button';
 
 import GaleryHeader from '@/assets/img/1.jpg';
@@ -231,7 +232,7 @@ export default function Galery() {
 
   const [activeSort, setActiveSort] = useState('default');
   const { ref: targetButtonRef, inView: targetButtonIsVisible } = useInView();
-
+  console.log(targetButtonIsVisible);
   const [showModal, setShowModal] = useState(-1);
   const [postData, setPostData] = useState({});
 
@@ -300,6 +301,7 @@ export default function Galery() {
       </div>
       <ImageGrid feeds={feedsList} onClick={triggerShowModal} />
       <ImageModal onClick={triggerShowModal} show={showModal} data={postData} />
+      <AddImageModal show={1} />
     </>
   );
 }
