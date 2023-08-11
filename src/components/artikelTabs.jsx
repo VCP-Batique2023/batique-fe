@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '@/assets/style/artikelTabs.css';
 import '@/assets/style/artikelCard.css';
 
 
 import ArtikelCard from './artikelCard';
-import Dropdown from './dropdown';
 import Button from './Button';
-import SearchBar from './searchBar';
 
 export default function artikeTabs() {
   
@@ -120,38 +118,59 @@ export default function artikeTabs() {
             link : "#experience",
             
             
+        },
+        {
+            title:"Ini nyoba artikel",
+            excerpt: "ini ceritanya konten. gak tau mau nulis apa tapi yang penting ada lah yak.",
+            category : "Filter",
+            img:"https://source.unsplash.com/random/367x217/?batik",
+            link : "#experience",
+            
+            
         }
     ]
     
     const [activeCategory, setActiveCategory] = useState(null);
-    const [isSticky, setIsSticky] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+
+    // const [isSticky, setIsSticky] = useState(false);
     const navigate = useNavigate();
-    const location = useLocation();
 
-
-    useEffect(() => { 
-        const handleScroll = () => {
-        const scrollPosition = window.scrollY;
-        const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-        setIsSticky(scrollPosition > 0.5 * vh); 
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-        }, []);
-
-
-
-    const filteredArtikel = activeCategory ? artikel.filter(item => item.category === activeCategory)
-    : artikel;
     const handleCategoryChange = (category) => {
         setActiveCategory(category);
     }
+    const handleSearchInputChange = (event) => {
+        if (event.key === 'Enter') {
+          setSearchQuery(event.target.value);
+        }
+    };
 
+    // handle search with no enter
+    // const filteredArtikel = artikel.filter(item => {
+    //     const categoryMatch = !activeCategory || item.category === activeCategory;
+    //     const searchMatch = searchQuery === '' || item.title.toLowerCase().includes(searchQuery.toLowerCase()); 
+    //     return categoryMatch && searchMatch;
+    // });
+    const filteredArtikel = artikel.filter(item => {
+        const categoryMatch = !activeCategory || item.category === activeCategory;
+        const searchMatch = !searchQuery || 
+          item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+        return categoryMatch && searchMatch;
+      });
+      
+      const searchFilter = artikel.filter(item => {
+        const searchMatch = !searchQuery || 
+          item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+        return searchMatch;
+      });
+      
+      
+      
+      
     return (
-        <div className="container">
+        <div className="container-tabs">
             <div className="cards">
             <ArtikelCard
                 artikel={filteredArtikel} 
@@ -160,12 +179,13 @@ export default function artikeTabs() {
             />
             </div>
             <div className='side-menu'>
-                <div className={`categories ${isSticky ? 'active' : ''}`}>
-                        <div className="explore">
-                            <form action="">
-                                <input class="search__input" type="text" placeholder="Jelajahi Berbagai Macam Topik..."/>
-                            </form>
-                        </div>
+                <div className="explore">
+                        <input className="search__input" type="text" 
+                        placeholder="Jelajahi Berbagai Macam Topik..."
+                        onKeyDown={handleSearchInputChange}
+                        />
+                </div>
+                <div className="categories">
                     <div className="head-category">
                         <span>
                             Jelajahi Berbagai Macam Topik
@@ -175,7 +195,7 @@ export default function artikeTabs() {
                         
                         {
                             options.map((option,index)=>(
-                                <Button key={index}  onClick={() => handleCategoryChange(option.text)}
+                                <Button key={index}  onClick={() => setActiveCategory(option.text)}
                                  variant='outlined' size='small' style={{ marginRight: 5,
                                     marginBottom: 8, borderRadius:20 }}>
                                 {option.text}

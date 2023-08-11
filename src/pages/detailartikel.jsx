@@ -4,7 +4,7 @@ import "@/assets/style/detailArtikel.css"
 
 export default function detailartikel() {
   return (
-    <div className="container">
+    <div className="container-detail">
         <div className="title">
             <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat accusantium dolore mollitia eveniet beatae nulla numquam molestias,</h1>
         </div>
