@@ -1,240 +1,223 @@
+/* eslint-disable react/no-children-prop */
 import { useState, useEffect } from 'react';
 import ImageHeader from '@/components/ImageHeader';
 import ImageGrid from '@/components/ImageGrid';
 import ImageModal from '@/components/ImageModal';
+import Button from '@/components/Button';
 
 import GaleryHeader from '@/assets/img/1.jpg';
 
-// Dummy Date Generator
-function generateDate(x) {
-  const date = new Date();
-  date.setDate(date.getDate() - x);
-
-  const tempDate = date.getDate();
-  const tempMonth = date.getMonth() + 1;
-  const tempYear = date.getFullYear();
-
-  return [tempDate, tempMonth, tempYear].join('/');
-}
-
 // Image Dummy Data
-const feedsList = [
+const feedsDummyList = [
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/30.jpg',
-    like: 120,
-    createdAt: generateDate(1),
+    like: 10,
+    createdAt: new Date('11-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/31.jpg',
     like: 100,
-    createdAt: generateDate(2),
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/31.jpg',
     like: 100,
-    createdAt: generateDate(3),
+    createdAt: new Date('02-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/33.jpg',
     like: 90,
-    createdAt: generateDate(12),
+    createdAt: new Date('11-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/34.jpg',
     like: 10,
-    createdAt: generateDate(19),
+    createdAt: new Date('01-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/35.jpg',
     like: 10,
-    createdAt: generateDate(7),
-  },
-  {
-    caption:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    url: 'https://storage.googleapis.com/batique-images/36.jpg',
-    like: 10,
-    createdAt: generateDate(2),
-  },
-  {
-    caption:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    url: 'https://storage.googleapis.com/batique-images/37.jpg',
-    like: 12,
-    createdAt: generateDate(3),
+    createdAt: new Date('10-07-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/38.jpg',
-    like: 11,
-    createdAt: generateDate(4),
+    like: 53,
+    createdAt: new Date('12-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/39.jpg',
     like: 53,
-    createdAt: generateDate(5),
+    createdAt: new Date('12-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/40.jpg',
     like: 31,
-    createdAt: generateDate(2),
-  },
-  {
-    caption:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    url: 'https://storage.googleapis.com/batique-images/a%20(1).jpg',
-    like: 75,
-    createdAt: generateDate(6),
+    createdAt: new Date('11-07-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(2).jpg',
-    like: 54,
-    createdAt: generateDate(2),
+    like: 10,
+    createdAt: new Date('01-08-2023'),
+  },
+  {
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    url: 'https://storage.googleapis.com/batique-images/a%20(2).jpg',
+    like: 10,
+    createdAt: new Date('01-08-2023'),
+  },
+  {
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    url: 'https://storage.googleapis.com/batique-images/a%20(2).jpg',
+    like: 10,
+    createdAt: new Date('01-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(3).jpg',
-    like: 65,
-    createdAt: generateDate(5),
+    like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(4).jpg',
     like: 34,
-    createdAt: generateDate(8),
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(5).jpg',
     like: 100,
-    createdAt: generateDate(1),
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(6).jpg',
     like: 100,
-    createdAt: generateDate(1),
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(7).jpg',
     like: 100,
-    createdAt: generateDate(1),
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(8).jpg',
     like: 100,
-    createdAt: generateDate(1),
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(9).jpg',
     like: 100,
-    createdAt: generateDate(1),
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(10).jpg',
     like: 100,
-    createdAt: generateDate(1),
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(11).jpg',
     like: 100,
-    createdAt: generateDate(1),
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(12).jpg',
     like: 100,
-    createdAt: generateDate(1),
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(13).jpg',
     like: 100,
-    createdAt: generateDate(1),
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(14).jpg',
     like: 100,
-    createdAt: generateDate(1),
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(15).jpg',
     like: 100,
-    createdAt: generateDate(1),
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(16).jpg',
     like: 100,
-    createdAt: generateDate(1),
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(17).jpg',
     like: 100,
-    createdAt: generateDate(1),
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(18).jpg',
     like: 100,
-    createdAt: generateDate(1),
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(19).jpg',
     like: 100,
-    createdAt: generateDate(1),
+    createdAt: new Date('10-08-2023'),
   },
   {
     caption:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(20).jpg',
     like: 100,
-    createdAt: generateDate(1),
+    createdAt: new Date('10-08-2023'),
   },
 ];
 
@@ -242,8 +225,22 @@ export default function Galery() {
   const [screenWidth, setScreenWidth] = useState(
     window.innerWidth >= 992 ? '60vh' : '30vh'
   );
+  const [feedsList, setFeedsList] = useState(feedsDummyList);
+  const [activeSort, setActiveSort] = useState('default');
   const [showModal, setShowModal] = useState(-1);
   const [postData, setPostData] = useState({});
+
+  function sortFeedsByMostLikes() {
+    const copy = [...feedsList].sort((a, b) => b.like - a.like);
+    setFeedsList(copy);
+    setActiveSort('likes');
+  }
+
+  function sortFeedsByMostRecent() {
+    const copy = [...feedsList].sort((a, b) => b.createdAt - a.createdAt);
+    setFeedsList(copy);
+    setActiveSort('recent');
+  }
 
   // For Image Header component (responsive) --> Start
   const resizeScreenHandler = () => {
@@ -278,6 +275,20 @@ export default function Galery() {
   return (
     <>
       <ImageHeader path={GaleryHeader} height={screenWidth} />
+      <div className="sortContainer">
+        <div className="sort" style={{ backgroundColor: '#372B22' }}>
+          <Button
+            children="Most Likes"
+            style={activeSort == 'likes' ? { backgroundColor: '#504237' } : ''}
+            onClick={sortFeedsByMostLikes}
+          />
+          <Button
+            children="Most Resent"
+            style={activeSort == 'recent' ? { backgroundColor: '#504237' } : ''}
+            onClick={sortFeedsByMostRecent}
+          />
+        </div>
+      </div>
       <ImageGrid feeds={feedsList} onClick={triggerShowModal} />
       <ImageModal onClick={triggerShowModal} show={showModal} data={postData} />
     </>
