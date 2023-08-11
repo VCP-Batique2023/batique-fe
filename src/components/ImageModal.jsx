@@ -14,18 +14,16 @@ export default function ImageModal({ onClick, show, data }) {
             <img src={data.url} />
           </div>
           <div className="rightContent">
-            <div className="postInformation">
-              {/* Profile Picture */}
+            <div className="profileInformation">
               <img
                 className="profilePicture"
                 style={{ backgroundColor: 'transparent', width: '60px' }}
                 src="https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
               />
-              {/* Profile Information */}
-              <div className="profileInformation">
-                <h3>Calvin Danyalson</h3>
-                <p>{data.caption}</p>
-              </div>
+              <h3>Calvin Danyalson</h3>
+            </div>
+            <div className="postCaption">
+              <p>{data.caption}</p>
             </div>
           </div>
           <Button children="X" style={modalButton} onClick={onClick} />
