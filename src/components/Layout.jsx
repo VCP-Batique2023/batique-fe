@@ -1,11 +1,12 @@
 
-import { NavLink, useNavigate } from 'react-router-dom';;
+import { NavLink, useNavigate } from 'react-router-dom';
 import Button from '@/components/Button';
 import '@/assets/style/Layout.css';
 
 export default function Layout() {
   const navigate = useNavigate();
 
+  
   return (
     <nav className="nav-container">
       <div className="nav-flex">
