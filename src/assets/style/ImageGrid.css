@@ -126,7 +126,6 @@
   max-height: 70vh;
   display: flex;
   flex-direction: column;
-  background-color: cadetblue;
 }
 
 .detailPostContainer .detailPost .leftContent {
@@ -141,6 +140,10 @@
   max-height: 30%;
   overflow: hidden;
 }
+
+/* .detailPostContainer .detailPost .leftContent:hover {
+  opacity: 0.95;
+} */
 
 .detailPostContainer .detailPost .leftContent img {
   border-top-left-radius: 25px;
@@ -165,6 +168,24 @@
 
 .postCaption {
   font-size: 1.2rem;
+}
+
+/* This only for add post modal dialog */
+.fileUpload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: beige;
+}
+
+.detailPostContainer .addPost .leftContent {
+  transition: 0.2s ease-in;
+}
+
+.detailPostContainer .addPost .leftContent:hover {
+  opacity: 0.95;
 }
 
 @media only screen and (min-width: 992px) {
@@ -229,7 +250,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* number of lines to show */
+    -webkit-line-clamp: 3;
+    /* number of lines to show */
     -webkit-box-orient: vertical;
   }
 
