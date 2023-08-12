@@ -1,259 +1,226 @@
+/* eslint-disable react/no-children-prop */
 import { useState, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
+
 import ImageHeader from '@/components/ImageHeader';
 import ImageGrid from '@/components/ImageGrid';
 import ImageModal from '@/components/ImageModal';
+import AddImageModal from '@/components/AddImageModal';
+import Button from '@/components/Button';
 
 import GaleryHeader from '@/assets/img/1.jpg';
 
 // Image Dummy Data
-const feedsList = [
+const feedsDummyList = [
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/30.jpg',
-    like: 100,
+    like: 10,
+    createdAt: new Date('11-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/31.jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/31.jpg',
     like: 100,
+    createdAt: new Date('02-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/33.jpg',
-    like: 100,
+    like: 90,
+    createdAt: new Date('11-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/34.jpg',
-    like: 100,
+    like: 10,
+    createdAt: new Date('01-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/35.jpg',
-    like: 100,
+    like: 10,
+    createdAt: new Date('10-07-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
-    url: 'https://storage.googleapis.com/batique-images/36.jpg',
-    like: 100,
-  },
-  {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
-    url: 'https://storage.googleapis.com/batique-images/37.jpg',
-    like: 100,
-  },
-  {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/38.jpg',
-    like: 100,
+    like: 53,
+    createdAt: new Date('12-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/39.jpg',
-    like: 100,
+    like: 53,
+    createdAt: new Date('12-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/40.jpg',
-    like: 100,
+    like: 31,
+    createdAt: new Date('11-07-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
-    url: 'https://storage.googleapis.com/batique-images/a%20(1).jpg',
-    like: 100,
-  },
-  {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(2).jpg',
-    like: 100,
+    like: 10,
+    createdAt: new Date('01-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    url: 'https://storage.googleapis.com/batique-images/a%20(2).jpg',
+    like: 10,
+    createdAt: new Date('01-08-2023'),
+  },
+  {
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    url: 'https://storage.googleapis.com/batique-images/a%20(2).jpg',
+    like: 10,
+    createdAt: new Date('01-08-2023'),
+  },
+  {
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(3).jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(4).jpg',
-    like: 100,
+    like: 34,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(5).jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(6).jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(7).jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(8).jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(9).jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(10).jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(11).jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(12).jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(13).jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(14).jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(15).jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(16).jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(17).jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(18).jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(19).jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
   {
-    profilePicture:
-      'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png',
-    username: 'Calvin Danyalson',
-    title: 'Lorem',
+    caption:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
     url: 'https://storage.googleapis.com/batique-images/a%20(20).jpg',
     like: 100,
+    createdAt: new Date('10-08-2023'),
   },
 ];
 
@@ -261,8 +228,25 @@ export default function Galery() {
   const [screenWidth, setScreenWidth] = useState(
     window.innerWidth >= 992 ? '60vh' : '30vh'
   );
-  const [showModal, setShowModal] = useState(-1);
+  const [feedsList, setFeedsList] = useState(feedsDummyList);
+
+  const [activeSort, setActiveSort] = useState('default');
+  const { ref: targetButtonRef, inView: targetButtonIsVisible } = useInView();
+  const [showModalDetailPost, setShowModalDetailPost] = useState(-1);
+  const [showModalAddPost, setShowModalAddPost] = useState(-1);
   const [postData, setPostData] = useState({});
+
+  function sortFeedsByMostLikes() {
+    const copy = [...feedsList].sort((a, b) => b.like - a.like);
+    setFeedsList(copy);
+    setActiveSort('likes');
+  }
+
+  function sortFeedsByMostRecent() {
+    const copy = [...feedsList].sort((a, b) => b.createdAt - a.createdAt);
+    setFeedsList(copy);
+    setActiveSort('recent');
+  }
 
   // For Image Header component (responsive) --> Start
   const resizeScreenHandler = () => {
@@ -283,22 +267,94 @@ export default function Galery() {
   // For Image Header component (responsive) <-- end
 
   // For Triggering modal image --> Start
-  const triggerShowModal = (feed = {}) => {
-    if (showModal == -1) {
-      setShowModal(2);
+  const triggerShowModalDetailPost = (feed = {}) => {
+    if (showModalDetailPost == -1) {
+      setShowModalDetailPost(2);
       setPostData(feed);
     } else {
-      setShowModal(-1);
+      setShowModalDetailPost(-1);
       setPostData({});
     }
   };
   // For Triggering modal image <-- End
 
+  // For Triggering modal add image --> Start
+  const triggerShowModalAddPost = () => {
+    if (showModalAddPost == -1) {
+      setShowModalAddPost(2);
+    } else {
+      setShowModalAddPost(-1);
+    }
+  };
+  // For Triggering modal add image <-- End
+
+  const plusIcon = () => {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="w-6 h-6"
+        style={{ backgroundColor: 'transparent' }}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 4.5v15m7.5-7.5h-15"
+        />
+      </svg>
+    );
+  };
+
   return (
     <>
       <ImageHeader path={GaleryHeader} height={screenWidth} />
-      <ImageGrid feeds={feedsList} onClick={triggerShowModal} />
-      <ImageModal onClick={triggerShowModal} show={showModal} data={postData} />
+      <div className="sortContainer">
+        <div
+          ref={targetButtonRef}
+          className="sort"
+          style={{ backgroundColor: '#372B22' }}
+        >
+          <Button
+            children="Most Likes"
+            style={activeSort == 'likes' ? { backgroundColor: '#504237' } : ''}
+            onClick={sortFeedsByMostLikes}
+          />
+          <Button
+            children="Most Resent"
+            style={activeSort == 'recent' ? { backgroundColor: '#504237' } : ''}
+            onClick={sortFeedsByMostRecent}
+          />
+        </div>
+      </div>
+      <ImageGrid feeds={feedsList} onClick={triggerShowModalDetailPost} />
+      <ImageModal
+        onClick={triggerShowModalDetailPost}
+        show={showModalDetailPost}
+        data={postData}
+      />
+      <Button
+        children={plusIcon()}
+        style={{
+          borderRadius: '50%',
+          width: '8vh',
+          height: '8vh',
+          position: 'fixed',
+          right: '10vh',
+          bottom: '10vh',
+          zIndex: '1',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        onClick={triggerShowModalAddPost}
+      />
+      <AddImageModal
+        show={showModalAddPost}
+        onClick={triggerShowModalAddPost}
+      />
     </>
   );
 }

@@ -1,0 +1,136 @@
+.auth-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #f0eee6;
+  padding: 48px;
+}
+
+.auth-card {
+  margin: auto 0;
+  overflow: hidden;
+  display: flex;
+  border-radius: 16px;
+  background-color: #f9f8f5;
+  max-width: 860px;
+}
+
+.side-card {
+  position: relative;
+  flex-basis: 45%;
+}
+
+.side-card img {
+  display: block;
+  object-position: center;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+}
+
+.side-card .logo {
+  position: absolute;
+  font-size: 54px;
+  padding: 8px;
+  z-index: 1;
+  transform-origin: bottom left;
+  transform: rotate(90deg);
+  top: -72px;
+}
+
+.form-card {
+  padding: 54px 48px;
+  flex-basis: 55%;
+  min-width: 420px;
+}
+
+.form-title {
+  font-size: 32px;
+}
+
+.form-flex {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-inline-flex {
+  display: flex;
+  gap: 18px;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.text-field, .radio-field {
+  display: block;
+}
+
+.text-field .input {
+  position: relative;
+  margin-top: 8px;
+}
+
+.text-field input {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  color: #372b22;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(55, 43, 34, 0.5);
+  border-radius: 8px;
+  background-color: #f9f8f5;
+  outline: none;
+  transition: all 0.15s ease-in-out;
+  caret-color: #372b22;
+}
+
+.text-field input::placeholder {
+  color: #372b22;
+  opacity: 0.5;
+}
+
+.text-field input:focus,
+.text-field input:active {
+  border: 1px solid #372b22;
+}
+
+.text-field input:-webkit-autofill,
+.text-field input:-webkit-autofill:focus,
+.text-field input:-webkit-autofill:active {
+  border: 1px solid #372b22;
+  box-shadow: 0 0 0px 1000px #f9f8f5 inset;
+  -webkit-box-shadow: 0 0 0px 1000px #f9f8f5 inset;
+  -webkit-text-fill-color: #372b22;
+  color: #372b22;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.text-field-secondary {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.text-field-secondary span {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.text-field .input .icon-show {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 4px;
+  padding: 8px;
+}
+
+.radio-field .radio-group {
+  display: flex;
+  margin-top: 8px;
+  gap: 24px;
+  width: 100%;
+  flex-wrap: wrap;
+}
