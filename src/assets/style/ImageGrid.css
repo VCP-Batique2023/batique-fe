@@ -181,6 +181,7 @@
 }
 
 .detailPostContainer .addPost .leftContent {
+  height: 35vh !important;
   transition: 0.2s ease-in;
 }
 
