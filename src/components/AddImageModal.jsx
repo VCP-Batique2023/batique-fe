@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import Button from '@/components/Button';
-import ImageIcon from '@/assets/img/6.png'
+import ImageIcon from '@/assets/img/6.png';
 import '@/assets/style/ImageGrid.css';
 
 export default function ImageModal({ onClick, show }) {
@@ -12,13 +12,26 @@ export default function ImageModal({ onClick, show }) {
       >
         <div className="detailPost addPost">
           <div className="leftContent">
-            <label htmlFor="fileUpload" className='fileUpload' style={{
-              backgroundColor: 'transparent', width: '100%'
-            }}>
-              <img src={ImageIcon} alt="" style={{ width: '30%', backgroundColor: 'transparent' }} />
-              <input id='fileUpload' type="file" hidden style={{ backgroundColor: 'transparent' }} />
+            <label
+              htmlFor="fileUpload"
+              className="fileUpload"
+              style={{
+                backgroundColor: 'transparent',
+                width: '100%',
+              }}
+            >
+              <img
+                src={ImageIcon}
+                alt=""
+                style={{ width: '30%', backgroundColor: 'transparent' }}
+              />
+              <input
+                id="fileUpload"
+                type="file"
+                hidden
+                style={{ backgroundColor: 'transparent' }}
+              />
             </label>
-
           </div>
           <div className="rightContent">
             <div className="profileInformation">

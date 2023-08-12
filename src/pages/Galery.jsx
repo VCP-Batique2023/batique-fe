@@ -232,8 +232,8 @@ export default function Galery() {
 
   const [activeSort, setActiveSort] = useState('default');
   const { ref: targetButtonRef, inView: targetButtonIsVisible } = useInView();
-  console.log(targetButtonIsVisible);
-  const [showModal, setShowModal] = useState(-1);
+  const [showModalDetailPost, setShowModalDetailPost] = useState(-1);
+  const [showModalAddPost, setShowModalAddPost] = useState(-1);
   const [postData, setPostData] = useState({});
 
   function sortFeedsByMostLikes() {
@@ -267,16 +267,46 @@ export default function Galery() {
   // For Image Header component (responsive) <-- end
 
   // For Triggering modal image --> Start
-  const triggerShowModal = (feed = {}) => {
-    if (showModal == -1) {
-      setShowModal(2);
+  const triggerShowModalDetailPost = (feed = {}) => {
+    if (showModalDetailPost == -1) {
+      setShowModalDetailPost(2);
       setPostData(feed);
     } else {
-      setShowModal(-1);
+      setShowModalDetailPost(-1);
       setPostData({});
     }
   };
   // For Triggering modal image <-- End
+
+  // For Triggering modal add image --> Start
+  const triggerShowModalAddPost = () => {
+    if (showModalAddPost == -1) {
+      setShowModalAddPost(2);
+    } else {
+      setShowModalAddPost(-1);
+    }
+  };
+  // For Triggering modal add image <-- End
+
+  const plusIcon = () => {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="w-6 h-6"
+        style={{ backgroundColor: 'transparent' }}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 4.5v15m7.5-7.5h-15"
+        />
+      </svg>
+    );
+  };
 
   return (
     <>
@@ -299,9 +329,32 @@ export default function Galery() {
           />
         </div>
       </div>
-      <ImageGrid feeds={feedsList} onClick={triggerShowModal} />
-      <ImageModal onClick={triggerShowModal} show={showModal} data={postData} />
-      <AddImageModal show={1} />
+      <ImageGrid feeds={feedsList} onClick={triggerShowModalDetailPost} />
+      <ImageModal
+        onClick={triggerShowModalDetailPost}
+        show={showModalDetailPost}
+        data={postData}
+      />
+      <Button
+        children={plusIcon()}
+        style={{
+          borderRadius: '50%',
+          width: '8vh',
+          height: '8vh',
+          position: 'fixed',
+          right: '10vh',
+          bottom: '10vh',
+          zIndex: '1',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        onClick={triggerShowModalAddPost}
+      />
+      <AddImageModal
+        show={showModalAddPost}
+        onClick={triggerShowModalAddPost}
+      />
     </>
   );
 }
