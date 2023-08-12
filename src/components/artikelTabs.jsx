@@ -124,9 +124,12 @@ export default function artikeTabs() {
     const [activeCategory, setActiveCategory] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCardIndex, setSelectedCardIndex] = useState(null);
+    const uniqueCategories = [...new Set(artikel.map(item => item.category))];
+    // const content = artikel.content.split(' ');
+    // const excerpt = content.slice(0, 50).join(' ');
 
 
-    // const [isSticky, setIsSticky] = useState(false);
+    
     const navigate = useNavigate();
 
     const handleCategoryChange = (category) => {
@@ -148,14 +151,14 @@ export default function artikeTabs() {
         const categoryMatch = !activeCategory || item.category === activeCategory;
         const searchMatch = !searchQuery || 
           item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          item.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+          item.content.toLowerCase().includes(searchQuery.toLowerCase());
         return categoryMatch && searchMatch;
       });
       
       const searchFilter = artikel.filter(item => {
         const searchMatch = !searchQuery || 
           item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          item.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+          item.content.toLowerCase().includes(searchQuery.toLowerCase());
         return searchMatch;
       });
       
@@ -190,11 +193,11 @@ export default function artikeTabs() {
                     <div className="content-category">
                         
                         {
-                            artikel.map((item,index)=>(
-                                <Button key={index}  onClick={() => setActiveCategory(item.category)}
+                             uniqueCategories.map((category,index)=>(
+                                <Button key={index}  onClick={() => setActiveCategory(category)}
                                  variant='outlined' size='small' style={{ marginRight: 5,
                                     marginBottom: 8, borderRadius:20 }}>
-                                {item.category}
+                                {category}
                                 </Button>
                             ))
                         }

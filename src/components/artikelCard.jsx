@@ -31,7 +31,7 @@ import '@/assets/style/artikelCard.css';
 export default function artikelCard({
     artikel,
     onClick,
-    excerptVisible = true, // Default to show excerpt
+    excerptVisible = true, 
   }) {
     return (
       <div className="container-card">
