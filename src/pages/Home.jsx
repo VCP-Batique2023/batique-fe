@@ -19,9 +19,7 @@ const arr = [img3, img1, img5, img4, img3, img3];
 
 export default function Home() {
   const navigate = useNavigate();
-  // const { currentUser } = useAuth()
-  let currentUser;
-  currentUser = null;
+  const { currentUser } = useAuth()
 
   const container = {
     hidden: {},

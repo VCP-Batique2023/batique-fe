@@ -2,15 +2,14 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/Button';
 import SearchBox from '@/components/SearchBox';
+import { toast } from 'react-hot-toast';
 import '@/assets/style/Layout.css';
 import '@/assets/style/Button.css';
 import img1 from '@/assets/img/5.jpg';
 
 export default function Layout() {
   const navigate = useNavigate();
-  // const { currentUser } = useAuth();
-  let currentUser;
-  currentUser = true;
+  const { currentUser, userSignOut } = useAuth();
 
   return (
     <nav className="nav-container">
@@ -94,15 +93,7 @@ export default function Layout() {
             <SearchBox placeholder="Cari Artikel" />
             <section>
               <svg
-                style={{
-                  padding: 4,
-                  boxShadow: '0 0 0 1px #372b22',
-                  borderRadius: 8,
-                  pointerEvents: 'all',
-                  cursor: 'pointer',
-                  transition: 'all 0.15s ease-in-out',
-                }}
-                className="btn-outlined-primary"
+                className="btn-outlined-primary nav-icon"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -117,16 +108,40 @@ export default function Layout() {
                   d="M12 4.5v15m7.5-7.5h-15"
                 />
               </svg>
-              <img
-                style={{
-                  borderRadius: 99,
-                  cursor: 'pointer',
+              <svg
+                onClick={() => {
+                  navigate('/')
+                  userSignOut();
+                  toast.success('Berhasil keluar');
                 }}
-                src={img1}
-                className="nav-profile"
-                width={36}
-                height={36}
-              />
+                className="btn-outlined-primary nav-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                width={28}
+                height={28}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+                />
+              </svg>
+              <div className="profile">
+                <img
+                  onClick={() => navigate('/profil')}
+                  style={{
+                    borderRadius: 99,
+                    cursor: 'pointer',
+                  }}
+                  src={img1}
+                  className="nav-profile"
+                  width={36}
+                  height={36}
+                />
+              </div>
             </section>
           </>
         )}
