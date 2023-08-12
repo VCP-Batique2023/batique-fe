@@ -1,0 +1,261 @@
+* {
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2;
+}
+
+.imageHeader {
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 20px;
+}
+
+.sortContainer {
+  display: flex;
+  justify-content: center;
+  position: sticky;
+}
+
+.sortContainer .sort {
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.imageContainer {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.imageContainer .image {
+  width: 100%;
+  border-radius: 25px;
+  break-inside: avoid;
+}
+
+.gridWrapperMasonry {
+  padding: 10px 3vh;
+  display: flex;
+  width: auto;
+}
+
+.gridWrapperMasonryColumn {
+  padding: 10px 3vh;
+  background-clip: padding-box;
+}
+
+.overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  background-color: transparent;
+  z-index: 1;
+  border-radius: 25px;
+  opacity: 0;
+  transition: 0.2s ease-in;
+}
+
+.overlay .postTitle {
+  display: flex;
+  font-size: 20px;
+  background-color: transparent;
+  width: 90%;
+}
+
+.overlay .postFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.overlay .postFooter .likeCounter {
+  display: flex;
+  gap: 20px;
+}
+
+.postTitle,
+.postTitle p,
+.postFooter,
+.date,
+.likeCounter,
+.likeCounter img,
+.likeCounter p {
+  background-color: transparent;
+}
+
+.detailPostContainer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  opacity: 0;
+  transition: 0.15s ease-out;
+}
+
+.detailPostContainer::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.detailPostContainer .detailPost {
+  position: relative;
+  border-radius: 25px;
+  width: 90%;
+  height: fit-content;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.detailPostContainer .detailPost .leftContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: #372b22;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  min-height: 20%;
+  max-height: 30%;
+  overflow: hidden;
+}
+
+/* .detailPostContainer .detailPost .leftContent:hover {
+  opacity: 0.95;
+} */
+
+.detailPostContainer .detailPost .leftContent img {
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  width: 100%;
+}
+
+.detailPostContainer .detailPost .rightContent {
+  padding: 40px;
+  width: 100%;
+  height: fit-content;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.profileInformation {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.postCaption {
+  font-size: 1.2rem;
+}
+
+/* This only for add post modal dialog */
+.fileUpload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: beige;
+}
+
+.detailPostContainer .addPost .leftContent {
+  transition: 0.2s ease-in;
+}
+
+.detailPostContainer .addPost .leftContent:hover {
+  opacity: 0.95;
+}
+
+@media only screen and (min-width: 992px) {
+  .imagerHeader {
+    margin-bottom: 5vh;
+  }
+
+  .imageContainer {
+    margin-bottom: 30px !important;
+  }
+
+  .detailPostContainer .detailPost {
+    flex-direction: row !important;
+    width: 70%;
+    height: 100%;
+  }
+
+  .detailPostContainer .detailPost .leftContent {
+    justify-content: center !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0;
+    max-height: 100%;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-top-right-radius: 0;
+  }
+
+  .detailPostContainer .detailPost .leftContent img {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .detailPostContainer .detailPost .rightContent {
+    height: 100% !important;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 0;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .overlay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5;
+    z-index: -1;
+    border-radius: 25px;
+  }
+
+  .overlay:hover {
+    opacity: 1;
+  }
+
+  .overlay .postTitle {
+    font-size: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* number of lines to show */
+    -webkit-box-orient: vertical;
+  }
+
+  .postCaption {
+    font-size: 1.1rem;
+  }
+}

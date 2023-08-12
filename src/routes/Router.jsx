@@ -6,6 +6,8 @@ import '@/assets/style/index.css';
 
 const NotFound = lazy(() => import('@/pages/NotFound'))
 const Home = lazy(() => import('@/pages/Home'));
+const Galery = lazy(() => import('@/pages/Galery'));
+import PrivateRoute from '@/routes/PrivateRoute';
 
 export default function Router() {
   return (
@@ -26,6 +28,18 @@ export default function Router() {
                 <Home />
               </DocumentTitle>
             }
+          />
+          <Route
+            path="/galery"
+            element={
+              <PrivateRoute
+                element={
+                  <DocumentTitle title="Galery">
+                    <Galery />
+                  </DocumentTitle>
+                }
+              />
+            } 
           />
           <Route
             path="*"
