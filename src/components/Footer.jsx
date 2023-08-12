@@ -4,9 +4,7 @@ import '@/assets/style/Footer.css';
 
 export default function Footer() {
   const navigate = useNavigate();
-  // const { currentUser } = useAuth();
-  let currentUser;
-  currentUser = true;
+  const { currentUser } = useAuth();
 
   return (
     <footer className="footer-container">
