@@ -30,7 +30,6 @@ export default function Router() {
             }
           />
           <Route
-            exact
             path="/daftar"
             element={
               <DocumentTitle title="Daftar Akun - Batique">
@@ -39,7 +38,6 @@ export default function Router() {
             }
           />
           <Route
-            exact
             path="/masuk"
             element={
               <DocumentTitle title="Masuk - Batique">
