@@ -1,0 +1,88 @@
+
+svg {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 3px;
+    right: 20px;
+    transition: 0.3s;
+    color: #372b22;
+}
+.select-menu{
+    width: 150px;
+    z-index: 2;
+    position: relative;
+}
+
+.select-menu .select-btn {
+    display: flex;
+    padding: 5px 20px;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+    box-shadow: inset 0 0 0 1px #372b22;
+    border-radius: 8px;
+}
+
+.select-btn i {
+    font-size: 20px;
+    transition: 0.3s;
+}
+.select-menu:hover svg{
+    transform: rotate(-180deg)
+}
+
+.select-menu:hover .options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    display: block;
+}
+
+.select-menu .options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding:20px;
+    margin-top: 10px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+.select-menu.active .options {
+    display: block;
+}
+
+.options .option {
+    display: flex;
+    height: 40px;
+    padding: 20px;
+    cursor: pointer;
+    padding: 0 16px;
+    border-radius: 8px;
+    align-items: center;
+    background: #fff;
+}
+
+.options .option:hover {
+    background: #f2f2f2;
+}
+
+.option i {
+    font-size: 25px;
+    margin-right: 12px;
+}
+
+.option .option-text {
+    font-size: 18px;
+    color: #333;
+}

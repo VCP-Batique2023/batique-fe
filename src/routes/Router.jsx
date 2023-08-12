@@ -6,6 +6,8 @@ import '@/assets/style/index.css';
 
 const NotFound = lazy(() => import('@/pages/NotFound'))
 const Home = lazy(() => import('@/pages/Home'));
+const Artikel = lazy(() => import('@/pages/artikel'));
+const DetailArtikel = lazy(() => import('@/pages/detailartikel'));
 const SignUp = lazy(() => import('@/pages/SignUp'));
 const SignIn = lazy(() => import('@/pages/SignIn'));
 const Galery = lazy(() => import('@/pages/Galery'));
@@ -33,10 +35,27 @@ export default function Router() {
             }
           />
           <Route
+            exact
+            path="/artikel"
+            element={
+              <DocumentTitle title="Batique - Artikel">
+                <Artikel />
+              </DocumentTitle>
+            }
+          />
+          <Route
             path="/daftar"
             element={
               <DocumentTitle title="Daftar Akun - Batique">
                 <SignUp />
+              </DocumentTitle>
+            }
+          />
+          <Route
+            path={`/artikel/:index`}
+            element={
+              <DocumentTitle title="Batique - Artikel">
+              <DetailArtikel />
               </DocumentTitle>
             }
           />

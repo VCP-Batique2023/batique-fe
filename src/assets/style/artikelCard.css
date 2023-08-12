@@ -1,0 +1,98 @@
+body{
+    overflow-x: hidden;
+}
+.container-card {
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    width: calc(300px * 2 + 80px);
+    
+}
+
+.container-card .card {
+    background-color: white;
+    transition: 0.3s;
+    height: auto;
+    max-width: 300px;
+    /* margin: 0 auto; */
+    padding-bottom: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(27, 26, 23, 0.08);
+}
+
+.container-card .card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+}
+.container-card .card .card-header{
+    padding: 20px 40px;
+    margin-bottom: 20px;
+}
+.container-card .card .card-header a,span{
+    color: #372B22;
+    text-align: justify;
+    text-decoration: none
+}
+.container-card .card .card-header .category a{
+    font-weight: 500;
+    font-family: 'Outfit', sans-serif;
+;
+}
+.container-card .card .card-header a{
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+    font-size: 16px;
+}
+.container-card .card .card-header span{
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    text-align: justify;
+    display: block;
+    padding-top: 10px;
+}
+.container-card .card .image-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    padding-top: 30px;
+
+}
+
+.container-card .card .image-wrapper img {
+    width: 220px;
+    height: 120px;
+    border-radius: 10px;
+}
+@media only screen and (max-width: 768px) {
+    body{
+        overflow-x: hidden;
+    }
+    .container-card{
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        width: 300px;
+    }
+    .container-card .card{
+        max-width: 400px;
+        margin-bottom: 10px;
+    }
+  }
+/* @media only screen and (max-width:994px){
+    .container-card{
+        margin: auto;
+        padding: 0px 20px;
+        gap: 20px;
+        max-width: calc(250px * 3 + 100px);
+        background: #000;
+    }
+    .container-card .card{
+        max-width: 250px;
+    }
+} */
+
+
+
+
+
