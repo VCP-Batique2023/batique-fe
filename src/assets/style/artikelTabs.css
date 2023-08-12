@@ -1,7 +1,7 @@
 .container-tabs{
     width: 100%;
     display:flex;
-    padding: 0 8% 0 8%;
+    padding: 0 8% 8% 8%;
     gap: 3%;
     z-index: 100;
 

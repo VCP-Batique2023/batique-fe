@@ -5,6 +5,11 @@ nav {
   z-index: 999;
 }
 
+.nav-flex .logo {
+  font-size: 32px;
+  cursor: pointer;
+}
+
 .nav-container {
   padding: 0 12%;
   background-color: #f0eee6;
@@ -12,21 +17,17 @@ nav {
 }
 
 .nav-flex {
+  display: flex;
   padding: 12px 0;
-  display: flex;
   justify-content: space-between;
+  gap: 42px;
   align-items: center;
 }
 
-.logo {
-  font-size: 32px;
-  cursor: pointer;
-}
-
-.nav-flex ul {
+.nav-flex ul, .nav-flex section {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 24px;
   list-style: none;
 }
 

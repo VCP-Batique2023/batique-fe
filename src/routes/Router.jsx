@@ -1,53 +1,57 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import DocumentTitle from '@/routes/Title';
+import LoadingBar from '@/components/LoadingBar';
 import '@/assets/style/index.css';
 
+const NotFound = lazy(() => import('@/pages/NotFound'))
 const Home = lazy(() => import('@/pages/Home'));
-const Galery = lazy(() => import('@/pages/Galery'));
 const Artikel = lazy(() => import('@/pages/artikel'));
 const DetailArtikel = lazy(() => import('@/pages/detailartikel'));
-import PrivateRoute from '@/routes/PrivateRoute';
-import artikel from '@/pages/artikel';
 
 export default function Router() {
   return (
     <>
-      <Suspense fallback={<main>Loading...</main>}>
+      <Suspense
+        fallback={
+          <main>
+            <LoadingBar />
+          </main>
+        }
+      >
         <Routes>
           <Route
+            exact
             path="/"
             element={
-              <DocumentTitle title="Selamat datang di Batique">
+              <DocumentTitle title="Selamat datang - Batique">
                 <Home />
               </DocumentTitle>
             }
           />
           <Route
-            path="/galery"
-            element={
-              <PrivateRoute
-                element={
-                  <DocumentTitle title="Galery">
-                    <Galery />
-                  </DocumentTitle>
-                }
-              />
-            }
-          />
-          <Route
+            exact
             path="/artikel"
             element={
-              <DocumentTitle title="Artikel">
-              <Artikel />
+              <DocumentTitle title="Batique - Artikel">
+                <Artikel />
               </DocumentTitle>
             }
           />
           <Route
             path={`/artikel/:index`}
             element={
-              <DocumentTitle title="detail Artikel">
+              <DocumentTitle title="Batique - Artikel">
               <DetailArtikel />
+              </DocumentTitle>
+            }
+          />
+          
+          <Route
+            path="*"
+            element={
+              <DocumentTitle title="Halaman tidak ada - Batique">
+                <NotFound />
               </DocumentTitle>
             }
           />
@@ -56,4 +60,3 @@ export default function Router() {
     </>
   );
 }
-
