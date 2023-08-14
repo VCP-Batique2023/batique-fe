@@ -293,7 +293,7 @@ export default function Galery() {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
-        viewBox="0 0 24 24"
+        viewBox="0 0 25 25"
         strokeWidth={1.5}
         stroke="currentColor"
         className="w-6 h-6"
@@ -339,8 +339,8 @@ export default function Galery() {
         children={plusIcon()}
         style={{
           borderRadius: '50%',
-          width: '8vh',
-          height: '8vh',
+          width: '5vh',
+          height: '5vh',
           position: 'fixed',
           right: '10vh',
           bottom: '10vh',
