@@ -4,13 +4,13 @@ import DocumentTitle from '@/routes/Title';
 import LoadingBar from '@/components/LoadingBar';
 import '@/assets/style/index.css';
 
-const NotFound = lazy(() => import('@/pages/NotFound'))
+const NotFound = lazy(() => import('@/pages/NotFound'));
 const Home = lazy(() => import('@/pages/Home'));
 const Artikel = lazy(() => import('@/pages/artikel'));
 const DetailArtikel = lazy(() => import('@/pages/detailartikel'));
 const SignUp = lazy(() => import('@/pages/SignUp'));
 const SignIn = lazy(() => import('@/pages/SignIn'));
-const Galery = lazy(() => import('@/pages/Galery'));
+const Feeds = lazy(() => import('@/pages/Feeds'));
 
 import PrivateRoute from '@/routes/PrivateRoute';
 
@@ -55,7 +55,7 @@ export default function Router() {
             path={`/artikel/:index`}
             element={
               <DocumentTitle title="Batique - Artikel">
-              <DetailArtikel />
+                <DetailArtikel />
               </DocumentTitle>
             }
           />
@@ -68,16 +68,16 @@ export default function Router() {
             }
           />
           <Route
-            path="/galery"
+            path="/feeds"
             element={
               <PrivateRoute
                 element={
-                  <DocumentTitle title="Galery">
-                    <Galery />
+                  <DocumentTitle title="Feeds">
+                    <Feeds />
                   </DocumentTitle>
                 }
               />
-            } 
+            }
           />
           <Route
             path="*"

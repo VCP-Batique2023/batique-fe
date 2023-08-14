@@ -28,7 +28,7 @@ export default function Layout() {
               Home
             </NavLink>
             <NavLink
-              to="/gallery"
+              to="/feeds"
               className={({ isActive }) => {
                 return `nav-link ${isActive ? 'active' : ''}`;
               }}
@@ -110,7 +110,7 @@ export default function Layout() {
               </svg>
               <svg
                 onClick={() => {
-                  navigate('/')
+                  navigate('/');
                   userSignOut();
                   toast.success('Berhasil keluar');
                 }}
