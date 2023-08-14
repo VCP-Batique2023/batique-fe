@@ -6,7 +6,7 @@ import '@/assets/style/ImageGrid.css';
     should have a relative position (CSS Properties)
 */
 function generateDate(x) {
-  const date = new Date(x);
+  const date = new Date(x.toDate());
   const tempDate = date.getDate();
   const tempMonth = date.getMonth() + 1;
   const tempYear = date.getFullYear();

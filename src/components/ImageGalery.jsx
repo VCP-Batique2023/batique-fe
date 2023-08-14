@@ -8,7 +8,7 @@ export default function ImageGalery({ feedInformation, onClick }) {
   return (
     <div onClick={sendDataToModal} style={{ position: 'relative' }}>
       <div className="imageContainer">
-        <img src={feedInformation.url} className="image" />
+        <img src={feedInformation.imageUrl} className="image" />
       </div>
       <ImageOverlay feedInformation={feedInformation} />
     </div>

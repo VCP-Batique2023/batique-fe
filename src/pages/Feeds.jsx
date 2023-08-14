@@ -8,6 +8,9 @@ import ImageModal from '@/components/ImageModal';
 import AddImageModal from '@/components/AddImageModal';
 import Button from '@/components/Button';
 
+import { collection, doc, onSnapshot } from 'firebase/firestore';
+import { db } from '@/modules/firebase_config';
+
 import GaleryHeader from '@/assets/img/1.jpg';
 
 // Image Dummy Data
@@ -225,17 +228,38 @@ const feedsDummyList = [
 ];
 
 export default function Galery() {
+  // Fetch data from firebase
+
   const [screenWidth, setScreenWidth] = useState(
     window.innerWidth >= 992 ? '60vh' : '30vh'
   );
-  const [feedsList, setFeedsList] = useState(feedsDummyList);
+  const [feedsList, setFeedsList] = useState([]);
 
   const [activeSort, setActiveSort] = useState('default');
-  const { ref: targetButtonRef, inView: targetButtonIsVisible } = useInView();
   const [showModalDetailPost, setShowModalDetailPost] = useState(-1);
   const [showModalAddPost, setShowModalAddPost] = useState(-1);
   const [postData, setPostData] = useState({});
 
+  // Listen on Feeds Collection Update
+  function listenFeedsCollection(cb) {
+    const data = [];
+    const dataRef = collection(db, 'feeds');
+    const dataSnapshot = onSnapshot(dataRef, (snapshot) => {
+      snapshot.forEach((doc) => {
+        data.push(doc.data());
+      });
+      cb(data);
+    });
+    return dataSnapshot;
+  }
+
+  // Fetch data from firebase
+  useEffect(() => {
+    const unsubscribe = listenFeedsCollection(setFeedsList);
+    return unsubscribe;
+  }, []);
+
+  // Filter Feeds
   function sortFeedsByMostLikes() {
     const copy = [...feedsList].sort((a, b) => b.like - a.like);
     setFeedsList(copy);
