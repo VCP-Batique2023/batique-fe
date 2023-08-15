@@ -11,6 +11,7 @@ const DetailArtikel = lazy(() => import('@/pages/detailartikel'));
 const SignUp = lazy(() => import('@/pages/SignUp'));
 const SignIn = lazy(() => import('@/pages/SignIn'));
 const Galery = lazy(() => import('@/pages/Galery'));
+const Profile= lazy(() => import('@/pages/Profile'));
 
 import PrivateRoute from '@/routes/PrivateRoute';
 
@@ -78,6 +79,18 @@ export default function Router() {
                 }
               />
             } 
+          />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute
+                element={
+                  <DocumentTitle title="Profile">
+                    <Profile />
+                  </DocumentTitle>
+                }
+              />
+            }
           />
           <Route
             path="*"

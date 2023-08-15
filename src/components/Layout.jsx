@@ -131,7 +131,7 @@ export default function Layout() {
               </svg>
               <div className="profile">
                 <img
-                  onClick={() => navigate('/profil')}
+                  onClick={() => navigate('/profile')}
                   style={{
                     borderRadius: 99,
                     cursor: 'pointer',
