@@ -2,7 +2,7 @@
 import Button from '@/components/Button';
 import '@/assets/style/ImageGrid.css';
 
-export default function ImageModal({ onClick, show, data }) {
+export default function ImageModal({ userDetail, detailPost, onClick, show }) {
   return (
     <>
       <div
@@ -11,7 +11,7 @@ export default function ImageModal({ onClick, show, data }) {
       >
         <div className="detailPost">
           <div className="leftContent">
-            <img src={data.url} />
+            <img src={detailPost.imageUrl} />
           </div>
           <div className="rightContent">
             <div className="profileInformation">
@@ -20,10 +20,10 @@ export default function ImageModal({ onClick, show, data }) {
                 style={{ backgroundColor: 'transparent', width: '60px' }}
                 src="https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
               />
-              <h3>Calvin Danyalson</h3>
+              <h3>{userDetail.displayName}</h3>
             </div>
             <div className="postCaption">
-              <p>{data.caption}</p>
+              <p>{detailPost.caption}</p>
             </div>
           </div>
           <Button children="X" style={modalButton} onClick={onClick} />

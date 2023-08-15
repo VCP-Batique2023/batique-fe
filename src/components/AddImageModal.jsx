@@ -3,7 +3,13 @@ import Button from '@/components/Button';
 import ImageIcon from '@/assets/img/6.png';
 import '@/assets/style/ImageGrid.css';
 
-export default function ImageModal({ onClick, show }) {
+export default function ImageModal({
+  selectedFilePath,
+  selectedFile,
+  closeWindowHandler,
+  onChangeHandler,
+  show,
+}) {
   return (
     <>
       <div
@@ -20,15 +26,26 @@ export default function ImageModal({ onClick, show }) {
                 width: '100%',
               }}
             >
-              <img
-                src={ImageIcon}
-                alt=""
-                style={{ width: '30%', backgroundColor: 'transparent' }}
-              />
+              {selectedFilePath ? (
+                <img
+                  src={selectedFilePath}
+                  alt=""
+                  style={{ backgroundColor: 'transparent', width: '100%' }}
+                />
+              ) : (
+                <img
+                  src={ImageIcon}
+                  alt=""
+                  style={{ width: '30%', backgroundColor: 'transparent' }}
+                />
+              )}
               <input
                 id="fileUpload"
                 type="file"
                 hidden
+                onChange={(event) => {
+                  onChangeHandler(event);
+                }}
                 style={{ backgroundColor: 'transparent' }}
               />
             </label>
@@ -46,7 +63,11 @@ export default function ImageModal({ onClick, show }) {
               <p>Insert your caption here</p>
             </div>
           </div>
-          <Button children="X" style={modalButton} onClick={onClick} />
+          <Button
+            children="X"
+            style={modalButton}
+            onClick={closeWindowHandler}
+          />
         </div>
       </div>
     </>

@@ -1,16 +1,23 @@
 /* eslint-disable react/no-children-prop */
+// Import package
 import { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
+// Import custom package
+import {
+  getAllFeeds,
+  getFeedById,
+  handleClientUpload,
+} from '@/modules/FeedsModules';
+
+// Import JSX Component
 import ImageHeader from '@/components/ImageHeader';
 import ImageGrid from '@/components/ImageGrid';
 import ImageModal from '@/components/ImageModal';
 import AddImageModal from '@/components/AddImageModal';
 import Button from '@/components/Button';
 
-import { collection, onSnapshot } from 'firebase/firestore';
-import { db } from '@/modules/firebase_config';
-
+// Import Image Component
 import GaleryHeader from '@/assets/img/1.jpg';
 
 export default function Galery() {
@@ -23,25 +30,16 @@ export default function Galery() {
   const { ref: targetButtonRef, inView: targetButtonIsVisible } = useInView();
   const [showModalDetailPost, setShowModalDetailPost] = useState(-1);
   const [showModalAddPost, setShowModalAddPost] = useState(-1);
-  const [postData, setPostData] = useState({});
 
-  // Listen on Feeds Collection Update
-  function listenFeedsCollection(cb) {
-    const data = [];
-    const dataRef = collection(db, 'feeds');
-    const dataSnapshot = onSnapshot(dataRef, (snapshot) => {
-      snapshot.forEach((doc) => {
-        data.push(doc.data());
-      });
-      cb(data);
-    });
-    return dataSnapshot;
-  }
+  //State for Detail and Add Post
+  const [detailPost, setDetailPost] = useState({});
+  const [userDetail, setUserDetail] = useState({});
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFilePath, setSelectedFilePath] = useState('');
 
   // Fetch data from firebase
   useEffect(() => {
-    const unsubscribe = listenFeedsCollection(setFeedsList);
-    return unsubscribe;
+    getAllFeeds(setFeedsList);
   }, []);
 
   // Filter Feeds
@@ -76,16 +74,16 @@ export default function Galery() {
   // For Image Header component (responsive) <-- end
 
   // For Triggering modal image --> Start
-  const triggerShowModalDetailPost = (feed = {}) => {
+  function triggerShowModalDetailPost(feed) {
     if (showModalDetailPost == -1) {
       setShowModalDetailPost(2);
-      setPostData(feed);
+      getFeedById(feed.userId, setUserDetail);
+      setDetailPost(feed);
     } else {
       setShowModalDetailPost(-1);
-      setPostData({});
+      setDetailPost({});
     }
-  };
-  // For Triggering modal image <-- End
+  }
 
   // For Triggering modal add image --> Start
   const triggerShowModalAddPost = () => {
@@ -95,27 +93,12 @@ export default function Galery() {
       setShowModalAddPost(-1);
     }
   };
-  // For Triggering modal add image <-- End
 
-  const plusIcon = () => {
-    return (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 25 25"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        width={24}
-        height={24}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 4.5v15m7.5-7.5h-15"
-        />
-      </svg>
-    );
-  };
+  function handleUpload(e) {
+    handleClientUpload(e, setSelectedFile, setSelectedFilePath);
+    console.log(selectedFile);
+    console.log(selectedFilePath);
+  }
 
   return (
     <>
@@ -142,10 +125,10 @@ export default function Galery() {
       <ImageModal
         onClick={triggerShowModalDetailPost}
         show={showModalDetailPost}
-        data={postData}
+        detailPost={detailPost}
+        userDetail={userDetail}
       />
       <Button
-        children={plusIcon()}
         style={{
           borderRadius: '50%',
           width: '7vh',
@@ -160,10 +143,29 @@ export default function Galery() {
           padding: 4,
         }}
         onClick={triggerShowModalAddPost}
-      />
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 25 25"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          width={24}
+          height={24}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 4.5v15m7.5-7.5h-15"
+          />
+        </svg>
+      </Button>
       <AddImageModal
+        selectedFilePath={selectedFilePath}
+        selectedFile={selectedFile}
+        closeWindowHandler={triggerShowModalAddPost}
+        onChangeHandler={handleUpload}
         show={showModalAddPost}
-        onClick={triggerShowModalAddPost}
       />
     </>
   );

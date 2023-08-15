@@ -173,7 +173,7 @@
 /* This only for add post modal dialog */
 .fileUpload {
   display: flex;
-  justify-content: center;
+  justify-content: center !important;
   align-items: center;
   width: 100%;
   height: 100%;
