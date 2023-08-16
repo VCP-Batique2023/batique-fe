@@ -46,7 +46,7 @@ export default function Footer() {
           {currentUser ? (
             <>
               <NavLink
-                to="/gallery"
+                to="/galery"
                 className={({ isActive }) => {
                   return `footer-link ${isActive ? 'active' : ''}`;
                 }}

@@ -2,8 +2,10 @@ import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
+import { useMobile } from '@/contexts/MobileContext';
 import AnimatedText from '@/components/AnimatedText';
 import AnimatedImage from '@/components/AnimatedImage';
+import AnimatedArrow from '@/components/AnimatedArrow';
 import Button from '@/components/Button';
 import RedirectHome from '@/components/RedirectHome';
 import ShowcaseGrid from '@/components/ShowcaseGrid';
@@ -19,7 +21,8 @@ const arr = [img3, img1, img5, img4, img3, img3];
 
 export default function Home() {
   const navigate = useNavigate();
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
+  const { isMobile } = useMobile();
 
   const container = {
     hidden: {},
@@ -43,89 +46,139 @@ export default function Home() {
 
   const parallaxRef = useRef(null);
 
+  const renderImage = (arrImage) =>
+    arrImage.map((image, index) => (
+      <img key={index} src={image} alt={`image-${index + 1}`} />
+    ));
+
   const useParallax = (value, distance) => {
-    return useTransform(value, [0, 1], [-distance, distance]);
+    const multiplier = window.innerHeight / 800;
+    return useTransform(
+      value,
+      [0, 1],
+      [(-distance / 1.2) * multiplier, (distance / 1.2) * multiplier]
+    );
   };
 
   const { scrollYProgress } = useScroll({ target: parallaxRef });
-  const parallaxY = useParallax(scrollYProgress, 150);
+  const parallaxY = useParallax(scrollYProgress, 100);
 
   return (
-    <main>
-      <header>
-        <section className="hero-section">
-          <div className="content">
-            <AnimatedText
-              text="Batik, “Melukis Keindahan di Setiap Helaian Kehidupan.”"
-              firstWord
-              background
-            />
-          </div>
-          <AnimatedImage src={img1} alt={'Gambar melukis batik'} />
-        </section>
-        {!currentUser && (
-          <section className="hero-section">
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      style={{ scrollSnapType: isMobile ? 'y mandatory' : 'none' }}
+      ref={parallaxRef}
+    >
+      <section
+        style={
+          isMobile
+            ? {
+                backgroundImage: `linear-gradient(0deg, rgba(136, 110, 80, 0.35), rgba(136, 110, 80, 0.35)), url("${img1}")`,
+              }
+            : {}
+        }
+        className="hero-section"
+      >
+        <div className="content">
+          <AnimatedText
+            style={
+              isMobile
+                ? {
+                    color: '#F0E0B0',
+                  }
+                : {}
+            }
+            text="Batik, “Melukis Keindahan di Setiap Helaian Kehidupan.”"
+            firstWord
+            background
+          />
+        </div>
+        {isMobile && <AnimatedArrow color="#F0E0B0" />}
+        {!isMobile && <AnimatedImage src={img1} alt={'Gambar melukis batik'} />}
+      </section>
+      {!currentUser && (
+        <section
+          style={
+            isMobile
+              ? {
+                  backgroundImage: `linear-gradient(0deg, rgba(242, 242, 242, 0.75), rgba(242, 242, 242, 0.75)), url("${img2}")`,
+                }
+              : {}
+          }
+          className="hero-section"
+        >
+          {!isMobile && (
             <AnimatedImage src={img2} alt={'Gambar tentang batique'} />
-            <motion.div
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              transition={{
-                delayChildren: 0.35,
-                staggerChildren: 0.25,
-                type: 'tween',
+          )}
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            transition={{
+              delayChildren: 0.35,
+              staggerChildren: 0.25,
+              type: 'tween',
+            }}
+            variants={container}
+            className="content"
+          >
+            <AnimatedText text="Tentang Kami" background />
+            <motion.p
+              variants={item}
+              style={{
+                marginTop: 18,
               }}
-              variants={container}
-              className="content"
             >
-              <AnimatedText text="Tentang Kami" background />
-              <motion.p
-                variants={item}
-                style={{
-                  marginTop: 12,
-                }}
+              Batique hadir sebagai sebuah platform online berbasis web yang
+              memungkinkan seniman muda berbakat yang memiliki minat besar
+              terhadap seni batik untuk mengembangkan kreativitas dan ekspresi
+              seni mereka.
+            </motion.p>
+            <motion.p
+              variants={item}
+              style={{
+                marginTop: 8,
+              }}
+            >
+              Melalui pengadaan program edukasi dan kampanye sosial, batik bisa
+              dihidupkan kembali dan diintegrasikan ke dalam kehidupan
+              sehari-hari generasi muda.
+            </motion.p>
+            <motion.div
+              variants={item}
+              style={{
+                marginTop: 32,
+              }}
+            >
+              <Button
+                onClick={() => navigate('/tentang')}
+                variant="outlined"
+                size="large"
               >
-                Batique hadir sebagai sebuah platform online berbasis web yang
-                memungkinkan seniman muda berbakat yang memiliki minat besar
-                terhadap seni batik untuk mengembangkan kreativitas dan ekspresi
-                seni mereka.
-              </motion.p>
-              <motion.p
-                variants={item}
-                style={{
-                  marginTop: 8,
-                }}
-              >
-                Melalui pengadaan program edukasi dan kampanye sosial, batik
-                bisa dihidupkan kembali dan diintegrasikan ke dalam kehidupan
-                sehari-hari generasi muda.
-              </motion.p>
-              <motion.div
-                variants={item}
-                style={{
-                  marginTop: 28,
-                }}
-              >
-                <Button onClick={() => navigate('/tentang')} variant="outlined" size="large" >
-                  Selengkapnya
-                </Button>
-              </motion.div>
+                Selengkapnya
+              </Button>
             </motion.div>
-          </section>
-        )}
-      </header>
+          </motion.div>
+          {isMobile && <AnimatedArrow />}
+        </section>
+      )}
       {currentUser && (
         <section className="most-liked-section">
           <AnimatedText
             text="Temukan Inspirasi dari Ide-Ide Terbaik Komunitas Kami."
-            style={{
-              marginBottom: 48,
-            }}
             firstWord
             align="center"
           />
-          <ShowcaseGrid />
+          <ShowcaseGrid
+            style={{
+              marginTop: 48,
+            }}
+          />
           <RedirectHome
+            style={{
+              marginTop: 32
+            }}
             label="Libatkan dirimu dengan menjelajahi dan berbagi ide"
             redirectLabel="Tampilkan Galeri"
             path="/gallery"
@@ -135,8 +188,9 @@ export default function Home() {
       {!currentUser && (
         <section className="middle-section">
           <svg
+            className="wave"
             style={{
-              marginBottom: -7,
+              marginBottom: -2,
             }}
             width="100%"
             height="100%"
@@ -151,6 +205,9 @@ export default function Home() {
             />
           </svg>
           <div className="content">
+            {isMobile && (
+              <div className="mobile-images">{renderImage(arr)}</div>
+            )}
             <motion.div
               initial="hidden"
               whileInView="show"
@@ -164,7 +221,6 @@ export default function Home() {
               className="content-title"
             >
               <AnimatedText
-                ref={parallaxRef}
                 text="Jelajahi Dunia Pesona Batik yang Menakjubkan dengan Aman disini!"
                 style={{
                   color: '#f0eee6',
@@ -175,7 +231,7 @@ export default function Home() {
               <motion.div
                 variants={item}
                 style={{
-                  marginTop: 24,
+                  marginTop: 32,
                 }}
               >
                 <Button
@@ -188,21 +244,35 @@ export default function Home() {
                 </Button>
               </motion.div>
             </motion.div>
-            <motion.div
-              style={{ y: parallaxY }}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: '0px 0px -240px 0px' }}
-              className="content-images"
-            >
-              {arr.map((image, index) => (
-                <img key={index} src={image} alt={`image-${index + 1}`} />
-              ))}
-            </motion.div>
+            {isMobile && (
+              <div
+                style={{
+                  justifyContent: 'end',
+                }}
+                className="mobile-images"
+              >
+                {renderImage(arr.reverse())}
+              </div>
+            )}
+            {isMobile && (
+              <AnimatedArrow style={{ bottom: '24vh' }} color="#f0eee6" />
+            )}
+            {!isMobile && (
+              <motion.div
+                style={{ y: parallaxY }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, margin: '0px 0px -240px 0px' }}
+                className="content-images"
+              >
+                {renderImage(arr)}
+              </motion.div>
+            )}
           </div>
           <svg
+            className="wave"
             style={{
-              marginTop: -3,
+              marginTop: -2,
             }}
             width="100%"
             height="100%"
@@ -225,6 +295,6 @@ export default function Home() {
           firstWord
         />
       </section>
-    </main>
+    </motion.main>
   );
 }

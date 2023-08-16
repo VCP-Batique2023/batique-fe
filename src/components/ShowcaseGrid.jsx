@@ -12,7 +12,7 @@ import '@/assets/style/ShowcaseGrid.css';
 
 const showcaseArr = [img5, img10, img9, img8, img11, img13, img12];
 
-export default function ShowcaseGrid() {
+export default function ShowcaseGrid({ style }) {
   const container = {
     hidden: {},
     show: {},
@@ -41,9 +41,10 @@ export default function ShowcaseGrid() {
       viewport={{ once: true }}
       transition={{
         staggerChildren: 0.25,
-        type: "tween",
+        type: 'tween',
       }}
       className="grid-showcase"
+      style={style}
     >
       {showcaseArr.slice(0, 7).map((image, index) => (
         <motion.div variants={box} key={index} className="image-container">

@@ -1,6 +1,6 @@
-import React from 'react';
+import { motion } from 'framer-motion';
 import { useLocation, useParams } from 'react-router-dom';
-import "@/assets/style/detailartikel.css"
+import '@/assets/style/detailartikel.css';
 
 export default function DetailArtikel() {
   const location = useLocation();
@@ -14,7 +14,11 @@ export default function DetailArtikel() {
   const selectedCard = artikel[index];
 
   return (
-    <div className="container-detail">
+    <motion.main
+      className="container-detail"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       <div className="title">
         <h1>{selectedCard.title}</h1>
       </div>
@@ -22,6 +26,6 @@ export default function DetailArtikel() {
       <div className="content">
         <p>{selectedCard.content}</p>
       </div>
-    </div>
+    </motion.main>
   );
 }
