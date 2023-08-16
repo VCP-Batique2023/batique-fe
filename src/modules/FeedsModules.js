@@ -1,4 +1,4 @@
-import { db } from '@/modules/firebase_config';
+import { db, storage } from '@/modules/firebase_config';
 import { collection, getDoc, getDocs, doc } from 'firebase/firestore';
 
 const handleClientUpload = (e, setSelectedFileCb, setSelectedFilePathCb) => {
@@ -6,6 +6,10 @@ const handleClientUpload = (e, setSelectedFileCb, setSelectedFilePathCb) => {
   if (Math.round(file.size / 1048576) > 2) {
     console.log('Keep it under 2MB');
     return;
+  }
+
+  if(file) {
+    const imageRef = ref(storage, `feeds/${file.name}`)
   }
 
   setSelectedFileCb(file);
@@ -52,5 +56,7 @@ async function getFeedById(userId, cb) {
 
   return cb(null);
 }
+
+function getTokenData = 
 
 export { getAllFeeds, getFeedById, handleClientUpload };

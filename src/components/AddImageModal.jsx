@@ -6,6 +6,7 @@ import '@/assets/style/ImageGrid.css';
 export default function ImageModal({
   selectedFilePath,
   selectedFile,
+  userDetail,
   closeWindowHandler,
   onChangeHandler,
   show,
@@ -57,7 +58,7 @@ export default function ImageModal({
                 style={{ backgroundColor: 'transparent', width: '60px' }}
                 src="https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
               />
-              <h3>Calvin Danyalson</h3>
+              <h3>{userDetail.displayName}</h3>
             </div>
             <div className="postCaption">
               <p>Insert your caption here</p>
