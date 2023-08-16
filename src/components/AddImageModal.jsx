@@ -8,6 +8,8 @@ export default function ImageModal({
   selectedFile,
   closeWindowHandler,
   clientUpload,
+  setCaptionInput,
+  captionInput,
   firebaseUpload,
   show,
 }) {
@@ -61,7 +63,14 @@ export default function ImageModal({
               <h3>Calvin Danyalson</h3>
             </div>
             <div className="postCaption">
-              <p>Insert your caption here</p>
+              <input
+                className="captionInput"
+                type="text"
+                value={captionInput}
+                onChange={(event) => {
+                  setCaptionInput(event);
+                }}
+              />
             </div>
           </div>
           <Button

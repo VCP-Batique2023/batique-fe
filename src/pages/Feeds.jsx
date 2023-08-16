@@ -37,8 +37,9 @@ export default function Galery({ children }) {
   const [userDetail, setUserDetail] = useState({});
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFilePath, setSelectedFilePath] = useState('');
+  const [caption, setCaption] = useState('Write your caption here!');
 
-  // Fetch data from firebase
+  // useEffect Fetch data from firebase
   useEffect(() => {
     getAllFeeds(setFeedsList);
   }, []);
@@ -57,13 +58,13 @@ export default function Galery({ children }) {
   }
 
   // For Image Header component (responsive) --> Start
-  const resizeScreenHandler = () => {
+  function resizeScreenHandler() {
     if (window.innerWidth >= 992) {
       setScreenWidth('60vh');
     } else {
       setScreenWidth('40vh');
     }
-  };
+  }
 
   useEffect(() => {
     window.addEventListener('resize', resizeScreenHandler);
@@ -72,7 +73,6 @@ export default function Galery({ children }) {
       window.removeEventListener('resize', resizeScreenHandler);
     };
   }, []);
-  // For Image Header component (responsive) <-- end
 
   // For Triggering modal image --> Start
   function triggerShowModalDetailPost(feed) {
@@ -95,11 +95,16 @@ export default function Galery({ children }) {
     }
   };
 
+  function stateCaptionInput(e) {
+    setCaption(e.target.value);
+  }
+
   function triggerClientUpload(e) {
     handleClientUpload(e, setSelectedFile, setSelectedFilePath);
   }
+
   function triggerFirebaseUpload() {
-    handleFirebaseUpload(selectedFile);
+    handleFirebaseUpload(caption, selectedFile, setShowModalAddPost);
   }
 
   return (
@@ -168,6 +173,8 @@ export default function Galery({ children }) {
         closeWindowHandler={triggerShowModalAddPost}
         clientUpload={triggerClientUpload}
         firebaseUpload={triggerFirebaseUpload}
+        setCaptionInput={stateCaptionInput}
+        captionInput={caption}
         show={showModalAddPost}
       />
     </>

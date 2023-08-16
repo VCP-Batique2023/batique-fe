@@ -7,12 +7,12 @@ import ScrollTop from '@/components/ScrollTop';
 import '@/assets/style/index.css';
 
 createRoot(document.getElementById('root')).render(
-  // <React.StrictMode>
-  <BrowserRouter basename={import.meta.env.BASE_URL}>
-    <AuthProvider>
-      <ScrollTop />
-      <App />
-    </AuthProvider>
-  </BrowserRouter>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <AuthProvider>
+        <ScrollTop />
+        <App />
+      </AuthProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 );

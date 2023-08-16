@@ -3,22 +3,19 @@ import { db, storage } from '@/modules/firebase_config';
 import { collection, getDoc, getDocs, setDoc, doc, Timestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-async function handleFirebaseUpload(selectedFile){
-  
-    const imageRef = ref(storage, `feeds/${v4()}`);
-    const storageSnapShot = await uploadBytes(imageRef, selectedFile)
-    const publicUrl = await getDownloadURL(storageSnapShot.ref)
+async function handleFirebaseUpload(caption, selectedFile, setShowModalAddPostCb){
+  const imageRef = ref(storage, `feeds/${v4()}`);
+  const storageSnapShot = await uploadBytes(imageRef, selectedFile)
+  const publicUrl = await getDownloadURL(storageSnapShot.ref)
 
-    const caption = "ABCED"
-    const like = 0;
-
-    await setDoc(doc(db, 'feeds', `username-${v4()}`), {
-      caption: caption,
-      createdAt: Timestamp.fromDate(new Date()) ,
-      imageUrl: publicUrl,
-      like: 0,
-      userId: 'TPs0P8qiG5M3nEakYxQLt1ZENNY2'
-    })
+  await setDoc(doc(db, 'feeds', `username-${v4()}`), {
+    caption: caption,
+    createdAt: Timestamp.fromDate(new Date()) ,
+    imageUrl: publicUrl,
+    like: 0,
+    userId: 'TPs0P8qiG5M3nEakYxQLt1ZENNY2'
+  })
+  setShowModalAddPostCb(-1)
 }
 
 async function handleClientUpload(e, setSelectedFileCb, setSelectedFilePathCb) {

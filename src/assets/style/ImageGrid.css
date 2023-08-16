@@ -189,6 +189,13 @@
   opacity: 0.95;
 }
 
+.captionInput {
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+}
+
 @media only screen and (min-width: 992px) {
   .imagerHeader {
     margin-bottom: 5vh;
