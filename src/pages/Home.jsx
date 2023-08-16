@@ -1,9 +1,10 @@
-import { useRef } from 'react';
+import { useRef,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
 import AnimatedText from '@/components/AnimatedText';
 import AnimatedImage from '@/components/AnimatedImage';
+import ArtikelCard from '@/components/artikelCard';
 import Button from '@/components/Button';
 import RedirectHome from '@/components/RedirectHome';
 import ShowcaseGrid from '@/components/ShowcaseGrid';
@@ -20,6 +21,7 @@ const arr = [img3, img1, img5, img4, img3, img3];
 export default function Home() {
   const navigate = useNavigate();
   const { currentUser } = useAuth()
+  
 
   const container = {
     hidden: {},
@@ -224,6 +226,7 @@ export default function Home() {
           align="center"
           firstWord
         />
+
       </section>
     </main>
   );

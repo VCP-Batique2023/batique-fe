@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect, useRef} from 'react';
+import { useLocation } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 import '@/assets/style/artikelTabs.css';
 import '@/assets/style/artikelCard.css';
 
@@ -7,131 +8,15 @@ import '@/assets/style/artikelCard.css';
 import ArtikelCard from './artikelCard';
 import Button from './Button';
 
-export default function artikeTabs() {
-  
-    const artikel = [
-        {
-            title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
-            category : "History",
-            img:"https://source.unsplash.com/random/367x217/?batik",
-            link : "#home",
-           
-        },
-        {
-            title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
-            category : "DIY",
-            img:"https://source.unsplash.com/random/367x217/?batik",
-            link : "#about",
-            
-        },
-        {
-            title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
-            category : "Filter",
-            img:"https://source.unsplash.com/random/367x217/?batik",
-            link : "#experience",
-            
-            
-        },
-        {
-            title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
-            category : "History",
-            img:"https://source.unsplash.com/random/367x217/?batik",
-            link : "#home",
-           
-        },
-        {
-            title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
-            category : "DIY",
-            img:"https://source.unsplash.com/random/367x217/?batik",
-            link : "#about",
-            
-        },
-        {
-            title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
-            category : "Filter",
-            img:"https://source.unsplash.com/random/367x217/?batik",
-            link : "#experience",
-            
-            
-        },
-        {
-            title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
-            category : "History",
-            img:"https://source.unsplash.com/random/367x217/?batik",
-            link : "#home",
-           
-        },
-        {
-            title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
-            category : "DIY",
-            img:"https://source.unsplash.com/random/367x217/?batik",
-            link : "#about",
-            
-        },
-        {
-            title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
-            category : "Filter",
-            img:"https://source.unsplash.com/random/367x217/?batik",
-            link : "#experience",
-            
-            
-        },
-        {
-            title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
-            category : "History",
-            img:"https://source.unsplash.com/random/367x217/?batik",
-            link : "#home",
-           
-        },
-        {
-            title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
-            category : "DIY",
-            img:"https://source.unsplash.com/random/367x217/?batik",
-            link : "#about",
-            
-        },
-        {
-            title:"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique luctus enim, sit amet gravida nunc vestibulum eget. Integer ullamcorper tincidunt libero, non commodo quam convallis ut.",
-            category : "Filter",
-            img:"https://source.unsplash.com/random/367x217/?batik",
-            link : "#experience",
-            
-            
-        },
-        {
-            title:"Ini nyoba artikel",
-            content: "ini ceritanya konten. gak tau mau nulis apa tapi yang penting ada lah yak.",
-            category : "Filter",
-            img:"https://source.unsplash.com/random/367x217/?batik",
-            link : "#experience",
-            
-            
-        }
-    ]
+export default function artikeTabs( {
+    artikel,
+    generateExcerpt,
+}) {
     
     const [activeCategory, setActiveCategory] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
-    const [selectedCardIndex, setSelectedCardIndex] = useState(null);
     const uniqueCategories = [...new Set(artikel.map(item => item.category))];
-    // const content = artikel.content.split(' ');
-    // const excerpt = content.slice(0, 50).join(' ');
-
-
-    
-    const navigate = useNavigate();
-
+    const { currentUser } = useAuth(); 
     const handleCategoryChange = (category) => {
         setActiveCategory(category);
     }
@@ -140,13 +25,6 @@ export default function artikeTabs() {
           setSearchQuery(event.target.value);
         }
     };
-
-    // handle search with no enter
-    // const filteredArtikel = artikel.filter(item => {
-    //     const categoryMatch = !activeCategory || item.category === activeCategory;
-    //     const searchMatch = searchQuery === '' || item.title.toLowerCase().includes(searchQuery.toLowerCase()); 
-    //     return categoryMatch && searchMatch;
-    // });
     const filteredArtikel = artikel.filter(item => {
         const categoryMatch = !activeCategory || item.category === activeCategory;
         const searchMatch = !searchQuery || 
@@ -162,28 +40,26 @@ export default function artikeTabs() {
         return searchMatch;
       });
       
-      
-      
+//       const tabsRef = useRef(null);
+
+//   useEffect(() => {
+//     if (props.location.state && props.location.state.scrollTo === 'tabs' && tabsRef.current) {
+//       tabsRef.current.scrollIntoView({ behavior: 'smooth' });
+//     }
+//   }, [props.location.state]);
       
     return (
-        <div className="container-tabs">
+        <div  id="tabs" className="container-tabs">
             <div className="cards">
             <ArtikelCard
                 artikel={filteredArtikel} 
                 excerptVisible={true} 
-                onClick={(index) => {
-                    setSelectedCardIndex(index)
-                    navigate(`/artikel/${index}`, { state: { artikel } });
-                }}
+                generateExcerpt={generateExcerpt}
             />
             </div>
             <div className='side-menu'>
-                <div className="explore">
-                        <input className="search__input" type="text" 
-                        placeholder="Jelajahi Berbagai Macam Topik..."
-                        onKeyDown={handleSearchInputChange}
-                        />
-                </div>
+                {currentUser ? (
+                <>
                 <div className="categories">
                     <div className="head-category">
                         <span>
@@ -193,9 +69,9 @@ export default function artikeTabs() {
                     <div className="content-category">
                         
                         {
-                             uniqueCategories.map((category,index)=>(
+                                uniqueCategories.map((category,index)=>(
                                 <Button key={index}  onClick={() => setActiveCategory(category)}
-                                 variant='outlined' size='small' style={{ marginRight: 5,
+                                    variant='outlined' size='small' style={{ marginRight: 5,
                                     marginBottom: 8, borderRadius:20 }}>
                                 {category}
                                 </Button>
@@ -204,7 +80,39 @@ export default function artikeTabs() {
                         
                     </div>
                 </div>
+                </>
+                ) : (
+                <>
+                    <div className="explore">
+                        <input className="search__input" type="text" 
+                        placeholder="Jelajahi Berbagai Macam Topik..."
+                        onKeyDown={handleSearchInputChange}
+                        />
+                    </div>
+                    <div className="categories">
+                        <div className="head-category">
+                            <span>
+                                Jelajahi Berbagai Macam Topik
+                            </span>
+                        </div>
+                        <div className="content-category">    
+                            {
+                                uniqueCategories.map((category,index)=>(
+                                <Button key={index}  onClick={() => setActiveCategory(category)}
+                                    variant='outlined' size='small' style={{ marginRight: 5,
+                                    marginBottom: 8, borderRadius:20 }}>
+                                {category}
+                                </Button>
+                                ))
+                            }   
+                        </div>
+                    </div>    
+                </>
+                    
+                )}
+               
             </div>
+            
         </div>
     );
 }

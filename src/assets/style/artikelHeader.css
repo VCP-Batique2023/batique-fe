@@ -6,13 +6,12 @@
     background-image: url('/src/assets/img/batikbg.jpg');
     width: 100%;
     -moz-background-inline-policy: 10%;
-    filter: brightness(120%);
+    filter: brightness(130%);
     background-size: cover;
     background-attachment: fixed;
 }
 .cta{
     position: absolute;
-    top: 50%; /* Adjust this value to position vertically */
     left:34%; 
     transform: translate(-50%, -50%);
     position: fixed;
@@ -27,3 +26,14 @@
     z-index: -1;
   }
 
+  @media only screen and (max-width: 575px) {
+    .header{
+        height: 55vh;
+    }
+    .cta{
+        width: 80%;
+        left: 50%;
+        margin: auto;
+        padding: 0 5%;
+    }
+  }

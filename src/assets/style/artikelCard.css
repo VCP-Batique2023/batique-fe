@@ -8,13 +8,14 @@ body{
     gap: 30px;
     width: calc(300px * 2 + 80px);
     
+    
 }
 
 .container-card .card {
     background-color: white;
     transition: 0.3s;
     height: auto;
-    max-width: 300px;
+    width: 300px;
     /* margin: 0 auto; */
     padding-bottom: 10px;
     cursor: pointer;
@@ -26,23 +27,24 @@ body{
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
 }
 .container-card .card .card-header{
-    padding: 20px 40px;
+    padding: 10px 40px;
     margin-bottom: 20px;
 }
 .container-card .card .card-header a,span{
     color: #372B22;
     text-align: justify;
-    text-decoration: none
+    text-decoration: none;
 }
 .container-card .card .card-header .category a{
-    font-weight: 500;
+    font-weight: normal;
     font-family: 'Outfit', sans-serif;
+    font-size: 14px;
 ;
 }
 .container-card .card .card-header a{
     font-family: 'Playfair Display', serif;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 20px;
 }
 .container-card .card .card-header span{
     font-family: 'Outfit', sans-serif;
@@ -56,41 +58,127 @@ body{
     align-items: center;
     justify-content: center; 
     padding-top: 30px;
+    padding-bottom: 20px;
 
 }
 
 .container-card .card .image-wrapper img {
     width: 220px;
-    height: 120px;
+    height: 140px;
     border-radius: 10px;
 }
-@media only screen and (max-width: 768px) {
+/* @media only screen and (max-width: 575px) {
     body{
         overflow-x: hidden;
     }
     .container-card{
-        display: flex;
-        flex-direction: column;
+        display: block;
         margin: auto;
-        width: 300px;
+        width: 100%;
     }
     .container-card .card{
-        max-width: 400px;
+        width: 120px;
         margin-bottom: 10px;
     }
+    .container-card .card .card-header{
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    .container-card .card .card-header a,span{
+        color: #372B22;
+        text-align: justify;
+        text-decoration: none;
+    }
+    .container-card .card .card-header .category a{
+        font-weight: normal;
+        font-family: 'Outfit', sans-serif;
+        font-size: 4px;
+    ;
+    }
+    .container-card .card .card-header a{
+        font-family: 'Playfair Display', serif;
+        font-weight: bold;
+        font-size: 5px;
+    }
+    .container-card .card .card-header span{
+        font-family: 'Outfit', sans-serif;
+        font-size: 6px;
+        text-align: justify;
+        display: block;
+        padding-top: 10px;
+    }
+    .container-card .card .image-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center; 
+        padding-top: 10px;
+    
+    }
+    
+    .container-card .card .image-wrapper img {
+        width: 100px;
+        height: 50px;
+        border-radius: 10px;
+    }
   }
-/* @media only screen and (max-width:994px){
-    .container-card{
+ */
+ @media only screen and (max-width: 575px) {
+    body {
+        overflow-x: hidden;
+    }
+    .container-card {
+        display: block;
         margin: auto;
-        padding: 0px 20px;
-        gap: 20px;
-        max-width: calc(250px * 3 + 100px);
-        background: #000;
+        width: 100%;
+        /* background-color: #fff; */
     }
-    .container-card .card{
-        max-width: 250px;
+    .container-card .card {
+        width: 100%; 
+        height: 100%;
+        margin-bottom: 20px;
+        
     }
-} */
+    .container-card .card .card-header {
+        padding: 2% 10%;
+        margin-bottom: 10px; 
+    }
+    .container-card .card .card-header a,
+    .container-card .card .card-header span {
+        color: #372B22;
+        text-align: justify;
+        text-decoration: none;
+    }
+    .container-card .card .card-header .category a {
+        font-weight: normal;
+        font-family: 'Outfit', sans-serif;
+        font-size: 14px; 
+    }
+    .container-card .card .card-header a {
+        font-family: 'Playfair Display', serif;
+        font-weight: bold;
+        font-size: 20px; 
+    }
+    .container-card .card .card-header span {
+        font-family: 'Outfit', sans-serif;
+        font-size: 12px; /* Adjust the font size as needed */
+        text-align: justify;
+        display: block;
+        padding-top: 5px; /* Adjust the padding as needed */
+    }
+    .container-card .card .image-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 5px; /* Adjust the padding as needed */
+    }
+    .container-card .card .image-wrapper img {
+        width: 80%;
+        height: auto;
+        border-radius: 10px;
+        margin-top: 8%;
+    }
+}
+
 
 
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import "@/assets/style/artikelHeader.css"
 import AnimatedText from "./AnimatedText"
@@ -28,8 +29,11 @@ export default function artikelHeader() {
             text="Mari-Eksplor, “Keanggunan dan Kedalaman Budaya dalam Dunia Batik di Artikel.”"
             firstWord 
           />
-          <Button size='small' style={{ marginRight: 5,
-            marginTop: 15}}>Mulai Sekarang!</Button>
+           
+            {/* <Button size='small' style={{ marginRight: 5, marginTop: 15 }}>
+              Mulai Sekarang!
+            </Button> */}
+
       </div>
         
     </div>
