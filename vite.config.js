@@ -29,10 +29,10 @@ export default defineConfig({
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
-        // manualChunks: {
-        //   vendor: ['react', 'react-router-dom', 'react-dom'],
-        //   firebase: ['firebase/auth', 'firebase/firestore', 'firebase/storage'],
-        // },
+        manualChunks: {
+          vendor: ['react', 'react-router-dom', 'react-dom', 'framer-motion'],
+          firebase: ['firebase/auth', 'firebase/firestore', 'firebase/storage'],
+        },
       },
     },
   },
