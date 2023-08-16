@@ -6,9 +6,9 @@ import '@/assets/style/ImageGrid.css';
 export default function ImageModal({
   selectedFilePath,
   selectedFile,
-  userDetail,
   closeWindowHandler,
-  onChangeHandler,
+  clientUpload,
+  firebaseUpload,
   show,
 }) {
   return (
@@ -45,7 +45,7 @@ export default function ImageModal({
                 type="file"
                 hidden
                 onChange={(event) => {
-                  onChangeHandler(event);
+                  clientUpload(event);
                 }}
                 style={{ backgroundColor: 'transparent' }}
               />
@@ -58,7 +58,7 @@ export default function ImageModal({
                 style={{ backgroundColor: 'transparent', width: '60px' }}
                 src="https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
               />
-              <h3>{userDetail.displayName}</h3>
+              <h3>Calvin Danyalson</h3>
             </div>
             <div className="postCaption">
               <p>Insert your caption here</p>
@@ -68,6 +68,15 @@ export default function ImageModal({
             children="X"
             style={modalButton}
             onClick={closeWindowHandler}
+          />
+          <Button
+            children="Upload"
+            style={{
+              position: 'absolute',
+              bottom: '20px',
+              right: '20px',
+            }}
+            onClick={firebaseUpload}
           />
         </div>
       </div>

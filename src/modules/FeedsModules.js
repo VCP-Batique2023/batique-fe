@@ -1,15 +1,31 @@
+import { v4 } from 'uuid'
 import { db, storage } from '@/modules/firebase_config';
-import { collection, getDoc, getDocs, doc } from 'firebase/firestore';
+import { collection, getDoc, getDocs, setDoc, doc, Timestamp } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-const handleClientUpload = (e, setSelectedFileCb, setSelectedFilePathCb) => {
+async function handleFirebaseUpload(selectedFile){
+  
+    const imageRef = ref(storage, `feeds/${v4()}`);
+    const storageSnapShot = await uploadBytes(imageRef, selectedFile)
+    const publicUrl = await getDownloadURL(storageSnapShot.ref)
+
+    const caption = "ABCED"
+    const like = 0;
+
+    await setDoc(doc(db, 'feeds', `username-${v4()}`), {
+      caption: caption,
+      createdAt: Timestamp.fromDate(new Date()) ,
+      imageUrl: publicUrl,
+      like: 0,
+      userId: 'TPs0P8qiG5M3nEakYxQLt1ZENNY2'
+    })
+}
+
+async function handleClientUpload(e, setSelectedFileCb, setSelectedFilePathCb) {
   const file = e.target.files[0];
   if (Math.round(file.size / 1048576) > 2) {
     console.log('Keep it under 2MB');
     return;
-  }
-
-  if(file) {
-    const imageRef = ref(storage, `feeds/${file.name}`)
   }
 
   setSelectedFileCb(file);
@@ -57,6 +73,4 @@ async function getFeedById(userId, cb) {
   return cb(null);
 }
 
-function getTokenData = 
-
-export { getAllFeeds, getFeedById, handleClientUpload };
+export { getAllFeeds, getFeedById, handleClientUpload, handleFirebaseUpload };

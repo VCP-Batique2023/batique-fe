@@ -8,6 +8,7 @@ import {
   getAllFeeds,
   getFeedById,
   handleClientUpload,
+  handleFirebaseUpload,
 } from '@/modules/FeedsModules';
 
 // Import JSX Component
@@ -20,7 +21,7 @@ import Button from '@/components/Button';
 // Import Image Component
 import GaleryHeader from '@/assets/img/1.jpg';
 
-export default function Galery() {
+export default function Galery({ children }) {
   const [screenWidth, setScreenWidth] = useState(
     window.innerWidth >= 992 ? '60vh' : '30vh'
   );
@@ -94,10 +95,11 @@ export default function Galery() {
     }
   };
 
-  function handleUpload(e) {
+  function triggerClientUpload(e) {
     handleClientUpload(e, setSelectedFile, setSelectedFilePath);
-    console.log(selectedFile);
-    console.log(selectedFilePath);
+  }
+  function triggerFirebaseUpload() {
+    handleFirebaseUpload(selectedFile);
   }
 
   return (
@@ -164,7 +166,8 @@ export default function Galery() {
         selectedFilePath={selectedFilePath}
         selectedFile={selectedFile}
         closeWindowHandler={triggerShowModalAddPost}
-        onChangeHandler={handleUpload}
+        clientUpload={triggerClientUpload}
+        firebaseUpload={triggerFirebaseUpload}
         show={showModalAddPost}
       />
     </>
