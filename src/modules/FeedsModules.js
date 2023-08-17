@@ -10,11 +10,37 @@ import {
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
+async function checkImageOnMLAPI(selectedFile) {
+  try {
+    const reqData = new FormData();
+    reqData.append('file', selectedFile);
+    const response = await fetch(
+      'https://batique-be-fyelvmf6sq-et.a.run.app/scan',
+      {
+        method: 'POST',
+        body: reqData,
+      }
+    );
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = response.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 async function handleFirebaseUpload(
   caption,
   selectedFile,
   setShowModalAddPostCb
 ) {
+  const result = await checkImageOnMLAPI(selectedFile);
+  if (!result.isBatik) {
+    // Return something to trigger the toast
+    return;
+  }
   const imageRef = ref(storage, `feeds/${v4()}`);
   const storageSnapShot = await uploadBytes(imageRef, selectedFile);
   const publicUrl = await getDownloadURL(storageSnapShot.ref);

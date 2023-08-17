@@ -70,6 +70,7 @@ export default function ImageModal({
                 onChange={(event) => {
                   setCaptionInput(event);
                 }}
+                accept="image/png, image/jpeg, image/jpg"
               />
             </div>
           </div>

@@ -24,7 +24,6 @@ import GaleryHeader from '@/assets/img/1.jpg';
 
 export default function Galery() {
   const { currentUser } = useAuth();
-  console.log(currentUser);
   const [screenWidth, setScreenWidth] = useState(
     window.innerWidth >= 992 ? '60vh' : '30vh'
   );
@@ -107,7 +106,7 @@ export default function Galery() {
   }
 
   function triggerFirebaseUpload() {
-    handleFirebaseUpload(caption, selectedFile, setShowModalAddPost);
+    handleFirebaseUpload(caption, selectedFile, selectedFilePath, setShowModalAddPost);
   }
 
   return (
