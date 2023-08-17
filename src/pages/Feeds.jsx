@@ -6,10 +6,11 @@ import { useInView } from 'react-intersection-observer';
 // Import custom package
 import {
   getAllFeeds,
-  getFeedById,
+  getUserById,
   handleClientUpload,
   handleFirebaseUpload,
 } from '@/modules/FeedsModules';
+import { useAuth } from '@/contexts/AuthContext';
 
 // Import JSX Component
 import ImageHeader from '@/components/ImageHeader';
@@ -21,7 +22,9 @@ import Button from '@/components/Button';
 // Import Image Component
 import GaleryHeader from '@/assets/img/1.jpg';
 
-export default function Galery({ children }) {
+export default function Galery() {
+  const { currentUser } = useAuth();
+  console.log(currentUser);
   const [screenWidth, setScreenWidth] = useState(
     window.innerWidth >= 992 ? '60vh' : '30vh'
   );
@@ -78,7 +81,7 @@ export default function Galery({ children }) {
   function triggerShowModalDetailPost(feed) {
     if (showModalDetailPost == -1) {
       setShowModalDetailPost(2);
-      getFeedById(feed.userId, setUserDetail);
+      getUserById(feed.userId, setUserDetail);
       setDetailPost(feed);
     } else {
       setShowModalDetailPost(-1);
@@ -175,6 +178,7 @@ export default function Galery({ children }) {
         firebaseUpload={triggerFirebaseUpload}
         setCaptionInput={stateCaptionInput}
         captionInput={caption}
+        currentUser={currentUser.email}
         show={showModalAddPost}
       />
     </>

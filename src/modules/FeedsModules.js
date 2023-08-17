@@ -1,16 +1,27 @@
 import { v4 } from 'uuid';
 import { db, storage } from '@/modules/firebase_config';
-import { collection, getDoc, getDocs, setDoc, doc, Timestamp } from 'firebase/firestore';
+import {
+  collection,
+  getDoc,
+  getDocs,
+  setDoc,
+  doc,
+  Timestamp,
+} from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-async function handleFirebaseUpload(caption, selectedFile, setShowModalAddPostCb){
+async function handleFirebaseUpload(
+  caption,
+  selectedFile,
+  setShowModalAddPostCb
+) {
   const imageRef = ref(storage, `feeds/${v4()}`);
   const storageSnapShot = await uploadBytes(imageRef, selectedFile);
   const publicUrl = await getDownloadURL(storageSnapShot.ref);
 
   await setDoc(doc(db, 'feeds', `username-${v4()}`), {
     caption: caption,
-    createdAt: Timestamp.fromDate(new Date()) ,
+    createdAt: Timestamp.fromDate(new Date()),
     imageUrl: publicUrl,
     like: 0,
     userId: 'TPs0P8qiG5M3nEakYxQLt1ZENNY2',
@@ -34,7 +45,7 @@ async function handleClientUpload(e, setSelectedFileCb, setSelectedFilePathCb) {
   };
 
   reader.readAsDataURL(file);
-};
+}
 
 // Listen on Feeds Collection Update
 // function listenFeedsCollection(cb) {
@@ -58,7 +69,7 @@ async function getAllFeeds(cb) {
   cb(retrievedData);
 }
 
-async function getFeedById(userId, cb) {
+async function getUserById(userId, cb) {
   const querySnapshot = await getDoc(doc(db, 'users', `${userId}`));
 
   if (querySnapshot.exists()) {
@@ -70,4 +81,8 @@ async function getFeedById(userId, cb) {
   return cb(null);
 }
 
-export { getAllFeeds, getFeedById, handleClientUpload, handleFirebaseUpload };
+// async function getLoggedUserData() {
+
+// }
+
+export { getAllFeeds, getUserById, handleClientUpload, handleFirebaseUpload };

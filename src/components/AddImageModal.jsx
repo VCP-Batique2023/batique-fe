@@ -5,12 +5,12 @@ import '@/assets/style/ImageGrid.css';
 
 export default function ImageModal({
   selectedFilePath,
-  selectedFile,
   closeWindowHandler,
   clientUpload,
   setCaptionInput,
   captionInput,
   firebaseUpload,
+  currentUser,
   show,
 }) {
   return (
@@ -60,7 +60,7 @@ export default function ImageModal({
                 style={{ backgroundColor: 'transparent', width: '60px' }}
                 src="https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
               />
-              <h3>Calvin Danyalson</h3>
+              <h3>{currentUser}</h3>
             </div>
             <div className="postCaption">
               <input
