@@ -3,18 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
 import { useMobile } from '@/contexts/MobileContext';
+import { useEffect, useState } from 'react';
+import { db } from '@/modules/firebase_config';
+import { query, collection, orderBy, limit, getDocs } from 'firebase/firestore';
+
 import AnimatedText from '@/components/AnimatedText';
 import AnimatedImage from '@/components/AnimatedImage';
 import AnimatedArrow from '@/components/AnimatedArrow';
 import Button from '@/components/Button';
 import RedirectHome from '@/components/RedirectHome';
 import ShowcaseGrid from '@/components/ShowcaseGrid';
+import ArtikelContent from '@/components/artikelContent';
+
 import img1 from '@/assets/img/1.jpg';
 import img2 from '@/assets/img/2.jpg';
 import img3 from '@/assets/img/3.jpg';
 import img4 from '@/assets/img/4.jpg';
 import img5 from '@/assets/img/5.jpg';
+
 import '@/assets/style/Home.css';
+import '@/assets/style/artikelCard.css';
 
 // Temporary
 const arr = [img3, img1, img5, img4, img3, img3];
@@ -23,6 +31,22 @@ export default function Home() {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
   const { isMobile } = useMobile();
+  const [articleData, setArticleData] = useState([]);
+
+  useEffect(() => {
+    const fetchDb = async () => {
+      const articleArr = [];
+      const articleRef = collection(db, 'artikel');
+      const articleQuery = query(articleRef, orderBy('createdat'), limit(3));
+      const articleSnapshot = await getDocs(articleQuery);
+      articleSnapshot.forEach((doc) => {
+        articleArr.push(doc.data());
+      });
+      setArticleData(articleArr);
+    };
+
+    fetchDb();
+  }, []);
 
   const container = {
     hidden: {},
@@ -177,7 +201,7 @@ export default function Home() {
           />
           <RedirectHome
             style={{
-              marginTop: 32
+              marginTop: 32,
             }}
             label="Libatkan dirimu dengan menjelajahi dan berbagi ide"
             redirectLabel="Tampilkan Galeri"
@@ -294,6 +318,18 @@ export default function Home() {
           align="center"
           firstWord
         />
+        <div className="recent-article">
+          {articleData.map((article, index) => (
+            <ArtikelContent
+              key={index}
+              excerptVisible={true}
+              item={article}
+              onClick={() => navigate(`/artikel/${index}`, {
+                state: { articleData },
+              })}
+            />
+          ))}
+        </div>
       </section>
     </motion.main>
   );
