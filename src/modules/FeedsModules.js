@@ -1,21 +1,21 @@
-import { v4 } from 'uuid'
+import { v4 } from 'uuid';
 import { db, storage } from '@/modules/firebase_config';
 import { collection, getDoc, getDocs, setDoc, doc, Timestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 async function handleFirebaseUpload(caption, selectedFile, setShowModalAddPostCb){
   const imageRef = ref(storage, `feeds/${v4()}`);
-  const storageSnapShot = await uploadBytes(imageRef, selectedFile)
-  const publicUrl = await getDownloadURL(storageSnapShot.ref)
+  const storageSnapShot = await uploadBytes(imageRef, selectedFile);
+  const publicUrl = await getDownloadURL(storageSnapShot.ref);
 
   await setDoc(doc(db, 'feeds', `username-${v4()}`), {
     caption: caption,
     createdAt: Timestamp.fromDate(new Date()) ,
     imageUrl: publicUrl,
     like: 0,
-    userId: 'TPs0P8qiG5M3nEakYxQLt1ZENNY2'
-  })
-  setShowModalAddPostCb(-1)
+    userId: 'TPs0P8qiG5M3nEakYxQLt1ZENNY2',
+  });
+  setShowModalAddPostCb(-1);
 }
 
 async function handleClientUpload(e, setSelectedFileCb, setSelectedFilePathCb) {
