@@ -34,11 +34,17 @@ async function checkImageOnMLAPI(selectedFile) {
 async function handleFirebaseUpload(
   caption,
   selectedFile,
-  setShowModalAddPostCb
+  selectedFilePath,
+  uid,
+  setShowModalAddPostCb,
+  setSelectedFileCb,
+  setSelectedFilePathCb,
+  setCaptionCb
 ) {
   const result = await checkImageOnMLAPI(selectedFile);
   if (!result.isBatik) {
     // Return something to trigger the toast
+    console.log('isnotbatik');
     return;
   }
   const imageRef = ref(storage, `feeds/${v4()}`);
@@ -50,9 +56,12 @@ async function handleFirebaseUpload(
     createdAt: Timestamp.fromDate(new Date()),
     imageUrl: publicUrl,
     like: 0,
-    userId: 'TPs0P8qiG5M3nEakYxQLt1ZENNY2',
+    userId: uid,
   });
   setShowModalAddPostCb(-1);
+  setSelectedFileCb('');
+  setSelectedFilePathCb('');
+  setCaptionCb('Write your caption here!');
 }
 
 async function handleClientUpload(e, setSelectedFileCb, setSelectedFilePathCb) {

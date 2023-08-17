@@ -106,7 +106,16 @@ export default function Galery() {
   }
 
   function triggerFirebaseUpload() {
-    handleFirebaseUpload(caption, selectedFile, selectedFilePath, setShowModalAddPost);
+    handleFirebaseUpload(
+      caption,
+      selectedFile,
+      selectedFilePath,
+      currentUser.uid,
+      setShowModalAddPost,
+      setSelectedFile,
+      setSelectedFilePath,
+      setCaption
+    );
   }
 
   return (
