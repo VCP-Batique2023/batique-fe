@@ -55,7 +55,6 @@ async function getCurrentUserDataByUid(
   }
 
   const retrievedData = querySnapshot.data();
-  console.log(retrievedData);
   setAvatarCb(retrievedData.profilePicture);
   setNameCb(retrievedData.displayName);
   setUsernameCb(retrievedData.username);
