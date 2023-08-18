@@ -70,7 +70,7 @@ function Modal({
 
   useEffect(() => {
     setNewName(name);
-    setNewAvatar(avatar);
+    setNewAvatarPath(avatar);
     setNewUsername(username);
     setNewBio(bio);
   }, [isOpen]);
