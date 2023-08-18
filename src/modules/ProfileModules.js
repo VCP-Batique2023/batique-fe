@@ -3,13 +3,65 @@ import { db, storage } from '@/modules/firebase_config';
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   setDoc,
+  updateDoc,
   query,
   where,
   Timestamp,
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
+async function handleFirebaseUpdateProfile(
+  uid,
+  avatar,
+  name,
+  username,
+  bio,
+  setAvatarCb,
+  setNameCb,
+  setUsernameCb,
+  setBioCb
+) {
+  const userRef = doc(db, 'users', uid);
+  try {
+    await updateDoc(userRef, {
+      displayName: name,
+      username: username,
+      description: bio,
+    });
+    setAvatarCb(avatar);
+    setNameCb(name);
+    setUsernameCb(username);
+    setBioCb(bio);
+  } catch (err) {
+    console.log(err);
+  }
+  return;
+}
+
+async function getCurrentUserDataByUid(
+  uid,
+  setAvatarCb,
+  setNameCb,
+  setUsernameCb,
+  setBioCb
+) {
+  const querySnapshot = await getDoc(doc(db, 'users', `${uid}`));
+
+  if (!querySnapshot.exists()) {
+    return;
+  }
+
+  const retrievedData = querySnapshot.data();
+  console.log(retrievedData);
+  setAvatarCb(retrievedData.profilePicture);
+  setNameCb(retrievedData.displayName);
+  setUsernameCb(retrievedData.username);
+  setBioCb(retrievedData.description);
+  return;
+}
 
 async function handleFirebaseUpload(
   uid,
@@ -61,4 +113,10 @@ async function getFeedsById(userId, cb) {
   return cb(retrievedData);
 }
 
-export { getFeedsById, handleClientUpload, handleFirebaseUpload };
+export {
+  getFeedsById,
+  handleClientUpload,
+  handleFirebaseUpload,
+  getCurrentUserDataByUid,
+  handleFirebaseUpdateProfile,
+};

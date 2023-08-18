@@ -8,6 +8,8 @@ import {
   getFeedsById,
   handleClientUpload,
   handleFirebaseUpload,
+  getCurrentUserDataByUid,
+  handleFirebaseUpdateProfile,
 } from '@/modules/ProfileModules';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -22,21 +24,44 @@ import Button from '@/components/Button';
 
 // Import Image Component
 function Display() {
+  const { currentUser } = useAuth();
+
   const [isOpen, setIsOpen] = useState(false);
-  const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState('');
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [bio, setBio] = useState('');
+
+  useEffect(() => {
+    getCurrentUserDataByUid(
+      currentUser.uid,
+      setAvatar,
+      setName,
+      setUsername,
+      setBio
+    );
+  }, []);
 
   function changeModal() {
     setIsOpen(!isOpen);
   }
 
-  function handleSubmit({ name, avatar, username, bio }) {
-    setName(name);
-    setAvatar(avatar);
-    setUsername(username);
-    setBio(bio);
+  function triggerFirebaseUpdateProfile({ name, avatar, username, bio }) {
+    // setName(name);
+    // setAvatar(avatar);
+    // setUsername(username);
+    // setBio(bio);
+    handleFirebaseUpdateProfile(
+      currentUser.uid,
+      avatar,
+      name,
+      username,
+      bio,
+      setAvatar,
+      setName,
+      setUsername,
+      setBio
+    );
   }
 
   function replaceWithBr() {
@@ -78,7 +103,7 @@ function Display() {
         name={name}
         username={username}
         bio={bio}
-        handleSubmit={handleSubmit}
+        handleSubmit={triggerFirebaseUpdateProfile}
       />
     </div>
   );

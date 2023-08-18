@@ -1,26 +1,28 @@
 import { ArrowUpOnSquareIcon } from '@heroicons/react/24/solid';
 import { useState, useEffect } from 'react';
 import '../assets/style/Modal.css';
-import { getAuth, onAuthStateChanged } from 'firebase/auth'; // Import getAuth and onAuthStateChanged from Firebase Auth
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { db, storage } from '@/modules/firebase_config';
-import { useAuth } from '@/contexts/AuthContext';
+
+// import { getAuth, onAuthStateChanged } from 'firebase/auth'; // Import getAuth and onAuthStateChanged from Firebase Auth
+// import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+// import { db, storage } from '@/modules/firebase_config';
+// import { useAuth } from '@/contexts/AuthContext';
 
 function Modal({
   avatar,
-  isOpen,
-  changeModal,
   name,
   username,
   bio,
+  isOpen,
+  changeModal,
   handleSubmit,
 }) {
-  const [newName, setNewName] = useState(() => name || '');
-  const [newAvatar, setNewAvatar] = useState(() => avatar || null);
-  const [newUsername, setNewUsername] = useState(() => username || '');
-  const [newBio, setNewBio] = useState(() => bio || '');
-  const [user, setUser] = useState(null);
-  const { currentUser } = useAuth();
+  const [newName, setNewName] = useState(name);
+  const [newAvatar, setNewAvatar] = useState(avatar);
+  const [newUsername, setNewUsername] = useState(username);
+  const [newBio, setNewBio] = useState(bio);
+
+  // const [user, setUser] = useState(null);
+  // const { currentUser } = useAuth();
 
   // const handleFirestoreUpload = async (e) => {
   //   e.preventDefault();
@@ -51,18 +53,25 @@ function Modal({
   //     console.log(err);
   //   }
   // }
-  useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        setUser(null);
-      }
-    });
+  // useEffect(() => {
+  //   const auth = getAuth();
+  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       setUser(user);
+  //     } else {
+  //       setUser(null);
+  //     }
+  //   });
 
-    return () => unsubscribe();
-  }, []);
+  //   return () => unsubscribe();
+  // }, []);
+
+  useEffect(() => {
+    setNewName(name);
+    setNewAvatar(avatar);
+    setNewUsername(username);
+    setNewBio(bio);
+  }, [isOpen]);
 
   function handleChangeNewName(e) {
     setNewName(e.target.value);
@@ -98,7 +107,7 @@ function Modal({
           <h2 className="judulbatik">Edit Profile</h2>
           <div className="modal__avatar">
             <div className="display__avatar">
-              <img src={newAvatar || avatar} alt="avatar" />
+              <img src={newAvatar} alt="avatar" />
             </div>
             <div>
               <input
@@ -150,8 +159,6 @@ function Modal({
       </div>
     </div>
   );
-  }
-  }
 }
 
 export default Modal;
