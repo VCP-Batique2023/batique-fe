@@ -26,12 +26,17 @@ async function handleFirebaseUpdateProfile(
 ) {
   const userRef = doc(db, 'users', uid);
   try {
+    const imageRef = ref(storage, `profilePictures/${v4()}`);
+    const storageSnapShot = await uploadBytes(imageRef, avatar);
+    const publicUrl = await getDownloadURL(storageSnapShot.ref);
+
     await updateDoc(userRef, {
       displayName: name,
+      profilePicture: publicUrl,
       username: username,
       description: bio,
     });
-    setAvatarCb(avatar);
+    setAvatarCb(publicUrl);
     setNameCb(name);
     setUsernameCb(username);
     setBioCb(bio);

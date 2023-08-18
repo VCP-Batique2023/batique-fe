@@ -1,5 +1,6 @@
 import { ArrowUpOnSquareIcon } from '@heroicons/react/24/solid';
 import { useState, useEffect } from 'react';
+import EmptyAvatar from '../assets/img/empty-avatar.png';
 import '../assets/style/Modal.css';
 
 // import { getAuth, onAuthStateChanged } from 'firebase/auth'; // Import getAuth and onAuthStateChanged from Firebase Auth
@@ -18,6 +19,7 @@ function Modal({
 }) {
   const [newName, setNewName] = useState(name);
   const [newAvatar, setNewAvatar] = useState(avatar);
+  const [newAvatarPath, setNewAvatarPath] = useState('');
   const [newUsername, setNewUsername] = useState(username);
   const [newBio, setNewBio] = useState(bio);
 
@@ -78,7 +80,16 @@ function Modal({
   }
 
   function handleChangeAvatar(e) {
-    setNewAvatar(URL.createObjectURL(e.target.files[0]));
+    const file = e.target.files[0];
+    setNewAvatar(file);
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setNewAvatarPath(reader.result);
+    };
+
+    reader.readAsDataURL(file);
   }
 
   function handleChangeNewUsername(e) {
@@ -96,6 +107,7 @@ function Modal({
       avatar: newAvatar,
       username: newUsername,
       bio: newBio,
+      newAvatarPath: newAvatarPath,
     });
     changeModal();
   }
@@ -107,7 +119,7 @@ function Modal({
           <h2 className="judulbatik">Edit Profile</h2>
           <div className="modal__avatar">
             <div className="display__avatar">
-              <img src={newAvatar} alt="avatar" />
+              <img src={newAvatarPath || EmptyAvatar} alt="avatar" />
             </div>
             <div>
               <input
