@@ -201,11 +201,11 @@ export default function Home() {
           />
           <RedirectHome
             style={{
-              marginTop: 32,
+              marginTop: 48,
             }}
             label="Libatkan dirimu dengan menjelajahi dan berbagi ide"
             redirectLabel="Tampilkan Galeri"
-            path="/gallery"
+            path="/galeri"
           />
         </section>
       )}
@@ -318,18 +318,35 @@ export default function Home() {
           align="center"
           firstWord
         />
-        <div className="recent-article">
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '0px 0px -240px 0px' }}
+          className="recent-article"
+        >
           {articleData.map((article, index) => (
-            <ArtikelContent
-              key={index}
-              excerptVisible={true}
-              item={article}
-              onClick={() => navigate(`/artikel/${index}`, {
-                state: { articleData },
-              })}
-            />
+            <motion.div key={index} variants={item}>
+              <ArtikelContent
+                excerptVisible={true}
+                item={article}
+                onClick={() =>
+                  navigate(`/artikel/${index}`, {
+                    state: { artikel: articleData },
+                  })
+                }
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
+        <RedirectHome
+          style={{
+            marginTop: 48,
+          }}
+          label="Libatkan dirimu dengan menjelajahi dan berbagi ide"
+          redirectLabel="Artikel Lainnya"
+          path="/artikel"
+        />
       </section>
     </motion.main>
   );

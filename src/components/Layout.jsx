@@ -61,7 +61,7 @@ export default function Layout() {
                       )}
                     </NavLink>
                     <NavLink
-                      to="/galery"
+                      to="/galeri"
                       className={({ isActive }) => {
                         return `nav-link ${isActive ? 'active' : ''}`;
                       }}
@@ -331,7 +331,7 @@ export default function Layout() {
                       </NavLink>
                     ) : (
                       <NavLink
-                        to="/galery"
+                        to="/galeri"
                         onClick={() => {
                           setIsMenu(false);
                         }}

@@ -17,7 +17,7 @@ export default function artikelContent({
           <a href="#">{caption(item.category)}</a>
         </div>
         <a href="#">{item.title}</a>
-        {excerptVisible && <span>{truncate(item.content, 150)}</span>}
+        {excerptVisible && <span>{truncate(item.content, 250)}</span>}
       </div>
     </div>
   );

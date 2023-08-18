@@ -68,11 +68,11 @@ export default function Router() {
             }
           />
           <Route
-            path="/galery"
+            path="/galeri"
             element={
               <PrivateRoute
                 element={
-                  <DocumentTitle title="Galery">
+                  <DocumentTitle title="Galeri">
                     <Galery />
                   </DocumentTitle>
                 }
