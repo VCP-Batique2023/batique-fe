@@ -20,7 +20,7 @@ export default function ImageModal({ userDetail, detailPost, onClick, show }) {
                 style={{ backgroundColor: 'transparent', width: '60px' }}
                 src="https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
               />
-              <h3>{userDetail.displayName}</h3>
+              <h3>{userDetail.email}</h3>
             </div>
             <div className="postCaption">
               <p>{detailPost.caption}</p>

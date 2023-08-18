@@ -1,21 +1,20 @@
 /* eslint-disable react/no-children-prop */
 // Import package
 import { useState, useEffect } from 'react';
-import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid";
-
+import { EllipsisHorizontalIcon } from '@heroicons/react/24/solid';
 
 // Import custom package
 import {
-  getAllFeeds,
-  getFeedById,
+  getFeedsById,
   handleClientUpload,
   handleFirebaseUpload,
-} from '@/modules/FeedsModules';
+} from '@/modules/ProfileModules';
+import { useAuth } from '@/contexts/AuthContext';
 
 // Import JSX Component
-import Modal from "./Modal";
-import EmptyAvatar from "../assets/img/empty-avatar.png";
-import "../assets/style/Display.css";
+import Modal from './Modal';
+import EmptyAvatar from '../assets/img/empty-avatar.png';
+import '../assets/style/Display.css';
 import ImageGrid from '@/components/ImageGrid';
 import ImageModal from '@/components/ImageModal';
 import AddImageModal from '@/components/AddImageModal';
@@ -25,9 +24,9 @@ import Button from '@/components/Button';
 function Display() {
   const [isOpen, setIsOpen] = useState(false);
   const [avatar, setAvatar] = useState(null);
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-  const [bio, setBio] = useState("");
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [bio, setBio] = useState('');
 
   function changeModal() {
     setIsOpen(!isOpen);
@@ -41,7 +40,7 @@ function Display() {
   }
 
   function replaceWithBr() {
-    return bio.replace(/\r\n|\r|\n/g, "<br />");
+    return bio.replace(/\r\n|\r|\n/g, '<br />');
   }
 
   return (
@@ -52,7 +51,7 @@ function Display() {
         </div>
         <div className="display__info">
           <div className="display__info__header">
-            <h2 className="display__name">{name || "John Doe"}</h2>
+            <h2 className="display__name">{name || 'John Doe'}</h2>
             <button className="btn btn-ghost">
               <EllipsisHorizontalIcon
                 className="icon edit__icon"
@@ -62,7 +61,7 @@ function Display() {
           </div>
           <div className="display__info__body">
             <p className="display__username">
-              {username ? `@${username}` : "@johndoe"}
+              {username ? `@${username}` : '@johndoe'}
             </p>
             <p
               className="display__bio"
@@ -81,27 +80,17 @@ function Display() {
         bio={bio}
         handleSubmit={handleSubmit}
       />
-      
     </div>
   );
 }
 
 export default function Galery() {
-  const [setScreenWidth] = useState(
-    window.innerWidth >= 992 ? '60vh' : '30vh'
-  );
   const [feedsList, setFeedsList] = useState([]);
 
   const [showModalDetailPost, setShowModalDetailPost] = useState(-1);
   const [showModalAddPost, setShowModalAddPost] = useState(-1);
 
-  const resizeScreenHandler = () => {
-    if (window.innerWidth >= 992) {
-      setScreenWidth('60vh');
-    } else {
-      setScreenWidth('40vh');
-    }
-  };
+  const { currentUser } = useAuth();
 
   //State for Detail and Add Post
   const [detailPost, setDetailPost] = useState({});
@@ -112,23 +101,15 @@ export default function Galery() {
 
   // useEffect Fetch data from firebase
   useEffect(() => {
-    getAllFeeds(setFeedsList);
+    getFeedsById(currentUser.uid, setFeedsList);
   }, []);
-  
-  useEffect(() => {
-    window.addEventListener('resize', resizeScreenHandler);
-
-    return () => {
-      window.removeEventListener('resize', resizeScreenHandler);
-    };
-  });
 
   // For Triggering modal image --> Start
   function triggerShowModalDetailPost(feed) {
     if (showModalDetailPost == -1) {
       setShowModalDetailPost(2);
-      getFeedById(feed.userId, setUserDetail);
       setDetailPost(feed);
+      setUserDetail(currentUser);
     } else {
       setShowModalDetailPost(-1);
       setDetailPost({});
@@ -153,13 +134,18 @@ export default function Galery() {
   }
 
   function triggerFirebaseUpload() {
-    handleFirebaseUpload(caption, selectedFile, setShowModalAddPost);
+    handleFirebaseUpload(
+      currentUser.uid,
+      caption,
+      selectedFile,
+      setShowModalAddPost
+    );
   }
 
   return (
     <>
       <Display />
-      <h2 className='judulbatik'>Galeri Batique</h2>
+      <h2 className="judulbatik">Galeri Batique</h2>
       <ImageGrid feeds={feedsList} onClick={triggerShowModalDetailPost} />
       <ImageModal
         onClick={triggerShowModalDetailPost}

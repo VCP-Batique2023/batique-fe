@@ -1,10 +1,10 @@
-import { ArrowUpOnSquareIcon } from "@heroicons/react/24/solid";
-import { useState, useEffect } from "react";
-import "../assets/style/Modal.css";
-import { getAuth, onAuthStateChanged } from "firebase/auth"; // Import getAuth and onAuthStateChanged from Firebase Auth
+import { ArrowUpOnSquareIcon } from '@heroicons/react/24/solid';
+import { useState, useEffect } from 'react';
+import '../assets/style/Modal.css';
+import { getAuth, onAuthStateChanged } from 'firebase/auth'; // Import getAuth and onAuthStateChanged from Firebase Auth
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { db, storage } from '@/modules/firebase_config'
-
+import { db, storage } from '@/modules/firebase_config';
+import { useAuth } from '@/contexts/AuthContext';
 
 function Modal({
   avatar,
@@ -15,40 +15,42 @@ function Modal({
   bio,
   handleSubmit,
 }) {
-  const [newName, setNewName] = useState(() => name || "");
+  const [newName, setNewName] = useState(() => name || '');
   const [newAvatar, setNewAvatar] = useState(() => avatar || null);
-  const [newUsername, setNewUsername] = useState(() => username || "");
-  const [newBio, setNewBio] = useState(() => bio || "");
+  const [newUsername, setNewUsername] = useState(() => username || '');
+  const [newBio, setNewBio] = useState(() => bio || '');
   const [user, setUser] = useState(null);
   const { currentUser } = useAuth();
 
+  // const handleFirestoreUpload = async (e) => {
+  //   e.preventDefault();
+  //   const profileRef = doc(db, 'users', currentUser.uid);
+  //   const storageRef = ref(
+  //     storage,
+  //     `users/${currentUser.uid}/profile-picture/profile-picture-${currentUser.uid}.jpg`
+  //   );
+  //   try {
+  //     const updatedAt = Date.now();
+  //     if (!updatedProfile.newUsername) {
+  //       updatedProfile.newUsername = profile.newUsername;
+  //     }
 
-  const handleFirestoreUpload = async (e) => {
-    e.preventDefault();
-    const profileRef = doc(db, 'users', currentUser.uid);
-    const storageRef = ref(
-      storage,
-      `users/${currentUser.uid}/profile-picture/profile-picture-${currentUser.uid}.jpg`
-    );
-    try {
-      const updatedAt = Date.now();
-      if (!updatedProfile.newUsername) {
-        updatedProfile.newUsername = profile.newUsername;
-      }
+  //     const updateObj = Object.keys(updatedProfile)
+  //       .filter((key) => updatedProfile[key] !== profile[key])
+  //       .reduce((v, k) => Object.assign(v, { [k]: updatedProfile[k] }), {
+  //         updatedAt,
+  //       });
 
-      const updateObj = Object.keys(updatedProfile)
-        .filter((key) => updatedProfile[key] !== profile[key])
-        .reduce((v, k) => Object.assign(v, { [k]: updatedProfile[k] }), {
-          updatedAt,
-        });
-      
-       // Upload File and Get Download URL
-       if (selectedFile && selectedFilePath) {
-        const storageSnapshot = await uploadBytes(storageRef, selectedFile);
-        const downloadUrl = await getDownloadURL(storageSnapshot.ref);
-        updateObj.profilePicture = downloadUrl;
-      }
-  
+  //      // Upload File and Get Download URL
+  //      if (selectedFile && selectedFilePath) {
+  //       const storageSnapshot = await uploadBytes(storageRef, selectedFile);
+  //       const downloadUrl = await getDownloadURL(storageSnapshot.ref);
+  //       updateObj.profilePicture = downloadUrl;
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -90,7 +92,7 @@ function Modal({
   }
 
   return (
-    <div id="modal" className={isOpen ? "modal modal__open" : "modal"}>
+    <div id="modal" className={isOpen ? 'modal modal__open' : 'modal'}>
       <div className="modal__card">
         <div className="modal__body">
           <h2 className="judulbatik">Edit Profile</h2>

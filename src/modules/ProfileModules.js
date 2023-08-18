@@ -2,15 +2,17 @@ import { v4 } from 'uuid';
 import { db, storage } from '@/modules/firebase_config';
 import {
   collection,
-  getDoc,
+  doc,
   getDocs,
   setDoc,
-  doc,
+  query,
+  where,
   Timestamp,
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 async function handleFirebaseUpload(
+  uid,
   caption,
   selectedFile,
   setShowModalAddPostCb
@@ -24,7 +26,7 @@ async function handleFirebaseUpload(
     createdAt: Timestamp.fromDate(new Date()),
     imageUrl: publicUrl,
     like: 0,
-    userId: 'TPs0P8qiG5M3nEakYxQLt1ZENNY2',
+    userId: uid,
   });
   setShowModalAddPostCb(-1);
 }
@@ -47,38 +49,16 @@ async function handleClientUpload(e, setSelectedFileCb, setSelectedFilePathCb) {
   reader.readAsDataURL(file);
 }
 
-// Listen on Feeds Collection Update
-// function listenFeedsCollection(cb) {
-//     const data = [];
-//     const dataRef = collection(db, 'feeds');
-//     const dataSnapshot = onSnapshot(dataRef, (snapshot) => {
-//       snapshot.forEach((doc) => {
-//         data.push(doc.data());
-//       });
-//       cb(data);
-//     });
-//     return dataSnapshot;
-//   }
-
-async function getAllFeeds(cb) {
+async function getFeedsById(userId, cb) {
   const retrievedData = [];
-  const querySnapshot = await getDocs(collection(db, 'feeds'));
+
+  const feedsCollection = collection(db, 'feeds');
+  const q = query(feedsCollection, where('userId', '==', userId));
+  const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     retrievedData.push(doc.data());
   });
-  cb(retrievedData);
+  return cb(retrievedData);
 }
 
-async function getFeedById(userId, cb) {
-  const querySnapshot = await getDoc(doc(db, 'users', `${userId}`));
-
-  if (querySnapshot.exists()) {
-    const retrievedData = querySnapshot.data();
-    // console.log(retrievedData);
-    return cb(retrievedData);
-  }
-
-  return cb(null);
-}
-
-export { getAllFeeds, getFeedById, handleClientUpload, handleFirebaseUpload };
+export { getFeedsById, handleClientUpload, handleFirebaseUpload };
