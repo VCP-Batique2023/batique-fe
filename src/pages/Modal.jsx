@@ -104,7 +104,7 @@ function Modal({
     e.preventDefault();
     handleSubmit({
       name: newName,
-      avatar: newAvatar,
+      newAvatar: newAvatar,
       username: newUsername,
       bio: newBio,
       newAvatarPath: newAvatarPath,

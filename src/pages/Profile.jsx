@@ -46,7 +46,7 @@ function Display() {
     setIsOpen(!isOpen);
   }
 
-  function triggerFirebaseUpdateProfile({ name, avatar, username, bio }) {
+  function triggerFirebaseUpdateProfile({ name, newAvatar, username, bio }) {
     // setName(name);
     // setAvatar(avatar);
     // setUsername(username);
@@ -54,6 +54,7 @@ function Display() {
     handleFirebaseUpdateProfile(
       currentUser.uid,
       avatar,
+      newAvatar,
       name,
       username,
       bio,

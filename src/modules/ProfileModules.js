@@ -11,11 +11,17 @@ import {
   where,
   Timestamp,
 } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from 'firebase/storage';
 
 async function handleFirebaseUpdateProfile(
   uid,
   avatar,
+  newAvatar,
   name,
   username,
   bio,
@@ -27,8 +33,11 @@ async function handleFirebaseUpdateProfile(
   const userRef = doc(db, 'users', uid);
   try {
     const imageRef = ref(storage, `profilePictures/${v4()}`);
-    const storageSnapShot = await uploadBytes(imageRef, avatar);
+    const storageSnapShot = await uploadBytes(imageRef, newAvatar);
     const publicUrl = await getDownloadURL(storageSnapShot.ref);
+
+    const imageRefToDelete = ref(storage, avatar);
+    await deleteObject(imageRefToDelete);
 
     await updateDoc(userRef, {
       displayName: name,
