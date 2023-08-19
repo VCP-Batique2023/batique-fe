@@ -1,0 +1,16 @@
+.scroll-arrow {
+  position: absolute;
+  bottom: 10vh;
+  left: 50%;
+  /* width: 100%; */
+  animation: scroll-arrow 1s infinite alternate;
+}
+
+@keyframes scroll-arrow {
+  from {
+    transform: translate(-50%, -6px);
+  }
+  to {
+    transform: translate(-50%, 6px);
+  }
+}

@@ -1,0 +1,20 @@
+.redirect {
+  padding: 32;
+  display: flex;
+  gap: 16px;
+  color: #372b22;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+}
+
+@media screen and (max-width: 575px) {
+  .redirect {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .redirect p {
+    text-align: center;
+  }
+}

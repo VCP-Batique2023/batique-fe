@@ -37,6 +37,10 @@ export default function artikeTabs( {
             <ArtikelCard
                 artikel={filteredArtikel} 
                 excerptVisible={true} 
+                onClick={(index) => {
+                    setSelectedCardIndex(index);
+                    navigate(`/artikel/${index}`, { state: { artikel } });
+                }}
             />
             </div>
             <div className='side-menu'>
