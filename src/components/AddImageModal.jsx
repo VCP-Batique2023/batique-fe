@@ -60,7 +60,7 @@ export default function ImageModal({
                 style={{ backgroundColor: 'transparent', width: '60px' }}
                 src="https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
               />
-              <h3>{currentUser}</h3>
+              <h3>{currentUser.displayName}</h3>
             </div>
             <div className="postCaption">
               <input

@@ -8,6 +8,8 @@ import {
   setDoc,
   doc,
   Timestamp,
+  limit,
+  query
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
@@ -100,10 +102,13 @@ async function handleClientUpload(e, setSelectedFileCb, setSelectedFilePathCb) {
 
 async function getAllFeeds(cb) {
   const retrievedData = [];
-  const querySnapshot = await getDocs(collection(db, 'feeds'));
+  const feedsRef = collection(db, 'feeds');
+  const feedsQuery = query(feedsRef, limit(1))
+  const querySnapshot = await getDocs(feedsQuery);
   querySnapshot.forEach((doc) => {
     retrievedData.push(doc.data());
   });
+  console.log(retrievedData)
   cb(retrievedData);
 }
 
@@ -118,9 +123,5 @@ async function getUserById(userId, cb) {
 
   return cb(null);
 }
-
-// async function getLoggedUserData() {
-
-// }
 
 export { getAllFeeds, getUserById, handleClientUpload, handleFirebaseUpload };

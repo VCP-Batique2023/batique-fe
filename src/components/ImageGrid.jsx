@@ -9,6 +9,7 @@ import '@/assets/style/ImageGrid.css';
 export default function ImageGrid({ feeds, onClick }) {
   let imagePerSlide = 15;
   const [count, setCount] = useState(imagePerSlide);
+
   const loadMoreImageHandler = () => {
     setCount(count + imagePerSlide);
   };

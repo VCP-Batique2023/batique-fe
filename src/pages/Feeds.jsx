@@ -37,6 +37,7 @@ export default function Galery() {
   //State for Detail and Add Post
   const [detailPost, setDetailPost] = useState({});
   const [userDetail, setUserDetail] = useState({});
+  const [currentUserForAddFeed, setUserCurrentForAddFeed] = useState({});
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFilePath, setSelectedFilePath] = useState('');
   const [caption, setCaption] = useState('Write your caption here!');
@@ -44,6 +45,10 @@ export default function Galery() {
   // useEffect Fetch data from firebase
   useEffect(() => {
     getAllFeeds(setFeedsList);
+  }, []);
+
+  useEffect(() => {
+    getUserById(currentUser.uid, setUserCurrentForAddFeed);
   }, []);
 
   // Filter Feeds
@@ -186,7 +191,7 @@ export default function Galery() {
         firebaseUpload={triggerFirebaseUpload}
         setCaptionInput={stateCaptionInput}
         captionInput={caption}
-        currentUser={currentUser.email}
+        currentUser={currentUserForAddFeed}
         show={showModalAddPost}
       />
     </>
