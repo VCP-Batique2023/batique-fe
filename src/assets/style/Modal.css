@@ -1,0 +1,131 @@
+.modal {
+  display: none !important;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal__open {
+  display: flex !important;
+}
+
+.modal__close {
+  display: none;
+}
+
+.modal__card {
+  padding: 2rem 0px;
+  background-color: white;
+  width: 400px;
+  overflow: auto;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__avatar {
+  width: 50%;
+  margin: auto;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.modal__body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__input_file {
+  display: none;
+}
+
+.upload__icon {
+  padding: 3px;
+  position: absolute;
+  height: 28px;
+  width: 28px;
+  bottom: 0;
+  right: 0;
+  background-color: rgb(14, 1, 1);
+  color: whitesmoke;
+  border-radius: 99rem;
+  border: 4px solid white;
+  cursor: pointer;
+}
+
+.input__label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-left: 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+.modal__input {
+  width: calc(100% - 64px);
+  border: 1px solid black;
+  font-family: 'Outfit', sans-serif;
+}
+
+.textarea {
+  width: 80%;
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid black;
+  padding: 10px;
+  font-size: 1.1rem;
+  font-family: sans-serif;
+  font-weight: 400;
+  resize: none;
+  outline: none;
+  font-family: 'Outfit', sans-serif
+}
+
+.modal__action {
+  width: 80%;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: white;
+}
+
+.btn-danger {
+ 
+  padding: 5px 10px;
+  border-radius: 99rem;
+}
+
+.btn-success {
+  border: 2px solid rgb(110, 32, 32);
+  background-color: rgb(110, 32, 32);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 99rem;
+}
+
+
+.judulbatik {
+  border-top: 1px solid black;
+  margin: 0 10px;
+  padding: 30px 0 15px;
+  font-family: "Outfit", sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: 800;
+}

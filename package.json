@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "firebase": "^10.1.0",
+    "@heroicons/react": "^2.0.18",
     "framer-motion": "^10.15.0",
     "hamburger-react": "^2.5.0",
     "nprogress": "^0.2.0",
