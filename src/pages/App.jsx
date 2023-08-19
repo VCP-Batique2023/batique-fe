@@ -65,6 +65,7 @@ function App() {
 
   return (
     <>
+    <div id="progressBar"/>
       <Toaster
         toastOptions={toastStyle}
         position="bottom-right"

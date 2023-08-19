@@ -31,24 +31,13 @@ export default function AnimatedText({
       style={{
         justifyContent: align,
         fontFamily: ['Playfair Display', 'serif'],
-        ...style,
       }}
       aria-label={text}
     >
       {textSplit.map((word, index) => (
         <motion.span
-          style={
-            firstWord && index !== 0
-              ? {
-                  fontSize: 24,
-                }
-              : {
-                  fontSize: 36,
-                  letterSpacing: 4,
-                  fontWeight: 'bold',
-                  marginBottom: -3
-                }
-          }
+          style={style}
+          className={firstWord ? index === 0 ? 'first-word' : 'word' : 'first-word'}
           aria-hidden="true"
           key={index}
           initial="hidden"

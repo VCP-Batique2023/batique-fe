@@ -172,7 +172,7 @@ export default function artikeTabs() {
                 artikel={filteredArtikel} 
                 excerptVisible={true} 
                 onClick={(index) => {
-                    setSelectedCardIndex(index)
+                    setSelectedCardIndex(index);
                     navigate(`/artikel/${index}`, { state: { artikel } });
                 }}
             />

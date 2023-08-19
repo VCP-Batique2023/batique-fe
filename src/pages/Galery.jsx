@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import { useState, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { motion } from 'framer-motion';
 
 import ImageHeader from '@/components/ImageHeader';
 import ImageGrid from '@/components/ImageGrid';
@@ -231,7 +231,7 @@ export default function Galery() {
   const [feedsList, setFeedsList] = useState(feedsDummyList);
 
   const [activeSort, setActiveSort] = useState('default');
-  const { ref: targetButtonRef, inView: targetButtonIsVisible } = useInView();
+  // const { ref: targetButtonRef, inView: targetButtonIsVisible } = useInView();
   const [showModalDetailPost, setShowModalDetailPost] = useState(-1);
   const [showModalAddPost, setShowModalAddPost] = useState(-1);
   const [postData, setPostData] = useState({});
@@ -309,11 +309,12 @@ export default function Galery() {
   };
 
   return (
-    <>
+    <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+
       <ImageHeader path={GaleryHeader} height={screenWidth} />
       <div className="sortContainer">
         <div
-          ref={targetButtonRef}
+          // ref={targetButtonRef}
           className="sort"
           style={{ backgroundColor: '#372B22' }}
         >
@@ -355,6 +356,6 @@ export default function Galery() {
         show={showModalAddPost}
         onClick={triggerShowModalAddPost}
       />
-    </>
+    </motion.main>
   );
 }

@@ -5,7 +5,7 @@ import '@/assets/style/LoadingBar.css';
 export default function LoadingBar() {
   useEffect(() => {
     nProgress.configure({
-      parent: 'nav',
+      parent: '#progressBar',
       showSpinner: false,
       minimum: 0.15,
     });

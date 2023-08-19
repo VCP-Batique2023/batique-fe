@@ -5,6 +5,8 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
+  setPersistence,
+  browserSessionPersistence,
 } from 'firebase/auth';
 import { auth } from '@/modules/firebase_config';
 
@@ -25,6 +27,10 @@ export function AuthProvider({ children }) {
   const userSignIn = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
+
+  const sessionMode = () => {
+    setPersistence(auth, browserSessionPersistence)
+  }
 
   const userSignOut = () => {
     return signOut(auth);
@@ -49,6 +55,7 @@ export function AuthProvider({ children }) {
     userSignUp,
     userSignOut,
     userResetPassword,
+    sessionMode,
   };
 
   return (

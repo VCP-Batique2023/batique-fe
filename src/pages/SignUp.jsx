@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { getDoc, doc, writeBatch, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/modules/firebase_config';
 import { useAuth } from '@/contexts/AuthContext';
+import { useMobile } from '@/contexts/MobileContext';
 import { caption } from '@/modules/utils';
 
 import img1 from '@/assets/img/1.jpg';
@@ -14,11 +15,11 @@ import TextField from '@/components/TextField';
 import Button from '@/components/Button';
 import RadioField from '@/components/RadioField';
 import Checkbox from '@/components/Checkbox';
-// import { useEffect } from 'react';
 
 function SignUp() {
   const navigate = useNavigate();
   const { userSignUp } = useAuth();
+  const { isMobile } = useMobile();
 
   const [username, setUsername] = useState('');
   const [displayName, setDisplayName] = useState('');
@@ -114,10 +115,12 @@ function SignUp() {
       className="auth-container"
     >
       <div className="auth-card">
-        <div className="side-card">
-          <h2 className="logo">Batique</h2>
-          <img src={img1} alt="" />
-        </div>
+        {!isMobile && (
+          <div className="side-card">
+            <h2 className="logo">Batique</h2>
+            <img src={img1} alt="" />
+          </div>
+        )}
         <form className="form-card" onSubmit={handleSignUp}>
           <h1 className="form-title">Daftar Akun Batique</h1>
           <div className="form-flex">
@@ -159,9 +162,9 @@ function SignUp() {
                 setValue={setPassword}
               />
               <Checkbox
-              style={{
-                marginTop: 16
-              }}
+                style={{
+                  marginTop: 16,
+                }}
                 label="Privasi & Ketentuan"
                 value={confirm}
                 setValue={() => setConfirm(!confirm)}
