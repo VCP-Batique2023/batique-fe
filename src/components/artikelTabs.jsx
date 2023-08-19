@@ -9,52 +9,34 @@ import ArtikelCard from './artikelCard';
 import Button from './Button';
 
 export default function artikeTabs( {
-    artikel,
-    generateExcerpt,
+    artikel
 }) {
     
     const [activeCategory, setActiveCategory] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const uniqueCategories = [...new Set(artikel.map(item => item.category))];
     const { currentUser } = useAuth(); 
-    const handleCategoryChange = (category) => {
-        setActiveCategory(category);
-    }
+    
     const handleSearchInputChange = (event) => {
         if (event.key === 'Enter') {
           setSearchQuery(event.target.value);
         }
     };
+
     const filteredArtikel = artikel.filter(item => {
         const categoryMatch = !activeCategory || item.category === activeCategory;
-        const searchMatch = !searchQuery || 
-          item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          item.content.toLowerCase().includes(searchQuery.toLowerCase());
+        const searchMatch = searchQuery === '' || 
+            item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.content.toLowerCase().includes(searchQuery.toLowerCase());
         return categoryMatch && searchMatch;
-      });
-      
-      const searchFilter = artikel.filter(item => {
-        const searchMatch = !searchQuery || 
-          item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          item.content.toLowerCase().includes(searchQuery.toLowerCase());
-        return searchMatch;
-      });
-      
-//       const tabsRef = useRef(null);
-
-//   useEffect(() => {
-//     if (props.location.state && props.location.state.scrollTo === 'tabs' && tabsRef.current) {
-//       tabsRef.current.scrollIntoView({ behavior: 'smooth' });
-//     }
-//   }, [props.location.state]);
-      
+    });
+   
     return (
         <div  id="tabs" className="container-tabs">
-            <div className="cards">
+            <div className="tabs-cards">
             <ArtikelCard
                 artikel={filteredArtikel} 
                 excerptVisible={true} 
-                generateExcerpt={generateExcerpt}
             />
             </div>
             <div className='side-menu'>
@@ -69,12 +51,16 @@ export default function artikeTabs( {
                     <div className="content-category">
                         
                         {
-                                uniqueCategories.map((category,index)=>(
-                                <Button key={index}  onClick={() => setActiveCategory(category)}
-                                    variant='outlined' size='small' style={{ marginRight: 5,
-                                    marginBottom: 8, borderRadius:20 }}>
+                            uniqueCategories.map((category,index)=>(
+                                <Button
+                                key={index}
+                                onClick={() => setActiveCategory(category)}
+                                variant={activeCategory === category ? 'contained' : 'outlined'}
+                                size="small"
+                                style={{ marginRight: 5, marginBottom: 8, borderRadius: 20 }}
+                              >
                                 {category}
-                                </Button>
+                              </Button>
                             ))
                         }
                         
@@ -89,6 +75,7 @@ export default function artikeTabs( {
                         onKeyDown={handleSearchInputChange}
                         />
                     </div>
+
                     <div className="categories">
                         <div className="head-category">
                             <span>
@@ -98,13 +85,29 @@ export default function artikeTabs( {
                         <div className="content-category">    
                             {
                                 uniqueCategories.map((category,index)=>(
-                                <Button key={index}  onClick={() => setActiveCategory(category)}
-                                    variant='outlined' size='small' style={{ marginRight: 5,
-                                    marginBottom: 8, borderRadius:20 }}>
-                                {category}
+                                <Button
+                                    key={index}
+                                    onClick={() => setActiveCategory(category)}
+                                    variant={activeCategory === category ? 'contained' : 'outlined'}
+                                    size="small"
+                                    style={{ marginRight: 5, marginBottom: 8, borderRadius: 20 }}
+                                >
+                                    {category}
                                 </Button>
+                                
                                 ))
-                            }   
+                                
+                            }  
+                           <Button
+                                key="all"
+                                onClick={() => setActiveCategory(null)} // Set activeCategory to null to show all
+                                variant="outlined"
+                                size="small"
+                                style={{ marginRight: 5, marginBottom: 8, borderRadius: 20 }}
+                                >
+                            All
+                            </Button>
+
                         </div>
                     </div>    
                 </>

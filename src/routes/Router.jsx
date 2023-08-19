@@ -11,8 +11,10 @@ const DetailArtikel = lazy(() => import('@/pages/detailartikel'));
 const SignUp = lazy(() => import('@/pages/SignUp'));
 const SignIn = lazy(() => import('@/pages/SignIn'));
 const Galery = lazy(() => import('@/pages/Galery'));
+const Input = lazy(() => import('@/pages/input'));
 
 import PrivateRoute from '@/routes/PrivateRoute';
+import Tentang from '@/pages/Tentang';
 
 export default function Router() {
   return (
@@ -31,6 +33,15 @@ export default function Router() {
             element={
               <DocumentTitle title="Selamat datang - Batique">
                 <Home />
+              </DocumentTitle>
+            }
+          />
+          <Route
+            exact
+            path="/tentang"
+            element={
+              <DocumentTitle title="Selamat datang - Batique">
+                <Tentang />
               </DocumentTitle>
             }
           />
@@ -59,6 +70,15 @@ export default function Router() {
               </DocumentTitle>
             }
           />
+           <Route
+            path={`/input`}
+            element={
+              <DocumentTitle title="Batique - Artikel">
+              <Input />
+              </DocumentTitle>
+            }
+          />
+          
           <Route
             path="/masuk"
             element={

@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Ysabeau+Infant:wght@400&display=swap');
+.header-tentang, .boundary{
+    background-image: url('/src/assets/img/batikilus.jpg');
+    height: 40vh;
+    background-size: cover;
+    background-attachment: fixed;
+    -moz-background-inline-policy: 10%;
+    background-position: right ;
+    /* background-color: #f0e0b0; */
+}
+
+.header-text {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    margin: auto;
+    padding-top: 7%;
+  }
+
+.content-tentang{
+    width: 80%;
+    text-align: justify;
+    justify-content: center; 
+    align-items: center; 
+    margin: auto;
+    height: auto;
+    padding: 3% 10%;
+}
+
+.our-team{
+    height: 100vh;
+    padding: 5% 20%;
+
+}
+
+.team-mem{
+    width: calc(200px * 3 + 18%);
+    height: auto;
+    /* padding-top: 17%; */
+    margin: 17% auto;
+    display: flex;
+    /* background: #000; */
+    gap: 10%;
+    
+}
+.mem-pic{
+    height: 200px;
+    width: 200px;
+    border-radius: 100px;
+    object-fit: cover;
+    margin-bottom: 10%;
+}
+
+.team-mem span {
+    display: block; 
+    text-align: center; 
+    margin: auto; 
+    font-size: larger;
+    font-weight: 500;
+    font-family: 'Ysabeau Infant', 'sans-serif';
+}
+@media only screen and (max-width: 575px) {
+    .header-tentang, .boundary{
+        background-position: center;
+    }
+    .our-team{
+        height: auto;
+    }
+    .team-mem{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        margin: 20% auto;
+        justify-content: center;
+    }
+    .member{
+        padding-bottom: 10%;
+    }
+}

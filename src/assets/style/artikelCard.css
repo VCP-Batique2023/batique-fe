@@ -6,7 +6,7 @@ body{
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
-    width: calc(300px * 2 + 80px);
+    max-width: calc(300px * 3 + 80px);
     
     
 }
