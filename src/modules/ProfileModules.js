@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
 import { db, storage } from '@/modules/firebase_config';
+import toast from 'react-hot-toast';
 import {
   collection,
   doc,
@@ -106,7 +107,9 @@ async function handleFirebaseUpload(
   const result = await checkImageOnMLAPI(selectedFile);
   if (!result.isBatik) {
     // Return something to trigger the toast
-    console.log('isnotbatik');
+    toast.error(`Silahkan upload gambar batik!`);
+    setShowModalAddPostCb(-1)
+    // console.log('isnotbatik');
     return;
   }
 
