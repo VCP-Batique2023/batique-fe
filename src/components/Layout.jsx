@@ -398,7 +398,6 @@ export default function Layout() {
                         </Button>
                         <Button
                           onClick={() => navigate('/daftar')}
-                          style={{ marginLeft: 16 }}
                           variant="contained"
                           size='large'
                         >
