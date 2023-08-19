@@ -5,7 +5,7 @@ import { truncate } from '@/modules/utils';
 
 export default function ShowcaseImage({ index, variants, image }) {
   return (
-    <motion.div onHo variants={variants} key={index} className="image-container">
+    <motion.div variants={variants} key={index} className="image-container">
       <div className="hover-container">
         <p className="img-title">{truncate(image?.caption, 30)}</p>
         <div className="image-detail">
