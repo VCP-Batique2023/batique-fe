@@ -376,7 +376,7 @@ export default function Home() {
           <div style={{
             display: 'flex',
             justifyContent: 'center',
-            margin: '0 64px'
+            padding: '68px 0'
           }}>
             <GridLoader color="#372B22" />
           </div>
