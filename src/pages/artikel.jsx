@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import ArtikelTabs from '@/components/artikelTabs';
 import ArtikelHeader from '@/components/artikelHeader';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '@/modules/firebase_config';
+import {getAllArtikel} from '@/modules/artikelModule'
 import '@/assets/style/artikel.css'
 
   
@@ -123,18 +122,8 @@ export default function artikel({
     // ]
     const [artikel, setArtikel] = useState([]);
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const querySnapshot = await getDocs(collection(db, 'artikel')); 
-                const artikelData = querySnapshot.docs.map((doc) => doc.data());
-                setArtikel(artikelData);
-            } catch (error) {
-                console.error('Error fetching articles:', error);
-            }
-        };
-
-        fetchData();
-    }, []);
+        getAllArtikel(setArtikel);
+      }, []);
     
     
     return (
@@ -144,4 +133,4 @@ export default function artikel({
         </div>
     )
 }
-  
+
