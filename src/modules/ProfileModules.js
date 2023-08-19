@@ -1,4 +1,3 @@
-import { v4 } from 'uuid';
 import { db, storage } from '@/modules/firebase_config';
 import toast from 'react-hot-toast';
 import {
@@ -12,12 +11,7 @@ import {
   where,
   Timestamp,
 } from 'firebase/firestore';
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  deleteObject,
-} from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 async function handleFirebaseUpdateProfile(
   uid,
@@ -33,12 +27,9 @@ async function handleFirebaseUpdateProfile(
 ) {
   const userRef = doc(db, 'users', uid);
   try {
-    const imageRef = ref(storage, `profilePictures/${v4()}`);
+    const imageRef = ref(storage, `profilePictures/profile-${uid}}`);
     const storageSnapShot = await uploadBytes(imageRef, newAvatar);
     const publicUrl = await getDownloadURL(storageSnapShot.ref);
-
-    const imageRefToDelete = ref(storage, avatar);
-    await deleteObject(imageRefToDelete);
 
     await updateDoc(userRef, {
       displayName: name,
@@ -108,7 +99,7 @@ async function handleFirebaseUpload(
   if (!result.isBatik) {
     // Return something to trigger the toast
     toast.error(`Silahkan upload gambar batik!`);
-    setShowModalAddPostCb(-1)
+    setShowModalAddPostCb(-1);
     // console.log('isnotbatik');
     return;
   }

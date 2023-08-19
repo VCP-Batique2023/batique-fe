@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "firebase": "^10.1.0",
     "@heroicons/react": "^2.0.18",
+    "firebase": "^10.1.0",
     "framer-motion": "^10.15.0",
     "nprogress": "^0.2.0",
     "react": "^18.2.0",
@@ -19,8 +19,7 @@
     "react-hot-toast": "^2.4.1",
     "react-intersection-observer": "^9.5.2",
     "react-masonry-css": "^1.0.16",
-    "react-router-dom": "^6.14.2",
-    "uuid": "^9.0.0"
+    "react-router-dom": "^6.14.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
