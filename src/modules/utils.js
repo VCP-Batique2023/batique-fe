@@ -10,3 +10,8 @@ export const truncate = (str, n) => {
 export const caption = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+export const generateDate = (timestamp) => {
+  const time = new Date(timestamp.toDate());
+  return `${time.getDate()}/${time.getMonth()}/${time.getFullYear()}`;
+}

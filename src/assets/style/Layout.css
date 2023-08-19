@@ -106,6 +106,14 @@ nav {
   color: #372b22;
 }
 
+.nav-container .profile img {
+  display: block;
+  border-radius: 99px;
+  cursor: pointer;
+  object-fit: cover;
+  object-position: center;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .nav-flex ul .nav-link:hover:before {
     background-color: #372b22;

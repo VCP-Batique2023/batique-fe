@@ -1,18 +1,8 @@
-// Temporary
-import img5 from '@/assets/img/5.jpg';
-import img8 from '@/assets/img/8.jpg';
-import img9 from '@/assets/img/9.jpg';
-import img10 from '@/assets/img/10.jpg';
-import img11 from '@/assets/img/11.jpg';
-import img12 from '@/assets/img/12.jpg';
-import img13 from '@/assets/img/13.jpg';
-
 import { motion } from 'framer-motion';
+import ShowcaseImage from '@/components/ShowcaseImage';
 import '@/assets/style/ShowcaseGrid.css';
 
-const showcaseArr = [img5, img10, img9, img8, img11, img13, img12];
-
-export default function ShowcaseGrid({ style }) {
+export default function ShowcaseGrid({ arr, style }) {
   const container = {
     hidden: {},
     show: {},
@@ -46,10 +36,8 @@ export default function ShowcaseGrid({ style }) {
       className="grid-showcase"
       style={style}
     >
-      {showcaseArr.slice(0, 7).map((image, index) => (
-        <motion.div variants={box} key={index} className="image-container">
-          <img src={image} alt={`Showcase Post ${index}`} />
-        </motion.div>
+      {arr.slice(0, 7).map((image, index) => (
+        <ShowcaseImage variants={box} image={image} key={index} />
       ))}
     </motion.div>
   );

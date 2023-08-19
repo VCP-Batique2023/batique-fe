@@ -8,19 +8,36 @@ import SearchBox from '@/components/SearchBox';
 import Backdrop from '@/components/Backdrop';
 import '@/assets/style/Layout.css';
 import '@/assets/style/Button.css';
-import img1 from '@/assets/img/5.jpg';
+import defaultProfilePicture from '@/assets/img/empty-avatar.png';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect } from 'react';
+import { onSnapshot, doc } from 'firebase/firestore';
+import { db } from '@/modules/firebase_config.js';
 
 export default function Layout() {
   const navigate = useNavigate();
   const { currentUser, userSignOut } = useAuth();
   const { isMobile, isTablet } = useMobile();
   const [isMenu, setIsMenu] = useState(false);
+  const [profile, setProfile] = useState(null);
 
   const handleSignOut = async () => {
     navigate('/');
     await userSignOut();
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      const profileRef = doc(db, 'users', currentUser.uid);
+      const unsubscribe = onSnapshot(profileRef, (snapshot) => {
+        if (snapshot.exists()) {
+          setProfile(snapshot.data());
+        }
+      });
+      return unsubscribe;
+    }
+    return () => {};
+  }, [currentUser]);
 
   return (
     <>
@@ -250,11 +267,7 @@ export default function Layout() {
                       <div className="profile">
                         <img
                           onClick={() => navigate('/profil')}
-                          style={{
-                            borderRadius: 99,
-                            cursor: 'pointer',
-                          }}
-                          src={img1}
+                          src={profile?.profilePicture || defaultProfilePicture}
                           className="nav-profile"
                           width={36}
                           height={36}
@@ -353,6 +366,46 @@ export default function Layout() {
                     >
                       Artikel
                     </NavLink>
+                    {currentUser ? (
+                      <>
+                        <NavLink
+                          to="/profil"
+                          onClick={() => {
+                            setIsMenu(false);
+                          }}
+                          className={({ isActive }) => {
+                            return `nav-link ${isActive ? 'active' : ''}`;
+                          }}
+                        >
+                          Profil
+                        </NavLink>
+                        <Button
+                        onClick={() => handleSignOut()}
+                        variant="outlined"
+                        size='large'
+                      >
+                        Keluar
+                      </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Button
+                          onClick={() => navigate('/masuk')}
+                          variant="outlined"
+                          size='large'
+                        >
+                          Masuk
+                        </Button>
+                        <Button
+                          onClick={() => navigate('/daftar')}
+                          style={{ marginLeft: 16 }}
+                          variant="contained"
+                          size='large'
+                        >
+                          Daftar
+                        </Button>
+                      </>
+                    )}
                   </ul>
                 </motion.div>
                 <Backdrop onClick={() => setIsMenu(false)} blur={false} />

@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
 import { useMobile } from '@/contexts/MobileContext';
 import { useEffect, useState } from 'react';
+import GridLoader from 'react-spinners/GridLoader';
 import { db } from '@/modules/firebase_config';
 import { query, collection, orderBy, limit, getDocs } from 'firebase/firestore';
 
@@ -32,20 +33,33 @@ export default function Home() {
   const { currentUser } = useAuth();
   const { isMobile } = useMobile();
   const [articleData, setArticleData] = useState([]);
+  const [mostLikedData, setMostLikedData] = useState([]);
 
   useEffect(() => {
-    const fetchDb = async () => {
-      const articleArr = [];
+    const fetchArticle = async () => {
+      const articleResults = [];
       const articleRef = collection(db, 'artikel');
       const articleQuery = query(articleRef, orderBy('createdat'), limit(3));
       const articleSnapshot = await getDocs(articleQuery);
       articleSnapshot.forEach((doc) => {
-        articleArr.push(doc.data());
+        articleResults.push(doc.data());
       });
-      setArticleData(articleArr);
+      setArticleData(articleResults);
     };
 
-    fetchDb();
+    const fetchFeed = async () => {
+      const feedRef = collection(db, 'feeds');
+      const feedQuery = query(feedRef, orderBy('like', 'desc'), limit(7));
+      const feedSnapshot = await getDocs(feedQuery);
+      const feedResults = [];
+      feedSnapshot.forEach((doc) => {
+        feedResults.push(doc.data());
+      });
+      setMostLikedData(feedResults);
+    };
+
+    fetchFeed();
+    fetchArticle();
   }, []);
 
   const container = {
@@ -194,11 +208,22 @@ export default function Home() {
             firstWord
             align="center"
           />
-          <ShowcaseGrid
-            style={{
-              marginTop: 48,
-            }}
-          />
+          {mostLikedData.length > 0 ? (
+            <ShowcaseGrid
+              arr={mostLikedData}
+              style={{
+                marginTop: 48,
+              }}
+            />
+          ) : (
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              margin: '0 64px'
+            }}>
+              <GridLoader color="#372B22" />
+            </div>
+          )}
           <RedirectHome
             style={{
               marginTop: 48,
@@ -318,33 +343,50 @@ export default function Home() {
           align="center"
           firstWord
         />
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '0px 0px -240px 0px' }}
-          className="recent-article"
-        >
-          {articleData.map((article, index) => (
-            <motion.div key={index} variants={item}>
-              <ArtikelContent
-                excerptVisible={true}
-                item={article}
-                onClick={() =>
-                  navigate(`/artikel/${index}`, {
-                    state: { artikel: articleData },
-                  })
-                }
-              />
-            </motion.div>
-          ))}
-        </motion.div>
+        {articleData.length > 0 ? (
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{
+              once: true,
+              margin: isMobile ? '0px 0px -120px 0px' : '0px 0px -240px 0px',
+            }}
+            transition={{
+              staggerChildren: 0.25,
+              type: 'tween',
+            }}
+            className="recent-article"
+          >
+            {articleData.map((article, index) => (
+              <motion.div key={index} variants={item}>
+                <ArtikelContent
+                  excerptVisible={true}
+                  item={article}
+                  onClick={() =>
+                    navigate(`/artikel/${index}`, {
+                      state: { artikel: articleData },
+                    })
+                  }
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+        ) : (
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            margin: '0 64px'
+          }}>
+            <GridLoader color="#372B22" />
+          </div>
+        )}
         <RedirectHome
           style={{
             marginTop: 48,
           }}
-          label="Libatkan dirimu dengan menjelajahi dan berbagi ide"
-          redirectLabel="Artikel Lainnya"
+          label="Pelajari dan terapkan berbagai ilmu mengenai batik"
+          redirectLabel="Lihat Artikel"
           path="/artikel"
         />
       </section>
