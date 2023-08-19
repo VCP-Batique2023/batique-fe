@@ -9,9 +9,44 @@ import {
   doc,
   Timestamp,
   limit,
-  query
+  query,
+  updateDoc
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
+async function likeHander(uid, feedId, setLikeCb){
+  const feedRef = doc(db, 'feeds', `${feedId}`);
+  const querySnapshot = await getDoc(feedRef);
+  // console.log(feedId)
+  if (querySnapshot.exists()) {
+    const retrievedData = querySnapshot.data();
+    
+    const likedByAccount = [...retrievedData.likedByAccount];
+    
+    const index = likedByAccount.findIndex( likedBy => {
+      return likedBy.trim() == uid
+    });
+    // const text = [...likedByAccount, uid];
+    // console.log(typeof text)
+    let updatedLike = [];
+    if(index > -1){
+      updatedLike = likedByAccount.filter( liked => {
+        return liked.trim() != uid;
+      });
+    } else {
+      updatedLike = [...likedByAccount, uid];
+    }
+    
+    await updateDoc(feedRef, {
+      likedByAccount: updatedLike,
+    });
+
+    return;
+    // return cb(retrievedData);
+  }
+
+  // return cb(null);
+}
 
 async function checkImageOnMLAPI(selectedFile) {
   try {
@@ -47,8 +82,7 @@ async function handleFirebaseUpload(
   const result = await checkImageOnMLAPI(selectedFile);
   if (!result.isBatik) {
     // Return something to trigger the toast
-    toast.error(`Silahkan upload gambar batik!`);
-    // console.log('isnotbatik');
+    toast.error('Silahkan upload gambar batik!');
     setShowModalAddPostCb(-1);
     return;
   }
@@ -105,10 +139,14 @@ async function getAllFeeds(cb) {
   const feedsRef = collection(db, 'feeds');
   const feedsQuery = query(feedsRef, limit(1))
   const querySnapshot = await getDocs(feedsQuery);
+  let i = 1;
   querySnapshot.forEach((doc) => {
-    retrievedData.push(doc.data());
+    let docId = doc.id;
+    // console.log(docId)
+    let newObj = { feedId: docId, ...doc.data()}
+    retrievedData.push(newObj);
   });
-  console.log(retrievedData)
+  // console.log(retrievedData)
   cb(retrievedData);
 }
 
@@ -124,4 +162,4 @@ async function getUserById(userId, cb) {
   return cb(null);
 }
 
-export { getAllFeeds, getUserById, handleClientUpload, handleFirebaseUpload };
+export { getAllFeeds, getUserById, handleClientUpload, handleFirebaseUpload, likeHander };

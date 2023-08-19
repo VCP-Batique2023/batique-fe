@@ -1,10 +1,24 @@
 /* eslint-disable react/no-children-prop */
 import { useState } from 'react';
+import toast from 'react-hot-toast';
+
+import { likeHander } from '@/modules/FeedsModules';
+
 import Button from '@/components/Button';
 import '@/assets/style/ImageGrid.css';
 
 export default function ImageModal({ userDetail, detailPost, onClick, show }) {
-  const [like, setLike] = useState();
+  const [like, setLike] = useState('red');
+  // console.log(userDetail);
+  function triggerLikeHandler() {
+    if (like == 'white') {
+      setLike('red');
+      likeHander(userDetail.uid, detailPost.feedId, setLike);
+    } else {
+      setLike('white');
+      likeHander(userDetail.uid, detailPost.feedId, setLike);
+    }
+  }
 
   return (
     <>
@@ -18,12 +32,14 @@ export default function ImageModal({ userDetail, detailPost, onClick, show }) {
             <svg
               className="likeButton"
               xmlns="http://www.w3.org/2000/svg"
-              fill="white"
+              fill={like}
+              onClick={triggerLikeHandler}
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
               width={50}
               height={50}
+              style={{ transition: '0.1s ease-in' }}
             >
               <path
                 strokeLinecap="round"
