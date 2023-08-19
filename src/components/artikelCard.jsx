@@ -1,31 +1,6 @@
 import '@/assets/style/artikelCard.css';
-
-
-    
-
-    // return (
-    //     <div className="container-card">
-    //         {artikel.map((item, index) => (
-    //             <div
-    //                 key={index}
-    //                 className="content"
-    //             >
-    //                 <div className="card">
-    //                     <div className="image-wrapper">
-    //                         <img src={item.img} alt="" />
-    //                     </div>
-    //                     <div className="card-header">
-    //                         <div className="category">
-    //                             <a href="#">{item.category}</a>
-    //                         </div>
-    //                         <a href="#">{item.title}</a>
-    //                         <span>{item.excerpt}</span>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         ))}
-    //     </div>
-    // );
+import ArtikelContent from '@/components/artikelContent'
+import { useNavigate } from 'react-router-dom';
 
       
 export default function artikelCard({
@@ -33,6 +8,7 @@ export default function artikelCard({
   onClick,
   excerptVisible = true,
 }) {
+  const navigate = useNavigate();
   return (
     <div className="container-card">
       {artikel.map((item, index) => (

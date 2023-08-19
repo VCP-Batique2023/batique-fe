@@ -1,17 +1,20 @@
 import { useState, useEffect, useRef} from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate  } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import '@/assets/style/artikelTabs.css';
 import '@/assets/style/artikelCard.css';
+import GridLoader from 'react-spinners/GridLoader';
 
 
 import ArtikelCard from './artikelCard';
 import Button from './Button';
 
 export default function artikeTabs( {
-    artikel
+    artikel,
+    articleData
 }) {
     
+    const navigate = useNavigate();
     const [activeCategory, setActiveCategory] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const uniqueCategories = [...new Set(artikel.map(item => item.category))];
@@ -30,18 +33,29 @@ export default function artikeTabs( {
             item.content.toLowerCase().includes(searchQuery.toLowerCase());
         return categoryMatch && searchMatch;
     });
-   
+    
     return (
         <div  id="tabs" className="container-tabs">
             <div className="tabs-cards">
-            <ArtikelCard
+            {
+                articleData > 0 ?(
+                <ArtikelCard
                 artikel={filteredArtikel} 
                 excerptVisible={true} 
                 onClick={(index) => {
-                    setSelectedCardIndex(index);
                     navigate(`/artikel/${index}`, { state: { artikel } });
                 }}
-            />
+                />
+                ):(
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        padding: '68px 0'
+                      }}>
+                        <GridLoader color="#372B22" />
+                      </div>
+                )
+            }
             </div>
             <div className='side-menu'>
                 {currentUser ? (
@@ -67,6 +81,15 @@ export default function artikeTabs( {
                               </Button>
                             ))
                         }
+                        <Button
+                                key="all"
+                                onClick={() => setActiveCategory(null)} // Set activeCategory to null to show all
+                                variant="outlined"
+                                size="small"
+                                style={{ marginRight: 5, marginBottom: 8, borderRadius: 20 }}
+                                >
+                            All
+                        </Button>
                         
                     </div>
                 </div>
@@ -122,4 +145,5 @@ export default function artikeTabs( {
             
         </div>
     );
+
 }

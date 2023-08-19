@@ -1,9 +1,24 @@
 import "@/assets/style/tentang.css"
 import { color, motion, useScroll, useTransform } from 'framer-motion';
 import AnimatedText from '@/components/AnimatedText';
-import ArtikelHeader from '@/components/artikelHeader';
 
 export default function Tentang() {
+
+  const team = [
+    {
+      name: "Calvin Danyalson",
+      img: "/src/assets/img/batikilus.jpg"
+    },
+    {
+      name: "Fadil Hisyam",
+      img: "/src/assets/img/batikilus.jpg"
+    },
+    {
+      name: "Tiara Puspita",
+      img: "/src/assets/img/batikilus.jpg"
+    },
+  ];
+
     const container = {
         hidden: {},
         show: {},
@@ -29,7 +44,8 @@ export default function Tentang() {
       <div className="content-tentang">
           <AnimatedText
             text="CERITA, “Tentang Batique.”"
-            firstWord                  
+            firstWord   
+                     
           />
           <motion.div
                 initial="hidden"
@@ -109,24 +125,49 @@ export default function Tentang() {
       <div className="boundary">
 
       </div>
-      <div className="our-team">
-      <AnimatedText text="Tim Batique" background />
-      <div className="team-mem">
-        <div className="member">
-          <img className="mem-pic" src="/src/assets/img/batikilus.jpg" alt="" />
-          <span>Tiara Puspita</span>
-        </div>
-        <div className="member">
-          <img className="mem-pic" src="/src/assets/img/batikilus.jpg" alt="" />
-          <span>Tiara Puspita</span>
-        </div>
-        <div className="member">
-          <img className="mem-pic" src="/src/assets/img/batikilus.jpg" alt="" />
-          <span>Tiara Puspita</span>
-        </div>
-      </div>
+      <section className="our-team">
+        <AnimatedText text="Tim Batique" background align="center"/>
+        <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{
+              once: true,
+              
+            }}
+            transition={{
+              staggerChildren: 0.25,
+              type: 'tween',
+            }}
+            className="team-mem"
+        >
+         {team.map((member, index) => (
+          <motion.div key={index} variants={item}>
+            <div className="member">
+              <img className="mem-pic" src="/src/assets/img/1.jpg" alt={member.name} />
+              <span>{member.name}</span>
+            </div>
+          </motion.div>
+        ))}
+          
+          
 
-      </div>
+        </motion.div>   
+        {/* <div className="team-mem">
+          <div className="member">
+            <img className="mem-pic" src="/src/assets/img/batikilus.jpg" alt="" />
+            <span>Tiara Puspita</span>
+          </div>
+          <div className="member">
+            <img className="mem-pic" src="/src/assets/img/batikilus.jpg" alt="" />
+            <span>Tiara Puspita</span>
+          </div>
+          <div className="member">
+            <img className="mem-pic" src="/src/assets/img/batikilus.jpg" alt="" />
+            <span>Tiara Puspita</span>
+          </div>
+        </div> */}
+      </section>
     </div>
   )
 }

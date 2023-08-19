@@ -9,22 +9,24 @@
     /* background-color: #f0e0b0; */
 }
 
-.header-text {
+/* .header-text {
     display: flex;
     justify-content: center; 
     align-items: center; 
     margin: auto;
     padding-top: 7%;
-  }
+    background-color: #fff;
+    text-align: center;
+  } */
 
 .content-tentang{
-    width: 80%;
+    width: 60%;
     text-align: justify;
     justify-content: center; 
     align-items: center; 
     margin: auto;
     height: auto;
-    padding: 3% 10%;
+    padding: 3% 0;
 }
 
 .our-team{
@@ -32,20 +34,28 @@
     padding: 5% 20%;
 
 }
+.team-head{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* background: #000; */
+}
 
 .team-mem{
-    width: calc(200px * 3 + 18%);
+    width: calc(150px * 3 + 39%);
     height: auto;
     /* padding-top: 17%; */
     margin: 17% auto;
     display: flex;
     /* background: #000; */
-    gap: 10%;
+    gap: 20%;
     
 }
 .mem-pic{
-    height: 200px;
-    width: 200px;
+    height: 150px;
+    width: 150px;
     border-radius: 100px;
     object-fit: cover;
     margin-bottom: 10%;
@@ -56,12 +66,18 @@
     text-align: center; 
     margin: auto; 
     font-size: larger;
-    font-weight: 500;
+    font-weight: bold;
     font-family: 'Ysabeau Infant', 'sans-serif';
 }
 @media only screen and (max-width: 575px) {
     .header-tentang, .boundary{
         background-position: center;
+    }
+    .content-tentang{
+        
+        padding-bottom: 10%;
+        width: 80%;
+
     }
     .our-team{
         height: auto;
@@ -71,10 +87,10 @@
         height: auto;
         display: flex;
         flex-wrap: wrap;
-        margin: 20% auto;
+        margin: 20% auto 5% auto;
         justify-content: center;
     }
     .member{
-        padding-bottom: 10%;
+        padding-bottom: 30%;
     }
 }
