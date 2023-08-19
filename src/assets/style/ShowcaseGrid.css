@@ -10,9 +10,12 @@
 .image-container {
   position: relative;
   display: flex;
+  overflow: hidden;
 }
 
+
 .image-container .hover-container {
+  opacity: 0;
   position: absolute;
   display: flex;
   padding: 4%;
@@ -22,13 +25,27 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(32, 24, 18, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.15s ease-in-out;
+}
+
+.image-container:hover .hover-container {
+  opacity: 1;
+}
+
+.image-container .hover-container .image-detail {
+  display: flex;
+  align-items: center;  
+  justify-content: space-between;
+  flex-wrap: wrap;
+  column-gap: 8px;
+  row-gap: 2px;
 }
 
 .image-container .hover-container .image-detail .like-detail {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
 .grid-showcase .image-container img {
@@ -37,6 +54,7 @@
   object-position: center;
   background-color: #f9f8f5;
 }
+
 
 .grid-showcase .image-container:first-child {
   grid-column: 1 / 4;
@@ -62,7 +80,7 @@
 }
 
 .image-container .hover-container .img-title {
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .image-container:first-child .hover-container .img-title {
@@ -126,5 +144,22 @@
     grid-row: 4 / 6;
     height: 100%;
     width: 100%;
+  }
+
+  .image-container .hover-container {
+    padding: 12px;
+  }
+
+  .image-container:first-child .hover-container .img-title {
+    font-size: 6vw;
+  }
+
+  .image-container:not(:first-child) .hover-container .img-title {
+    font-size: 4vw;
+  }
+
+  .image-container:nth-child(2) .hover-container .img-title,
+  .image-container:nth-child(7) .hover-container .img-title {
+    font-size: 5vw;
   }
 }

@@ -48,10 +48,10 @@ export default function Home() {
     };
 
     const fetchFeed = async () => {
+      const feedResults = [];
       const feedRef = collection(db, 'feeds');
       const feedQuery = query(feedRef, orderBy('like', 'desc'), limit(7));
       const feedSnapshot = await getDocs(feedQuery);
-      const feedResults = [];
       feedSnapshot.forEach((doc) => {
         feedResults.push(doc.data());
       });
