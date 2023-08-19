@@ -6,7 +6,7 @@ import ImageGalery from '@/components/ImageGalery.jsx';
 import Button from '@/components/Button.jsx';
 import '@/assets/style/ImageGrid.css';
 
-export default function ImageGrid({ feeds, onClick }) {
+export default function ImageGrid({ feeds, onClick, isLiked, setIsLiked }) {
   let imagePerSlide = 15;
   const [count, setCount] = useState(imagePerSlide);
 
@@ -28,7 +28,13 @@ export default function ImageGrid({ feeds, onClick }) {
         className="gridWrapperMasonry"
       >
         {feeds.slice(0, count).map((feed, index) => (
-          <ImageGalery feedInformation={feed} onClick={onClick} key={index} />
+          <ImageGalery
+            feedInformation={feed}
+            onClick={onClick}
+            isLiked={isLiked}
+            setIsLiked={setIsLiked}
+            key={index}
+          />
         ))}
       </Masonry>
       {count <= feeds.length - imagePerSlide ? (

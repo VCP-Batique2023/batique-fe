@@ -1,41 +1,43 @@
 /* eslint-disable react/no-children-prop */
-import { useState } from 'react';
-import toast from 'react-hot-toast';
+import { useEffect, useState } from 'react';
 
-import { likeHander } from '@/modules/FeedsModules';
+import { likeHander, checkIsLiked } from '@/modules/FeedsModules';
+import { useAuth } from '@/contexts/AuthContext';
 
 import Button from '@/components/Button';
 import '@/assets/style/ImageGrid.css';
 
-export default function ImageModal({ userDetail, detailPost, onClick, show }) {
-  const [like, setLike] = useState('red');
-  // console.log(userDetail);
+export default function ImageModal({
+  userDetail,
+  detailPost,
+  handleClose,
+  isOpen,
+}) {
+  const { currentUser } = useAuth();
+  const [isLiked, setIsLiked] = useState(false);
+  useEffect(() => {
+    checkIsLiked(currentUser.uid, detailPost.likedByAccount, setIsLiked);
+    // if (isOpen) {
+    // }
+  }, []);
+
   function triggerLikeHandler() {
-    if (like == 'white') {
-      setLike('red');
-      likeHander(userDetail.uid, detailPost.feedId, setLike);
-    } else {
-      setLike('white');
-      likeHander(userDetail.uid, detailPost.feedId, setLike);
-    }
+    likeHander(userDetail.uid, detailPost.feedId, isLiked, setIsLiked);
   }
 
   return (
     <>
-      <div
-        className="detailPostContainer"
-        style={{ zIndex: show, opacity: show }}
-      >
+      <div className="detailPostContainer" style={{ zIndex: 1, opacity: 1 }}>
         <div className="detailPost">
           <div className="leftContent">
             <img src={detailPost.imageUrl} />
             <svg
               className="likeButton"
               xmlns="http://www.w3.org/2000/svg"
-              fill={like}
+              fill={isLiked ? 'red' : 'white'}
               onClick={triggerLikeHandler}
               viewBox="0 0 24 24"
-              strokeWidth={1.5}
+              strokeWidth={0.1}
               stroke="currentColor"
               width={50}
               height={50}
@@ -61,7 +63,7 @@ export default function ImageModal({ userDetail, detailPost, onClick, show }) {
               <p>{detailPost.caption}</p>
             </div>
           </div>
-          <Button children="X" style={modalButton} onClick={onClick} />
+          <Button children="X" style={modalButton} onClick={handleClose} />
         </div>
       </div>
     </>

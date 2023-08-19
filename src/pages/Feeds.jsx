@@ -31,7 +31,8 @@ export default function Galery() {
 
   const [activeSort, setActiveSort] = useState('default');
   const { ref: targetButtonRef, inView: targetButtonIsVisible } = useInView();
-  const [showModalDetailPost, setShowModalDetailPost] = useState(-1);
+  const [isOpen, setIsOpen] = useState(false);
+  // const [showModalDetailPost, setShowModalDetailPost] = useState(-1);
   const [showModalAddPost, setShowModalAddPost] = useState(-1);
 
   //State for Detail and Add Post
@@ -45,11 +46,12 @@ export default function Galery() {
   // useEffect Fetch data from firebase
   useEffect(() => {
     getAllFeeds(setFeedsList);
-  }, []);
-
-  useEffect(() => {
     getUserById(currentUser.uid, setUserCurrentForAddFeed);
   }, []);
+
+  // useEffect(() => {
+  //   console.log(detailPost);
+  // }, [isOpen]);
 
   // Filter Feeds
   function sortFeedsByMostLikes() {
@@ -83,14 +85,9 @@ export default function Galery() {
 
   // For Triggering modal image --> Start
   function triggerShowModalDetailPost(feed) {
-    if (showModalDetailPost == -1) {
-      setShowModalDetailPost(2);
-      getUserById(feed.userId, setUserDetail);
-      setDetailPost(feed);
-    } else {
-      setShowModalDetailPost(-1);
-      setDetailPost({});
-    }
+    setIsOpen(!isOpen);
+    getUserById(feed.userId, setUserDetail);
+    setDetailPost(feed);
   }
 
   // For Triggering modal add image --> Start
@@ -145,12 +142,14 @@ export default function Galery() {
         </div>
       </div>
       <ImageGrid feeds={feedsList} onClick={triggerShowModalDetailPost} />
-      <ImageModal
-        onClick={triggerShowModalDetailPost}
-        show={showModalDetailPost}
-        detailPost={detailPost}
-        userDetail={userDetail}
-      />
+      {isOpen && (
+        <ImageModal
+          detailPost={detailPost}
+          userDetail={userDetail}
+          isOpen={isOpen}
+          handleClose={() => setIsOpen(false)}
+        />
+      )}
       <Button
         style={{
           borderRadius: '50%',

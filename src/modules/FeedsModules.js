@@ -4,49 +4,13 @@ import toast from 'react-hot-toast';
 import {
   collection,
   getDoc,
-  getDocs,
   setDoc,
   doc,
   Timestamp,
-  limit,
-  query,
-  updateDoc
+  onSnapshot,
+  updateDoc,
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-
-async function likeHander(uid, feedId, setLikeCb){
-  const feedRef = doc(db, 'feeds', `${feedId}`);
-  const querySnapshot = await getDoc(feedRef);
-  // console.log(feedId)
-  if (querySnapshot.exists()) {
-    const retrievedData = querySnapshot.data();
-    
-    const likedByAccount = [...retrievedData.likedByAccount];
-    
-    const index = likedByAccount.findIndex( likedBy => {
-      return likedBy.trim() == uid
-    });
-    // const text = [...likedByAccount, uid];
-    // console.log(typeof text)
-    let updatedLike = [];
-    if(index > -1){
-      updatedLike = likedByAccount.filter( liked => {
-        return liked.trim() != uid;
-      });
-    } else {
-      updatedLike = [...likedByAccount, uid];
-    }
-    
-    await updateDoc(feedRef, {
-      likedByAccount: updatedLike,
-    });
-
-    return;
-    // return cb(retrievedData);
-  }
-
-  // return cb(null);
-}
 
 async function checkImageOnMLAPI(selectedFile) {
   try {
@@ -136,19 +100,33 @@ async function handleClientUpload(e, setSelectedFileCb, setSelectedFilePathCb) {
 
 async function getAllFeeds(cb) {
   const retrievedData = [];
-  const feedsRef = collection(db, 'feeds');
-  const feedsQuery = query(feedsRef, limit(1))
-  const querySnapshot = await getDocs(feedsQuery);
-  let i = 1;
-  querySnapshot.forEach((doc) => {
-    let docId = doc.id;
-    // console.log(docId)
-    let newObj = { feedId: docId, ...doc.data()}
-    retrievedData.push(newObj);
+  const dataRef = collection(db, 'feeds');
+  const dataSnapshot = onSnapshot(dataRef, (snapshot) => {
+    snapshot.forEach((doc) => {
+      let docId = doc.id;
+      // console.log(docId)
+      let newObj = { feedId: docId, ...doc.data() };
+      retrievedData.push(newObj);
+    });
+    cb(retrievedData);
   });
-  // console.log(retrievedData)
-  cb(retrievedData);
+  return dataSnapshot;
 }
+
+// async function getAllFeeds(cb) {
+//   const retrievedData = [];
+//   const feedsRef = collection(db, 'feeds');
+//   const feedsQuery = query(feedsRef, limit(5));
+//   const querySnapshot = await getDocs(feedsQuery);
+//   querySnapshot.forEach((doc) => {
+//     let docId = doc.id;
+//     // console.log(docId)
+//     let newObj = { feedId: docId, ...doc.data() };
+//     retrievedData.push(newObj);
+//   });
+//   // console.log(retrievedData)
+//   cb(retrievedData);
+// }
 
 async function getUserById(userId, cb) {
   const querySnapshot = await getDoc(doc(db, 'users', `${userId}`));
@@ -162,4 +140,62 @@ async function getUserById(userId, cb) {
   return cb(null);
 }
 
-export { getAllFeeds, getUserById, handleClientUpload, handleFirebaseUpload, likeHander };
+async function likeHander(uid, feedId, like, setLikeCb) {
+  let likedByAccount = [];
+  const feedRef = doc(db, 'feeds', `${feedId}`);
+  const querySnapshot = await getDoc(feedRef);
+  // console.log(feedId)
+  if (querySnapshot.exists()) {
+    const retrievedData = querySnapshot.data();
+
+    if (!retrievedData.likedByAccount) {
+      likedByAccount = [];
+    } else {
+      likedByAccount = [...retrievedData.likedByAccount];
+    }
+    const index = likedByAccount.findIndex((likedBy) => {
+      return likedBy.trim() == uid;
+    });
+
+    let updatedLike = [];
+    if (index > -1) {
+      updatedLike = likedByAccount.filter((liked) => {
+        return liked.trim() != uid;
+      });
+      toast.success('Unliked');
+    } else {
+      updatedLike = [...likedByAccount, uid];
+      toast.success('Liked');
+    }
+
+    await updateDoc(feedRef, {
+      likedByAccount: updatedLike,
+    });
+
+    return setLikeCb(!like);
+  }
+
+  return setLikeCb(like);
+}
+
+async function checkIsLiked(uid, listLikedByAcc, setIsLikedCb) {
+  if (!listLikedByAcc) {
+    setIsLikedCb(false);
+    return;
+  }
+
+  const index = listLikedByAcc.findIndex((likedBy) => {
+    return likedBy.trim() == uid;
+  });
+
+  return setIsLikedCb(index > -1 ? true : false);
+}
+
+export {
+  getAllFeeds,
+  getUserById,
+  handleClientUpload,
+  handleFirebaseUpload,
+  likeHander,
+  checkIsLiked,
+};
