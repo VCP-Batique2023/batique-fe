@@ -28,17 +28,20 @@ async function handleFirebaseUpdateProfile(
 ) {
   const userRef = doc(db, 'users', uid);
   try {
-    const imageRef = ref(storage, `profilePictures/profile-${uid}}`);
-    const storageSnapShot = await uploadBytes(imageRef, newAvatar);
-    const publicUrl = await getDownloadURL(storageSnapShot.ref);
+    let publicUrl;
+    if (!(typeof newAvatar == 'string')) {
+      const imageRef = ref(storage, `profilePictures/profile-${uid}}`);
+      const storageSnapShot = await uploadBytes(imageRef, newAvatar);
+      publicUrl = await getDownloadURL(storageSnapShot.ref);
+    }
 
     await updateDoc(userRef, {
       displayName: name,
-      profilePicture: publicUrl,
+      profilePicture: publicUrl ? publicUrl : avatar,
       username: username,
       description: bio,
     });
-    setAvatarCb(publicUrl);
+    setAvatarCb(publicUrl ? publicUrl : avatar);
     setNameCb(name);
     setUsernameCb(username);
     setBioCb(bio);
