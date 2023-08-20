@@ -178,6 +178,7 @@ async function likeHander(uid, feedId, like, setLikeCb) {
     }
 
     await updateDoc(feedRef, {
+      like: updatedLike.length,
       likedByAccount: updatedLike,
     });
 
