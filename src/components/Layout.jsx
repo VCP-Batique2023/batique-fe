@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, createSearchParams } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useMobile } from '@/contexts/MobileContext';
 import { useState } from 'react';
@@ -38,6 +38,16 @@ export default function Layout() {
     }
     return () => {};
   }, [currentUser]);
+
+  const handleSearch = (val) => {
+    navigate({
+      pathname: 'artikel',
+      search: createSearchParams({
+        cari: val,
+      }).toString(),
+    });
+    window.scrollTo(0, 0);
+  };
 
   return (
     <>
@@ -229,7 +239,10 @@ export default function Layout() {
                   </ul>
                 ) : (
                   <>
-                    <SearchBox placeholder="Cari Artikel" />
+                    <SearchBox
+                      placeholder="Cari Artikel"
+                      search={(val) => handleSearch(val)}
+                    />
                     <section>
                       <svg
                         className="btn-outlined-primary nav-icon"
@@ -380,19 +393,19 @@ export default function Layout() {
                           Profil
                         </NavLink>
                         <Button
-                        onClick={() => handleSignOut()}
-                        variant="outlined"
-                        size='large'
-                      >
-                        Keluar
-                      </Button>
+                          onClick={() => handleSignOut()}
+                          variant="outlined"
+                          size="large"
+                        >
+                          Keluar
+                        </Button>
                       </>
                     ) : (
                       <>
                         <Button
                           onClick={() => navigate('/masuk')}
                           variant="outlined"
-                          size='large'
+                          size="large"
                         >
                           Masuk
                         </Button>
@@ -400,7 +413,7 @@ export default function Layout() {
                           onClick={() => navigate('/daftar')}
                           style={{ marginLeft: 16 }}
                           variant="contained"
-                          size='large'
+                          size="large"
                         >
                           Daftar
                         </Button>

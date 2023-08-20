@@ -1,8 +1,7 @@
 import '@/assets/style/artikelCard.css';
 import { caption, truncate } from '@/modules/utils';
-import { Timestamp } from 'firebase/firestore';
 
-export default function artikelContent({
+export default function ArtikelContent({
   index,
   item,
   onClick,
