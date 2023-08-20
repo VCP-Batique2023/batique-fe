@@ -1,18 +1,22 @@
 /* eslint-disable react/no-children-prop */
 /* eslint-disable react/jsx-no-comment-textnodes */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Masonry from 'react-masonry-css';
 import ImageGalery from '@/components/ImageGalery.jsx';
 import Button from '@/components/Button.jsx';
 import '@/assets/style/ImageGrid.css';
 
-export default function ImageGrid({ feeds, onClick, isLiked, setIsLiked }) {
+export default function ImageGrid({ feeds, onClick }) {
   let imagePerSlide = 15;
   const [count, setCount] = useState(imagePerSlide);
 
   const loadMoreImageHandler = () => {
     setCount(count + imagePerSlide);
   };
+  // useEffect(() => {
+  //   console.log(feeds);
+  // });
+
   const breakpointColumnsObj = {
     default: 4,
     1000: 3,
@@ -31,8 +35,7 @@ export default function ImageGrid({ feeds, onClick, isLiked, setIsLiked }) {
           <ImageGalery
             feedInformation={feed}
             onClick={onClick}
-            isLiked={isLiked}
-            setIsLiked={setIsLiked}
+            index={index}
             key={index}
           />
         ))}

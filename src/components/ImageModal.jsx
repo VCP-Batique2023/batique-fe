@@ -16,13 +16,14 @@ export default function ImageModal({
   const { currentUser } = useAuth();
   const [isLiked, setIsLiked] = useState(false);
   useEffect(() => {
-    checkIsLiked(currentUser.uid, detailPost.likedByAccount, setIsLiked);
-    // if (isOpen) {
-    // }
-  }, []);
+    if (isOpen) {
+      checkIsLiked(currentUser.uid, detailPost.likedByAccount, setIsLiked);
+    }
+    console.log('This is modall : ' + isLiked);
+  }, [isOpen]);
 
   function triggerLikeHandler() {
-    likeHander(userDetail.uid, detailPost.feedId, isLiked, setIsLiked);
+    likeHander(currentUser.uid, detailPost.feedId, isLiked, setIsLiked);
   }
 
   return (

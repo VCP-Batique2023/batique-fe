@@ -7,8 +7,10 @@ import {
   setDoc,
   doc,
   Timestamp,
+  query,
   onSnapshot,
   updateDoc,
+  limit,
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
@@ -99,12 +101,12 @@ async function handleClientUpload(e, setSelectedFileCb, setSelectedFilePathCb) {
 //   }
 
 async function getAllFeeds(cb) {
-  const retrievedData = [];
   const dataRef = collection(db, 'feeds');
-  const dataSnapshot = onSnapshot(dataRef, (snapshot) => {
+  const feedsQuery = query(dataRef, limit(7));
+  const dataSnapshot = onSnapshot(feedsQuery, (snapshot) => {
+    const retrievedData = [];
     snapshot.forEach((doc) => {
       let docId = doc.id;
-      // console.log(docId)
       let newObj = { feedId: docId, ...doc.data() };
       retrievedData.push(newObj);
     });
@@ -141,6 +143,7 @@ async function getUserById(userId, cb) {
 }
 
 async function likeHander(uid, feedId, like, setLikeCb) {
+  // console.log(uid)
   let likedByAccount = [];
   const feedRef = doc(db, 'feeds', `${feedId}`);
   const querySnapshot = await getDoc(feedRef);

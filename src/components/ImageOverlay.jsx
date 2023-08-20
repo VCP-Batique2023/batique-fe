@@ -1,4 +1,8 @@
 import '@/assets/style/ImageGrid.css';
+import { useEffect, useState } from 'react';
+import { checkIsLiked } from '@/modules/FeedsModules';
+import { useAuth } from '@/contexts/AuthContext';
+
 // import { useEffect } from 'react';
 
 /* 
@@ -15,13 +19,17 @@ function generateDate(x) {
   return [tempDate, tempMonth, tempYear].join('/');
 }
 
-export default function ImageOverlay({ feedInformation, isLiked }) {
-  // useEffect(() => {
-  //   console.log('aaa');
-  //   console.log(isLiked);
-  // }, []);
+export default function ImageOverlay({ feedInformation }) {
+  const { currentUser } = useAuth();
+
+  const [isLiked, setIsLiked] = useState(false);
+
+  useEffect(() => {
+    checkIsLiked(currentUser.uid, feedInformation.likedByAccount, setIsLiked);
+  }, []);
   return (
     <div className="overlay">
+      {/* <h1>{isLiked}</h1> */}
       <div className="postTitle">{feedInformation.caption}</div>
       <div className="postFooter">
         <div className="date">{generateDate(feedInformation.createdAt)}</div>
