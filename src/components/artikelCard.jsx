@@ -1,14 +1,12 @@
 import '@/assets/style/artikelCard.css';
 import ArtikelContent from '@/components/artikelContent'
-import { useNavigate } from 'react-router-dom';
 
       
-export default function artikelCard({
+export default function ArtikelCard({
   artikel,
   onClick,
   excerptVisible = true,
 }) {
-  const navigate = useNavigate();
   return (
     <div className="container-card">
       {artikel.map((item, index) => (
