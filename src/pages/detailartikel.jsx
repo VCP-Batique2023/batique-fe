@@ -17,10 +17,10 @@ export default function DetailArtikel() {
       naigate("/artikel"); // Replace with the actual route for the "artikel" page
   };
 
-  if (!artikel || !artikel[index]) {
-    return <div style={{ height:"100vh",margin:"auto"}}>Loading...</div>;
+  // if (!artikel || !artikel[index]) {
+  //   return <div style={{ height:"100vh",margin:"auto"}}>Loading...</div>;
     
-  }
+  // }
 
   function formatTimestamp(timestamp) {
     if (!timestamp) {

@@ -115,91 +115,13 @@ export default function ArtikeTabs({ artikel, search }) {
             </div>
           </>
         ) : (
-          <>
+            <>
             <div className="explore">
-              <input
-                className="search__input"
-                type="text"
+                <input className="search__input" type="text" 
                 placeholder="Jelajahi Berbagai Macam Topik..."
                 onKeyDown={handleSearchInputChange}
-              />
-            </div>
-    // const filteredArtikel = artikel.filter(item => {
-    //     const categoryMatch = !activeCategory || item.category === activeCategory;
-    //     const searchMatch = searchQuery === '' || 
-    //         item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    //         item.content.toLowerCase().includes(searchQuery.toLowerCase());
-    //     return categoryMatch && searchMatch;
-    // });
-    
-    return (
-        <div  id="tabs" className="container-tabs">
-            <div className="tabs-cards">
-            {
-                artikel ? (
-                <ArtikelCard
-                artikel={filteredArtikel} 
-                excerptVisible={true} 
-                onClick={(index) => {
-                    navigate(`/artikel/${index}`, { state: { artikel } });
-                }}
                 />
-                ):(
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        padding: '68px 0'
-                      }}>
-                        <GridLoader color="#372B22" />
-                      </div>
-                )
-            }
             </div>
-            <div className='side-menu'>
-                {currentUser ? (
-                <>
-                <div className="categories">
-                    <div className="head-category">
-                        <span>
-                            Jelajahi Berbagai Macam Topik
-                        </span>
-                    </div>
-                    <div className="content-category">
-                        
-                        {
-                            uniqueCategories.map((category,index)=>(
-                                <Button
-                                key={index}
-                                onClick={() => setActiveCategory(category)}
-                                variant={activeCategory === category ? 'contained' : 'outlined'}
-                                size="small"
-                                style={{ marginRight: 5, marginBottom: 8, borderRadius: 20 }}
-                              >
-                                {category}
-                              </Button>
-                            ))
-                        }
-                        <Button
-                                key="all"
-                                onClick={() => setActiveCategory(null)} // Set activeCategory to null to show all
-                                variant="outlined"
-                                size="small"
-                                style={{ marginRight: 5, marginBottom: 8, borderRadius: 20 }}
-                                >
-                            Tampilkan Semua
-                        </Button>
-                        
-                    </div>
-                </div>
-                </>
-                ) : (
-                <>
-                    <div className="explore">
-                        <input className="search__input" type="text" 
-                        placeholder="Jelajahi Berbagai Macam Topik..."
-                        onKeyDown={handleSearchInputChange}
-                        />
-                    </div>
 
             <div className="categories">
               <div className="head-category">
