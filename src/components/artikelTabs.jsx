@@ -11,13 +11,30 @@ import Button from './Button';
 
 export default function artikeTabs( {
     artikel,
-    articleData
+    
 }) {
     
     const navigate = useNavigate();
     const [activeCategory, setActiveCategory] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
-    const uniqueCategories = [...new Set(artikel.map(item => item.category))];
+    
+    const [uniqueCategories, setUniqueCategories] = useState([])
+    const [filteredArtikel, setFilteredArtikel] = useState([])
+
+    useEffect(()=>{
+        if (artikel){
+            setUniqueCategories([...new Set(artikel.map(item => item.category))])
+            setFilteredArtikel(artikel.filter(item => {
+                const categoryMatch = !activeCategory || item.category === activeCategory;
+                const searchMatch = searchQuery === '' || 
+                    item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    item.content.toLowerCase().includes(searchQuery.toLowerCase());
+                return categoryMatch && searchMatch;
+            }))
+        }
+    },[artikel]);
+
+
     const { currentUser } = useAuth(); 
     
     const handleSearchInputChange = (event) => {
@@ -26,19 +43,21 @@ export default function artikeTabs( {
         }
     };
 
-    const filteredArtikel = artikel.filter(item => {
-        const categoryMatch = !activeCategory || item.category === activeCategory;
-        const searchMatch = searchQuery === '' || 
-            item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            item.content.toLowerCase().includes(searchQuery.toLowerCase());
-        return categoryMatch && searchMatch;
-    });
+    
+
+    // const filteredArtikel = artikel.filter(item => {
+    //     const categoryMatch = !activeCategory || item.category === activeCategory;
+    //     const searchMatch = searchQuery === '' || 
+    //         item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    //         item.content.toLowerCase().includes(searchQuery.toLowerCase());
+    //     return categoryMatch && searchMatch;
+    // });
     
     return (
         <div  id="tabs" className="container-tabs">
             <div className="tabs-cards">
             {
-                articleData > 0 ?(
+                artikel ? (
                 <ArtikelCard
                 artikel={filteredArtikel} 
                 excerptVisible={true} 

@@ -10,7 +10,8 @@ export default function artikel({
 
 }) {
     
-    const [artikel, setArtikel] = useState([]);
+    const [artikel, setArtikel] = useState(null);
+    
     useEffect(() => {
         getAllArtikel(setArtikel);
       }, []);
