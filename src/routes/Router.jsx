@@ -10,6 +10,7 @@ const Artikel = lazy(() => import('@/pages/artikel'));
 const DetailArtikel = lazy(() => import('@/pages/detailartikel'));
 const SignUp = lazy(() => import('@/pages/SignUp'));
 const SignIn = lazy(() => import('@/pages/SignIn'));
+const ResetPassword = lazy(() => import('@/pages/ResetPassword'));
 const Galery = lazy(() => import('@/pages/Galery'));
 const Input = lazy(() => import('@/pages/input'));
 const Profile= lazy(() => import('@/pages/Profile'));
@@ -85,6 +86,14 @@ export default function Router() {
             element={
               <DocumentTitle title="Masuk - Batique">
                 <SignIn />
+              </DocumentTitle>
+            }
+          />
+          <Route
+            path="/reset"
+            element={
+              <DocumentTitle title="Masuk - Batique">
+                <ResetPassword />
               </DocumentTitle>
             }
           />

@@ -47,10 +47,10 @@ export default function Home() {
     };
 
     const fetchFeed = async () => {
+      const feedResults = [];
       const feedRef = collection(db, 'feeds');
       const feedQuery = query(feedRef, orderBy('like', 'desc'), limit(7));
       const feedSnapshot = await getDocs(feedQuery);
-      const feedResults = [];
       feedSnapshot.forEach((doc) => {
         feedResults.push(doc.data());
       });
@@ -375,7 +375,7 @@ export default function Home() {
           <div style={{
             display: 'flex',
             justifyContent: 'center',
-            margin: '0 64px'
+            padding: '68px 0'
           }}>
             <GridLoader color="#372B22" />
           </div>

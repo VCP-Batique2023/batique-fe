@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { getDoc, doc } from 'firebase/firestore';
 import { db } from '@/modules/firebase_config';
 import { useAuth } from '@/contexts/AuthContext';
+import { useMobile } from '@/contexts/MobileContext';
 import { caption } from '@/modules/utils';
 
 import img1 from '@/assets/img/1.jpg';
@@ -16,7 +17,8 @@ import Checkbox from '@/components/Checkbox';
 
 function SignUp() {
   const navigate = useNavigate();
-  const { userSignIn } = useAuth();
+  const { userSignIn, sessionMode } = useAuth();
+  const { isMobile } = useMobile();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -35,6 +37,9 @@ function SignUp() {
     const statusSignIn = toast.loading('Mohon ditunggu...');
 
     try {
+      if (!confirm) {
+        sessionMode();
+      }
       const userCredential = await userSignIn(email, password);
 
       const user = await getDoc(doc(db, 'users', userCredential.user.uid));
@@ -68,10 +73,12 @@ function SignUp() {
       className="auth-container"
     >
       <div className="auth-card">
-        <div className="side-card">
-          <h2 className="logo">Batique</h2>
-          <img src={img1} alt="" />
-        </div>
+        {!isMobile && (
+          <div className="side-card">
+            <h2 className="logo">Batique</h2>
+            <img src={img1} alt="" />
+          </div>
+        )}
         <form className="form-card" onSubmit={handleSignIn}>
           <h1 className="form-title">Selamat Datang di Batique</h1>
           <div className="form-flex">
@@ -106,7 +113,7 @@ function SignUp() {
                   style={{ fontWeight: 500, cursor: 'pointer' }}
                   onClick={() => navigate('/reset')}
                 >
-                  Lupa password?
+                  Lupa kata sandi?
                 </p>
               </div>
             </div>
