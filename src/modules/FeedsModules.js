@@ -52,17 +52,21 @@ async function handleFirebaseUpload(
     setShowModalAddPostCb(-1);
     return;
   }
+  console.log(caption)
   const imageRef = ref(storage, `feeds/${v4()}`);
   const storageSnapShot = await uploadBytes(imageRef, selectedFile);
   const publicUrl = await getDownloadURL(storageSnapShot.ref);
-
-  await setDoc(doc(db, 'feeds', `username-${v4()}`), {
+  
+  await setDoc(doc(db, 'feeds', `${uid}-${v4()}`), {
     caption: caption,
     createdAt: Timestamp.fromDate(new Date()),
     imageUrl: publicUrl,
-    like: 0,
+    likedByAccount: [],
     userId: uid,
   });
+  
+  toast.success('Gambar berhasil di upload');
+
   setShowModalAddPostCb(-1);
   setSelectedFileCb('');
   setSelectedFilePathCb('');
@@ -102,7 +106,8 @@ async function handleClientUpload(e, setSelectedFileCb, setSelectedFilePathCb) {
 
 async function getAllFeeds(cb) {
   const dataRef = collection(db, 'feeds');
-  const feedsQuery = query(dataRef, limit(7));
+  // Tambahin limit kalau debugging
+  const feedsQuery = query(dataRef);
   const dataSnapshot = onSnapshot(feedsQuery, (snapshot) => {
     const retrievedData = [];
     snapshot.forEach((doc) => {
@@ -110,7 +115,7 @@ async function getAllFeeds(cb) {
       let newObj = { feedId: docId, ...doc.data() };
       retrievedData.push(newObj);
     });
-    console.log(retrievedData)
+    // console.log(retrievedData)
     cb(retrievedData);
   });
   return dataSnapshot;

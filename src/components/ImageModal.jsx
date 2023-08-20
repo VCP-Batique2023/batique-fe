@@ -19,7 +19,7 @@ export default function ImageModal({
     if (isOpen) {
       checkIsLiked(currentUser.uid, detailPost.likedByAccount, setIsLiked);
     }
-    console.log('This is modall : ' + isLiked);
+    // console.log('This is modall : ' + isLiked);
   }, [isOpen]);
 
   function triggerLikeHandler() {

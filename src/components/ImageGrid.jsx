@@ -29,12 +29,7 @@ export default function ImageGrid({ feeds, onClick }) {
         className="gridWrapperMasonry"
       >
         {feeds.slice(0, count).map((feed, index) => (
-          <ImageGalery
-            feedInformation={feed}
-            onClick={onClick}
-            index={index}
-            key={index}
-          />
+          <ImageGalery feedInformation={feed} onClick={onClick} key={index} />
         ))}
       </Masonry>
       {count <= feeds.length - imagePerSlide ? (
