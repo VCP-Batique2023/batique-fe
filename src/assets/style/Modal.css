@@ -133,8 +133,8 @@
 /* Tampilan responsif untuk iPhone XR */
 @media only screen and (max-width: 414px) {
   .modal__card {
-    width: 45%;
-    height: 45%;
+    width: 90%;
+    height: 65%;
   }
   .modal__body{
     width: 95%;
