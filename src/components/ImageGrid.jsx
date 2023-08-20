@@ -32,7 +32,13 @@ export default function ImageGrid({ feeds, onClick }) {
       </Masonry>
       {count <= feeds.length - imagePerSlide ? (
         <div style={ButtonStyle}>
-          <Button children="Load More" onClick={loadMoreImageHandler} />
+          <Button
+            children="Load More"
+            variant="outlined"
+            size="large"
+            onClick={loadMoreImageHandler}
+            style={{ marginBottom: '20px' }}
+          />
         </div>
       ) : (
         <div></div>

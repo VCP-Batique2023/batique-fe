@@ -4,7 +4,7 @@ import DocumentTitle from '@/routes/Title';
 import LoadingBar from '@/components/LoadingBar';
 import '@/assets/style/index.css';
 
-const NotFound = lazy(() => import('@/pages/NotFound'))
+const NotFound = lazy(() => import('@/pages/NotFound'));
 const Home = lazy(() => import('@/pages/Home'));
 const Artikel = lazy(() => import('@/pages/artikel'));
 const DetailArtikel = lazy(() => import('@/pages/detailartikel'));
@@ -68,7 +68,7 @@ export default function Router() {
             path={`/artikel/:index`}
             element={
               <DocumentTitle title="Batique - Artikel">
-              <DetailArtikel />
+                <DetailArtikel />
               </DocumentTitle>
             }
           />
@@ -107,7 +107,7 @@ export default function Router() {
                   </DocumentTitle>
                 }
               />
-            } 
+            }
           />
           <Route
             path="/profile"

@@ -3,7 +3,16 @@ import Button from '@/components/Button';
 import ImageIcon from '@/assets/img/6.png';
 import '@/assets/style/ImageGrid.css';
 
-export default function ImageModal({ onClick, show }) {
+export default function ImageModal({
+  selectedFilePath,
+  selectedFile,
+  closeWindowHandler,
+  clientUpload,
+  setCaptionInput,
+  captionInput,
+  firebaseUpload,
+  show,
+}) {
   return (
     <>
       <div
@@ -20,15 +29,26 @@ export default function ImageModal({ onClick, show }) {
                 width: '100%',
               }}
             >
-              <img
-                src={ImageIcon}
-                alt=""
-                style={{ width: '30%', backgroundColor: 'transparent' }}
-              />
+              {selectedFilePath ? (
+                <img
+                  src={selectedFilePath}
+                  alt=""
+                  style={{ backgroundColor: 'transparent', width: '100%' }}
+                />
+              ) : (
+                <img
+                  src={ImageIcon}
+                  alt=""
+                  style={{ width: '30%', backgroundColor: 'transparent' }}
+                />
+              )}
               <input
                 id="fileUpload"
                 type="file"
                 hidden
+                onChange={(event) => {
+                  clientUpload(event);
+                }}
                 style={{ backgroundColor: 'transparent' }}
               />
             </label>
@@ -43,10 +63,30 @@ export default function ImageModal({ onClick, show }) {
               <h3>Calvin Danyalson</h3>
             </div>
             <div className="postCaption">
-              <p>Insert your caption here</p>
+              <input
+                className="captionInput"
+                type="text"
+                value={captionInput}
+                onChange={(event) => {
+                  setCaptionInput(event);
+                }}
+              />
             </div>
           </div>
-          <Button children="X" style={modalButton} onClick={onClick} />
+          <Button
+            children="X"
+            style={modalButton}
+            onClick={closeWindowHandler}
+          />
+          <Button
+            children="Upload"
+            style={{
+              position: 'absolute',
+              bottom: '20px',
+              right: '20px',
+            }}
+            onClick={firebaseUpload}
+          />
         </div>
       </div>
     </>

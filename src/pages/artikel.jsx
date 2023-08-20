@@ -10,13 +10,11 @@ export default function Artikel() {
   const [artikel, setArtikel] = useState(null);
   // eslint-disable-next-line no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
-
   const search = searchParams.get('cari');
 
   useEffect(() => {
     getAllArtikel(setArtikel);
   }, []);
-
   return (
     <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       {!search && <ArtikelHeader />}

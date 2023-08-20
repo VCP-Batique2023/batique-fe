@@ -129,3 +129,38 @@
   text-align: center;
   font-weight: 800;
 }
+
+/* Tampilan responsif untuk iPhone XR */
+@media only screen and (max-width: 414px) {
+  .modal__card {
+    width: 90%;
+    height: 65%;
+  }
+  .modal__body{
+    width: 95%;
+  }
+  .modal__avatar {
+    width: 70%;
+    
+  }
+  .modal__input {
+    width: 86%;
+  }
+  .textarea {
+    width: 86%;
+    height: 150px;
+  }
+  .modal__action {
+    width: 50%;
+    margin-top: 10px;
+    margin-left: 100px;
+  }
+  .input__label {
+    margin-left: 25px;
+    margin-top: 3px;
+  }
+  .judulbatik {
+    padding: 10px 10px;
+    font-size: 1.2rem;
+  }
+}

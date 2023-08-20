@@ -84,5 +84,15 @@ input{
   font-weight: 500;
 }
 
+@media only screen and (max-width: 414px) {
+  .main-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-
+  .display__avatar {
+    width: 150px;
+    height: 150px;
+  }
+}
