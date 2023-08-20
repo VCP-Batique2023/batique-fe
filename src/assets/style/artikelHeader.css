@@ -1,23 +1,23 @@
 .header {
     width: 100%;
-    height: 70vh;
+    height: 50vh;
     color: aliceblue;
     display: flex;
-    background-image: url('/src/assets/img/batikbg.jpg');
+    background-image: linear-gradient(0deg, rgba(163, 160, 148, 0.5), rgba(163, 160, 148, 0.5)),url('/src/assets/img/batikbg.jpg');
     width: 100%;
     -moz-background-inline-policy: 10%;
-    filter: brightness(120%);
+    filter: brightness(130%);
     background-size: cover;
+    background-position: center;
     background-attachment: fixed;
 }
 .cta{
     position: absolute;
-    top: 50%; /* Adjust this value to position vertically */
     left:34%; 
     transform: translate(-50%, -50%);
     position: fixed;
     width: 50%;
-    padding: 13% 0;
+    padding: 8% 0;
     
 }
 .cta.hide {
@@ -27,3 +27,14 @@
     z-index: -1;
   }
 
+  @media only screen and (max-width: 575px) {
+    .header{
+        height: 55vh;
+    }
+    .cta{
+        width: 80%;
+        left: 50%;
+        margin: auto;
+        padding: 0 5%;
+    }
+  }
