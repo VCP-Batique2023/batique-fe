@@ -15,7 +15,7 @@ export default function artikelContent({
     }
     
     const createdAt = timestamp.toDate();
-    return createdAt.toLocaleDateString(); // Format the date using toLocaleString()
+    return createdAt.toLocaleDateString(); 
   }
 
   return (

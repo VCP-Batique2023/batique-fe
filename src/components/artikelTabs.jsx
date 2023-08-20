@@ -107,7 +107,7 @@ export default function artikeTabs( {
                                 size="small"
                                 style={{ marginRight: 5, marginBottom: 8, borderRadius: 20 }}
                                 >
-                            All
+                            Tampilkan Semua
                         </Button>
                         
                     </div>
@@ -151,7 +151,7 @@ export default function artikeTabs( {
                                 size="small"
                                 style={{ marginRight: 5, marginBottom: 8, borderRadius: 20 }}
                                 >
-                            All
+                            Tampilkan Semua
                             </Button>
 
                         </div>
