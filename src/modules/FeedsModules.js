@@ -52,19 +52,18 @@ async function handleFirebaseUpload(
     setShowModalAddPostCb(-1);
     return;
   }
-  console.log(caption)
   const imageRef = ref(storage, `feeds/${v4()}`);
   const storageSnapShot = await uploadBytes(imageRef, selectedFile);
   const publicUrl = await getDownloadURL(storageSnapShot.ref);
-  
+
   await setDoc(doc(db, 'feeds', `${uid}-${v4()}`), {
     caption: caption,
     createdAt: Timestamp.fromDate(new Date()),
     imageUrl: publicUrl,
+    like: 0,
     likedByAccount: [],
     userId: uid,
   });
-  
   toast.success('Gambar berhasil di upload');
 
   setShowModalAddPostCb(-1);

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 // Import package
 import { useState, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
+import GridLoader from 'react-spinners/GridLoader';
 
 // Import custom package
 import {
@@ -30,9 +30,7 @@ export default function Galery() {
   const [feedsList, setFeedsList] = useState([]);
 
   const [activeSort, setActiveSort] = useState('default');
-  const { ref: targetButtonRef, inView: targetButtonIsVisible } = useInView();
   const [isOpen, setIsOpen] = useState(false);
-  // const [showModalDetailPost, setShowModalDetailPost] = useState(-1);
   const [showModalAddPost, setShowModalAddPost] = useState(-1);
 
   //State for Detail and Add Post
@@ -123,25 +121,39 @@ export default function Galery() {
   return (
     <>
       <ImageHeader path={GaleryHeader} height={screenWidth} />
-      <div className="sortContainer">
+      {feedsList.length == 0 ? (
         <div
-          ref={targetButtonRef}
-          className="sort"
-          style={{ backgroundColor: '#372B22' }}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            margin: '50px 64px',
+          }}
         >
-          <Button
-            children="Most Likes"
-            style={activeSort == 'likes' ? { backgroundColor: '#504237' } : ''}
-            onClick={sortFeedsByMostLikes}
-          />
-          <Button
-            children="Most Resent"
-            style={activeSort == 'recent' ? { backgroundColor: '#504237' } : ''}
-            onClick={sortFeedsByMostRecent}
-          />
+          <GridLoader color="#372B22" />
         </div>
-      </div>
-      <ImageGrid feeds={feedsList} onClick={triggerShowModalDetailPost} />
+      ) : (
+        <div>
+          <div className="sortContainer">
+            <div className="sort" style={{ backgroundColor: '#372B22' }}>
+              <Button
+                children="Most Likes"
+                style={
+                  activeSort == 'likes' ? { backgroundColor: '#504237' } : ''
+                }
+                onClick={sortFeedsByMostLikes}
+              />
+              <Button
+                children="Most Resent"
+                style={
+                  activeSort == 'recent' ? { backgroundColor: '#504237' } : ''
+                }
+                onClick={sortFeedsByMostRecent}
+              />
+            </div>
+          </div>
+          <ImageGrid feeds={feedsList} onClick={triggerShowModalDetailPost} />
+        </div>
+      )}
       {isOpen && (
         <ImageModal
           detailPost={detailPost}

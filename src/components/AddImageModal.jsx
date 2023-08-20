@@ -3,7 +3,7 @@ import Button from '@/components/Button';
 import ImageIcon from '@/assets/img/6.png';
 import '@/assets/style/ImageGrid.css';
 
-export default function ImageModal({
+export default function AddImageModal({
   selectedFilePath,
   closeWindowHandler,
   clientUpload,
