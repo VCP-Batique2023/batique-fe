@@ -8,18 +8,19 @@ import SearchBox from '@/components/SearchBox';
 import Backdrop from '@/components/Backdrop';
 import '@/assets/style/Layout.css';
 import '@/assets/style/Button.css';
+
 import defaultProfilePicture from '@/assets/img/empty-avatar.png';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { onSnapshot, doc } from 'firebase/firestore';
 import { db } from '@/modules/firebase_config.js';
-
 export default function Layout() {
   const navigate = useNavigate();
   const { currentUser, userSignOut } = useAuth();
   const { isMobile, isTablet } = useMobile();
   const [isMenu, setIsMenu] = useState(false);
   const [profile, setProfile] = useState(null);
+  const [search, setSearch] = useState(null);
 
   const handleSignOut = async () => {
     navigate('/');
