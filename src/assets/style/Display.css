@@ -1,0 +1,98 @@
+.main-profile {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.display {
+  display: flex;
+  margin-top: 5rem;
+  width: 86%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.display__avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 175px;
+  height: 175px;
+  border-radius: 99rem;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  overflow: hidden;
+}
+
+.display__avatar img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.display__info {
+  width: 50%;
+  margin: auto;
+}
+
+.display__info__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  word-wrap: break-word;
+  margin-top: 1rem;
+}
+
+.display__name {
+  font-family: "Ysabeau Infant", sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  margin: 0;
+  text-align: center;
+}
+
+.edit__icon {
+  color: black;
+  margin-top: 8px !important;
+  height: 32px;
+  width: 32px;
+}
+
+.display__username {
+  text-align: center;
+  font-family: "Outfit", sans-serif;
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.display__bio {
+  text-align: center;
+  font-weight: 400;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  padding: 20px;
+}
+
+input{
+  border-radius: 99rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 414px) {
+  .main-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .display__avatar {
+    width: 150px;
+    height: 150px;
+  }
+}

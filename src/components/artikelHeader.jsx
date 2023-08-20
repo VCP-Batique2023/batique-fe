@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import "@/assets/style/artikelHeader.css"
 import AnimatedText from "./AnimatedText"
 import Button from "./Button"
 
-export default function artikelHeader() {
+export default function ArtikelHeader() {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -28,8 +28,11 @@ export default function artikelHeader() {
             text="Mari-Eksplor, “Keanggunan dan Kedalaman Budaya dalam Dunia Batik di Artikel.”"
             firstWord 
           />
-          <Button size='small' style={{ marginRight: 5,
-            marginTop: 15}}>Mulai Sekarang!</Button>
+           
+            {/* <Button size='small' style={{ marginRight: 5, marginTop: 15 }}>
+              Mulai Sekarang!
+            </Button> */}
+
       </div>
         
     </div>

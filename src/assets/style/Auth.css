@@ -42,7 +42,7 @@
 .form-card {
   padding: 54px 48px;
   flex-basis: 55%;
-  min-width: 420px;
+  min-width: 400px;
 }
 
 .form-title {
@@ -57,13 +57,15 @@
 }
 
 .form-inline-flex {
+  padding-top: 4px;
   display: flex;
   gap: 18px;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
 }
 
-.text-field, .radio-field {
+.text-field,
+.radio-field {
   display: block;
 }
 
@@ -133,4 +135,16 @@
   gap: 24px;
   width: 100%;
   flex-wrap: wrap;
+}
+
+@media screen and (max-width: 575px) {
+  .auth-container {
+    padding: 24px;
+    height: 100vh;
+  }
+  .form-card {
+    padding: 36px 32px;
+    min-width: 100%;
+    /* width: 100%; */
+  }
 }

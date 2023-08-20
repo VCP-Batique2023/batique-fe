@@ -1,19 +1,23 @@
 .container-tabs{
     width: 100%;
     display:flex;
-    padding: 0 8% 8% 8%;
+    padding: 0 8% 0 8%;
     gap: 3%;
     z-index: 100;
 
+
+}
+
+.tabs-cards{
+  /* margin-top: 3%; */
+  height: auto;
+  width: 70%;
+ 
 }
 
 
-.cards{
-  margin-top: 3%;
-}
 .side-menu {
   width: 40%;
-  padding-left: 1%;
   position: sticky;
   top: 0; 
   top: calc(10% + 20px);
@@ -29,7 +33,7 @@
 
 .content-category{
   padding-top: 8%;
-  padding-right: 5%;
+  padding: 5% 2%;
 }
 .explore{
   padding-bottom: 8%;
@@ -78,4 +82,37 @@
   background-position: 100% center;
 }
 
+@media only screen and (max-width: 575px){
+  body{
+    overflow-x: hidden;
+  }
+  .container-tabs{
+    width: 100%;
+    display:flex;
+    flex-direction: column-reverse;
+    z-index: 100;
+    overflow-x: hidden;
+   
+}
+.tabs-cards{
+  height: auto;
+  padding-top: 3%;
+  width: 100%;
+  min-width: 60vw;
+  
+}
+
+.side-menu{
+  margin: auto;
+  top: 0;
+  padding-top: 10%;
+  width: 100%;
+  /* background: yellow; */
+}
+.categories{
+  justify-content: center;
+  margin: auto;
+  text-align: center;
+}
+}
   
