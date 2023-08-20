@@ -5,6 +5,7 @@ import { EllipsisHorizontalIcon } from '@heroicons/react/24/solid';
 
 // Import custom package
 import {
+  getUserById,
   getFeedsById,
   handleClientUpload,
   handleFirebaseUpload,
@@ -47,10 +48,6 @@ function Display() {
   }
 
   function triggerFirebaseUpdateProfile({ name, newAvatar, username, bio }) {
-    // setName(name);
-    // setAvatar(avatar);
-    // setUsername(username);
-    // setBio(bio);
     handleFirebaseUpdateProfile(
       currentUser.uid,
       avatar,
@@ -113,7 +110,7 @@ function Display() {
 export default function Galery() {
   const [feedsList, setFeedsList] = useState([]);
 
-  const [showModalDetailPost, setShowModalDetailPost] = useState(-1);
+  const [isOpen, setIsOpen] = useState(false);
   const [showModalAddPost, setShowModalAddPost] = useState(-1);
 
   const { currentUser } = useAuth();
@@ -128,18 +125,13 @@ export default function Galery() {
   // useEffect Fetch data from firebase
   useEffect(() => {
     getFeedsById(currentUser.uid, setFeedsList);
+    getUserById(currentUser.uid, setUserDetail);
   }, []);
 
   // For Triggering modal image --> Start
   function triggerShowModalDetailPost(feed) {
-    if (showModalDetailPost == -1) {
-      setShowModalDetailPost(2);
-      setDetailPost(feed);
-      setUserDetail(currentUser);
-    } else {
-      setShowModalDetailPost(-1);
-      setDetailPost({});
-    }
+    setIsOpen(!isOpen);
+    setDetailPost(feed);
   }
 
   // For Triggering modal add image --> Start
@@ -164,6 +156,9 @@ export default function Galery() {
       currentUser.uid,
       caption,
       selectedFile,
+      setSelectedFile,
+      setSelectedFilePath,
+      setCaption,
       setShowModalAddPost
     );
   }
@@ -173,12 +168,14 @@ export default function Galery() {
       <Display />
       <h2 className="judulbatik">Galeri Batique</h2>
       <ImageGrid feeds={feedsList} onClick={triggerShowModalDetailPost} />
-      <ImageModal
-        onClick={triggerShowModalDetailPost}
-        show={showModalDetailPost}
-        detailPost={detailPost}
-        userDetail={userDetail}
-      />
+      {isOpen && (
+        <ImageModal
+          detailPost={detailPost}
+          userDetail={userDetail}
+          isOpen={isOpen}
+          handleClose={() => setIsOpen(false)}
+        />
+      )}
       <Button
         style={{
           borderRadius: '50%',
@@ -219,6 +216,7 @@ export default function Galery() {
         firebaseUpload={triggerFirebaseUpload}
         setCaptionInput={stateCaptionInput}
         captionInput={caption}
+        currentUser={userDetail}
         show={showModalAddPost}
       />
     </>

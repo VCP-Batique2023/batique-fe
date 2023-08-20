@@ -148,11 +148,10 @@ async function getUserById(userId, cb) {
 }
 
 async function likeHander(uid, feedId, like, setLikeCb) {
-  // console.log(uid)
   let likedByAccount = [];
   const feedRef = doc(db, 'feeds', `${feedId}`);
   const querySnapshot = await getDoc(feedRef);
-  // console.log(feedId)
+  console.log(querySnapshot);
   if (querySnapshot.exists()) {
     const retrievedData = querySnapshot.data();
 
