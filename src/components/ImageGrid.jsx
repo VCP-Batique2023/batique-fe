@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
 /* eslint-disable react/jsx-no-comment-textnodes */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Masonry from 'react-masonry-css';
 import ImageGalery from '@/components/ImageGalery.jsx';
 import Button from '@/components/Button.jsx';
@@ -17,9 +17,7 @@ export default function ImageGrid({ feeds, onClick }) {
       setCount(count + imagePerSlide);
     }
   };
-  useEffect(() => {
-    console.log(count);
-  });
+
   const breakpointColumnsObj = {
     default: 4,
     1000: 3,

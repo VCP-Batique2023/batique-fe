@@ -11,8 +11,8 @@ const DetailArtikel = lazy(() => import('@/pages/detailartikel'));
 const SignUp = lazy(() => import('@/pages/SignUp'));
 const SignIn = lazy(() => import('@/pages/SignIn'));
 const ResetPassword = lazy(() => import('@/pages/ResetPassword'));
-const Galery = lazy(() => import('@/pages/Galery'));
-const Profile= lazy(() => import('@/pages/Profile'));
+const Feeds = lazy(() => import('@/pages/Feeds'));
+const Profile = lazy(() => import('@/pages/Profile'));
 
 import PrivateRoute from '@/routes/PrivateRoute';
 import Tentang from '@/pages/Tentang';
@@ -93,7 +93,7 @@ export default function Router() {
               <PrivateRoute
                 element={
                   <DocumentTitle title="Galeri - Batique">
-                    <Galery />
+                    <Feeds />
                   </DocumentTitle>
                 }
               />

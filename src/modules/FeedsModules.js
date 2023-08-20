@@ -10,7 +10,7 @@ import {
   query,
   onSnapshot,
   updateDoc,
-  limit,
+  // limit,
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
