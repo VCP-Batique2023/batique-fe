@@ -150,6 +150,7 @@ function Modal({
             className="input modal__input"
             placeholder="Username"
             required
+            disabled
             value={newUsername}
             onChange={handleChangeNewUsername}
           />
