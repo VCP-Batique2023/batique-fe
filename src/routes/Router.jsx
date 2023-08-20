@@ -90,7 +90,7 @@ export default function Router() {
             }
           />
           <Route
-            path="/profile"
+            path="/profil"
             element={
               <PrivateRoute
                 element={

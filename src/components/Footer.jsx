@@ -54,12 +54,12 @@ export default function Footer() {
                 Feeds
               </NavLink>
               <NavLink
-                to="/profile"
+                to="/profil"
                 className={({ isActive }) => {
                   return `footer-link ${isActive ? 'active' : ''}`;
                 }}
               >
-                Profile
+                Profil
               </NavLink>
             </>
           ) : (
