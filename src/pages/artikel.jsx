@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 
   
 export default function artikel() {
-
   return (
     <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <ArtikelHeader/>
@@ -13,4 +12,3 @@ export default function artikel() {
     </motion.main>
   )
 }
-  

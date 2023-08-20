@@ -1,122 +1,36 @@
 /* eslint-disable react/no-children-prop */
 // Import package
 import { useState, useEffect } from 'react';
-import { EllipsisHorizontalIcon } from '@heroicons/react/24/solid';
+import { useInView } from 'react-intersection-observer';
 
 // Import custom package
 import {
-  getFeedsById,
+  getAllFeeds,
+  getFeedById,
   handleClientUpload,
   handleFirebaseUpload,
-  getCurrentUserDataByUid,
-  handleFirebaseUpdateProfile,
-} from '@/modules/ProfileModules';
-import { useAuth } from '@/contexts/AuthContext';
+} from '@/modules/FeedsModules';
 
 // Import JSX Component
-import Modal from './Modal';
-import EmptyAvatar from '../assets/img/empty-avatar.png';
-import '../assets/style/Display.css';
+import ImageHeader from '@/components/ImageHeader';
 import ImageGrid from '@/components/ImageGrid';
 import ImageModal from '@/components/ImageModal';
 import AddImageModal from '@/components/AddImageModal';
 import Button from '@/components/Button';
 
 // Import Image Component
-function Display() {
-  const { currentUser } = useAuth();
+import GaleryHeader from '@/assets/img/1.jpg';
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [avatar, setAvatar] = useState('');
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
-  const [bio, setBio] = useState('');
-
-  useEffect(() => {
-    getCurrentUserDataByUid(
-      currentUser.uid,
-      setAvatar,
-      setName,
-      setUsername,
-      setBio
-    );
-  }, []);
-
-  function changeModal() {
-    setIsOpen(!isOpen);
-  }
-
-  function triggerFirebaseUpdateProfile({ name, newAvatar, username, bio }) {
-    // setName(name);
-    // setAvatar(avatar);
-    // setUsername(username);
-    // setBio(bio);
-    handleFirebaseUpdateProfile(
-      currentUser.uid,
-      avatar,
-      newAvatar,
-      name,
-      username,
-      bio,
-      setAvatar,
-      setName,
-      setUsername,
-      setBio
-    );
-  }
-
-  function replaceWithBr() {
-    return bio.replace(/\r\n|\r|\n/g, '<br />');
-  }
-
-  return (
-    <div className="main-profile">
-      <div id="display" className="display">
-        <div className="display__avatar">
-          <img src={avatar ? avatar : EmptyAvatar} alt="avatar" />
-        </div>
-        <div className="display__info">
-          <div className="display__info__header">
-            <h2 className="display__name">{name || 'John Doe'}</h2>
-            <button className="btn btn-ghost">
-              <EllipsisHorizontalIcon
-                className="icon edit__icon"
-                onClick={changeModal}
-              />
-            </button>
-          </div>
-          <div className="display__info__body">
-            <p className="display__username">
-              {username ? `@${username}` : '@johndoe'}
-            </p>
-            <p
-              className="display__bio"
-              dangerouslySetInnerHTML={{ __html: replaceWithBr() }}
-            ></p>
-          </div>
-        </div>
-      </div>
-
-      <Modal
-        isOpen={isOpen}
-        changeModal={changeModal}
-        avatar={avatar ? avatar : EmptyAvatar}
-        name={name}
-        username={username}
-        bio={bio}
-        handleSubmit={triggerFirebaseUpdateProfile}
-      />
-    </div>
+export default function Galery({ children }) {
+  const [screenWidth, setScreenWidth] = useState(
+    window.innerWidth >= 992 ? '60vh' : '30vh'
   );
-}
-
-export default function Galery() {
   const [feedsList, setFeedsList] = useState([]);
 
+  const [activeSort, setActiveSort] = useState('default');
+  const { ref: targetButtonRef, inView: targetButtonIsVisible } = useInView();
   const [showModalDetailPost, setShowModalDetailPost] = useState(-1);
   const [showModalAddPost, setShowModalAddPost] = useState(-1);
-
-  const { currentUser } = useAuth();
 
   //State for Detail and Add Post
   const [detailPost, setDetailPost] = useState({});
@@ -127,15 +41,45 @@ export default function Galery() {
 
   // useEffect Fetch data from firebase
   useEffect(() => {
-    getFeedsById(currentUser.uid, setFeedsList);
+    getAllFeeds(setFeedsList);
+  }, []);
+
+  // Filter Feeds
+  function sortFeedsByMostLikes() {
+    const copy = [...feedsList].sort((a, b) => b.like - a.like);
+    setFeedsList(copy);
+    setActiveSort('likes');
+  }
+
+  function sortFeedsByMostRecent() {
+    const copy = [...feedsList].sort((a, b) => b.createdAt - a.createdAt);
+    setFeedsList(copy);
+    setActiveSort('recent');
+  }
+
+  // For Image Header component (responsive) --> Start
+  function resizeScreenHandler() {
+    if (window.innerWidth >= 992) {
+      setScreenWidth('60vh');
+    } else {
+      setScreenWidth('40vh');
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', resizeScreenHandler);
+
+    return () => {
+      window.removeEventListener('resize', resizeScreenHandler);
+    };
   }, []);
 
   // For Triggering modal image --> Start
   function triggerShowModalDetailPost(feed) {
     if (showModalDetailPost == -1) {
       setShowModalDetailPost(2);
+      getFeedById(feed.userId, setUserDetail);
       setDetailPost(feed);
-      setUserDetail(currentUser);
     } else {
       setShowModalDetailPost(-1);
       setDetailPost({});
@@ -160,18 +104,30 @@ export default function Galery() {
   }
 
   function triggerFirebaseUpload() {
-    handleFirebaseUpload(
-      currentUser.uid,
-      caption,
-      selectedFile,
-      setShowModalAddPost
-    );
+    handleFirebaseUpload(caption, selectedFile, setShowModalAddPost);
   }
 
   return (
     <>
-      <Display />
-      <h2 className="judulbatik">Galeri Batique</h2>
+      <ImageHeader path={GaleryHeader} height={screenWidth} />
+      <div className="sortContainer">
+        <div
+          ref={targetButtonRef}
+          className="sort"
+          style={{ backgroundColor: '#372B22' }}
+        >
+          <Button
+            children="Most Likes"
+            style={activeSort == 'likes' ? { backgroundColor: '#504237' } : ''}
+            onClick={sortFeedsByMostLikes}
+          />
+          <Button
+            children="Most Resent"
+            style={activeSort == 'recent' ? { backgroundColor: '#504237' } : ''}
+            onClick={sortFeedsByMostRecent}
+          />
+        </div>
+      </div>
       <ImageGrid feeds={feedsList} onClick={triggerShowModalDetailPost} />
       <ImageModal
         onClick={triggerShowModalDetailPost}
