@@ -13,9 +13,6 @@ export default function ImageGrid({ feeds, onClick }) {
   const loadMoreImageHandler = () => {
     setCount(count + imagePerSlide);
   };
-  // useEffect(() => {
-  //   console.log(feeds);
-  // });
 
   const breakpointColumnsObj = {
     default: 4,

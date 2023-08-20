@@ -26,7 +26,7 @@ export default function ImageOverlay({ feedInformation }) {
 
   useEffect(() => {
     checkIsLiked(currentUser.uid, feedInformation.likedByAccount, setIsLiked);
-  }, []);
+  }, [feedInformation]);
   return (
     <div className="overlay">
       {/* <h1>{isLiked}</h1> */}

@@ -110,6 +110,7 @@ async function getAllFeeds(cb) {
       let newObj = { feedId: docId, ...doc.data() };
       retrievedData.push(newObj);
     });
+    console.log(retrievedData)
     cb(retrievedData);
   });
   return dataSnapshot;
