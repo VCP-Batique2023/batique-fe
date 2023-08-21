@@ -3,14 +3,14 @@ import Button from '@/components/Button';
 import ImageIcon from '@/assets/img/6.png';
 import '@/assets/style/ImageGrid.css';
 
-export default function ImageModal({
+export default function AddImageModal({
   selectedFilePath,
-  selectedFile,
   closeWindowHandler,
   clientUpload,
   setCaptionInput,
   captionInput,
   firebaseUpload,
+  currentUser,
   show,
 }) {
   return (
@@ -57,10 +57,20 @@ export default function ImageModal({
             <div className="profileInformation">
               <img
                 className="profilePicture"
-                style={{ backgroundColor: 'transparent', width: '60px' }}
-                src="https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
+                style={{
+                  objectFit: 'cover',
+                  backgroundColor: 'transparent',
+                  width: '60px',
+                  height: '60px',
+                  borderRadius: '50%',
+                }}
+                src={
+                  currentUser.displayName
+                    ? currentUser.profilePicture
+                    : 'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png'
+                }
               />
-              <h3>Calvin Danyalson</h3>
+              <h3>{currentUser.displayName}</h3>
             </div>
             <div className="postCaption">
               <input
@@ -70,6 +80,7 @@ export default function ImageModal({
                 onChange={(event) => {
                   setCaptionInput(event);
                 }}
+                accept="image/png, image/jpeg, image/jpg"
               />
             </div>
           </div>

@@ -11,9 +11,8 @@ const DetailArtikel = lazy(() => import('@/pages/detailartikel'));
 const SignUp = lazy(() => import('@/pages/SignUp'));
 const SignIn = lazy(() => import('@/pages/SignIn'));
 const ResetPassword = lazy(() => import('@/pages/ResetPassword'));
-const Galery = lazy(() => import('@/pages/Galery'));
-const Input = lazy(() => import('@/pages/input'));
-const Profile= lazy(() => import('@/pages/Profile'));
+const Feeds = lazy(() => import('@/pages/Feeds'));
+const Profile = lazy(() => import('@/pages/Profile'));
 
 import PrivateRoute from '@/routes/PrivateRoute';
 import Tentang from '@/pages/Tentang';
@@ -42,7 +41,7 @@ export default function Router() {
             exact
             path="/tentang"
             element={
-              <DocumentTitle title="Selamat datang - Batique">
+              <DocumentTitle title="Tentang Kami - Batique">
                 <Tentang />
               </DocumentTitle>
             }
@@ -51,7 +50,7 @@ export default function Router() {
             exact
             path="/artikel"
             element={
-              <DocumentTitle title="Batique - Artikel">
+              <DocumentTitle title="Artikel - Batique">
                 <Artikel />
               </DocumentTitle>
             }
@@ -67,20 +66,11 @@ export default function Router() {
           <Route
             path={`/artikel/:index`}
             element={
-              <DocumentTitle title="Batique - Artikel">
+              <DocumentTitle title="Artikel - Batique">
                 <DetailArtikel />
               </DocumentTitle>
             }
           />
-           <Route
-            path={`/input`}
-            element={
-              <DocumentTitle title="Batique - Artikel">
-              <Input />
-              </DocumentTitle>
-            }
-          />
-          
           <Route
             path="/masuk"
             element={
@@ -92,7 +82,7 @@ export default function Router() {
           <Route
             path="/reset"
             element={
-              <DocumentTitle title="Masuk - Batique">
+              <DocumentTitle title="Lupa Kata Sandi - Batique">
                 <ResetPassword />
               </DocumentTitle>
             }
@@ -102,19 +92,19 @@ export default function Router() {
             element={
               <PrivateRoute
                 element={
-                  <DocumentTitle title="Galeri">
-                    <Galery />
+                  <DocumentTitle title="Galeri - Batique">
+                    <Feeds />
                   </DocumentTitle>
                 }
               />
             }
           />
           <Route
-            path="/profile"
+            path="/profil"
             element={
               <PrivateRoute
                 element={
-                  <DocumentTitle title="Profile">
+                  <DocumentTitle title="Profil - Batique">
                     <Profile />
                   </DocumentTitle>
                 }
