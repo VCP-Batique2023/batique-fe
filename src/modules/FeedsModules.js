@@ -50,7 +50,7 @@ async function handleFirebaseUpload(
     // Return something to trigger the toast
     toast.error('Silahkan upload gambar batik!');
     setShowModalAddPostCb(-1);
-    return;
+    return result.isBatik;
   }
   const imageRef = ref(storage, `feeds/${v4()}`);
   const storageSnapShot = await uploadBytes(imageRef, selectedFile);
