@@ -12,10 +12,10 @@ export default function Footer() {
         Batique
       </h2>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-        dolore obcaecati, nostrum nobis culpa error iure molestiae. Nisi quasi
-        ipsum nemo numquam fugit, nihil, facilis aspernatur quia, iusto
-        perspiciatis tenetur?
+        Batique memiliki komitmen mendalam dalam menjaga dan mengembangkan
+        warisan budaya Indonesia melalui seni batik. Batique akan menjadi ruang
+        berekspresi bagi seniman muda berbakat untuk menggali potensi kreatif
+        mereka dalam seni batik.
       </p>
       <section className="footer-flex">
         <ul>

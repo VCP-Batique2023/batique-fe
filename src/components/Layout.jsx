@@ -1,4 +1,9 @@
-import { NavLink, useNavigate, createSearchParams } from 'react-router-dom';
+import {
+  NavLink,
+  useNavigate,
+  createSearchParams,
+  useAsyncError,
+} from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useMobile } from '@/contexts/MobileContext';
 import { useState } from 'react';
@@ -6,6 +11,7 @@ import { Fade as Hamburger } from 'hamburger-react';
 import Button from '@/components/Button';
 import SearchBox from '@/components/SearchBox';
 import Backdrop from '@/components/Backdrop';
+import AddImageModalForNav from '@/components/AddImageModalForNav';
 import '@/assets/style/Layout.css';
 import '@/assets/style/Button.css';
 import defaultProfilePicture from '@/assets/img/empty-avatar.png';
@@ -13,13 +19,23 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { onSnapshot, doc } from 'firebase/firestore';
 import { db } from '@/modules/firebase_config.js';
-
+import {
+  handleClientUpload,
+  handleFirebaseUpload,
+} from '@/modules/FeedsModules';
 export default function Layout() {
   const navigate = useNavigate();
   const { currentUser, userSignOut } = useAuth();
   const { isMobile, isTablet } = useMobile();
   const [isMenu, setIsMenu] = useState(false);
   const [profile, setProfile] = useState(null);
+
+  const [isOpenAdPostForNav, setIsOpenAdPostForNav] = useState(false);
+  const [captionForNav, setCaptionForNav] = useState(
+    'Write your caption here!'
+  );
+  const [selectedFileForNav, setSelectedFileForNav] = useState('');
+  const [selectedFilePathForNav, setSelectedFilePathForNav] = useState('');
 
   const handleSignOut = async () => {
     navigate('/');
@@ -48,6 +64,33 @@ export default function Layout() {
     });
     window.scrollTo(0, 0);
   };
+  function triggerShowModalAddPostForNav() {
+    setIsOpenAdPostForNav(!isOpenAdPostForNav);
+  }
+
+  function stateCaptionInputForNav(e) {
+    setCaptionForNav(e.target.value);
+  }
+
+  function triggerClientUploadForNav(e) {
+    handleClientUpload(e, setSelectedFileForNav, setSelectedFilePathForNav);
+  }
+
+  async function triggerFirebaseUploadForNav() {
+    const firebaseUpload = await handleFirebaseUpload(
+      captionForNav,
+      selectedFileForNav,
+      selectedFilePathForNav,
+      currentUser.uid,
+      setIsOpenAdPostForNav,
+      setSelectedFileForNav,
+      setSelectedFilePathForNav,
+      setCaptionForNav
+    );
+    if (!firebaseUpload) {
+      setIsOpenAdPostForNav(!isOpenAdPostForNav);
+    }
+  }
 
   return (
     <>
@@ -245,6 +288,7 @@ export default function Layout() {
                     />
                     <section>
                       <svg
+                        onClick={triggerShowModalAddPostForNav}
                         className="btn-outlined-primary nav-icon"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -260,6 +304,18 @@ export default function Layout() {
                           d="M12 4.5v15m7.5-7.5h-15"
                         />
                       </svg>
+                      {isOpenAdPostForNav && (
+                        <AddImageModalForNav
+                          selectedFilePath={selectedFilePathForNav}
+                          selectedFile={selectedFileForNav}
+                          clientUpload={triggerClientUploadForNav}
+                          firebaseUpload={triggerFirebaseUploadForNav}
+                          currentUser={profile}
+                          captionInput={captionForNav}
+                          setCaptionInput={stateCaptionInputForNav}
+                          handleClose={() => setIsOpenAdPostForNav(false)}
+                        />
+                      )}
                       <svg
                         onClick={handleSignOut}
                         className="btn-outlined-primary nav-icon"
@@ -382,7 +438,7 @@ export default function Layout() {
                     {currentUser ? (
                       <>
                         <NavLink
-                          to="/profile"
+                          to="/profil"
                           onClick={() => {
                             setIsMenu(false);
                           }}
@@ -390,7 +446,7 @@ export default function Layout() {
                             return `nav-link ${isActive ? 'active' : ''}`;
                           }}
                         >
-                          Profile
+                          Profil
                         </NavLink>
                         <Button
                           onClick={() => handleSignOut()}
