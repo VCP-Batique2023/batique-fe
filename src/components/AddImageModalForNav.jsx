@@ -3,22 +3,18 @@ import Button from '@/components/Button';
 import ImageIcon from '@/assets/img/6.png';
 import '@/assets/style/ImageGrid.css';
 
-export default function AddImageModal({
+export default function AddImageModalForNav({
   selectedFilePath,
-  closeWindowHandler,
+  handleClose,
   clientUpload,
   setCaptionInput,
   captionInput,
   firebaseUpload,
   currentUser,
-  show,
 }) {
   return (
     <>
-      <div
-        className="detailPostContainer"
-        style={{ zIndex: show, opacity: show }}
-      >
+      <div className="detailPostContainer" style={{ zIndex: 1, opacity: 1 }}>
         <div className="detailPost addPost">
           <div className="leftContent">
             <label
@@ -84,11 +80,7 @@ export default function AddImageModal({
               />
             </div>
           </div>
-          <Button
-            children="X"
-            style={modalButton}
-            onClick={closeWindowHandler}
-          />
+          <Button children="X" style={modalButton} onClick={handleClose} />
           <Button
             children="Upload"
             style={{
