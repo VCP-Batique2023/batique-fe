@@ -44,12 +44,11 @@
 }
 
 .team-mem{
-    width: calc(150px * 3 + 39%);
+    width: 100%;
     height: auto;
-    /* padding-top: 17%; */
     margin: 17% auto;
     display: flex;
-    /* background: #000; */
+    justify-content: space-evenly;
     gap: 20%;
     
 }
@@ -92,5 +91,12 @@
     }
     .member{
         padding-bottom: 30%;
+    }
+}
+@media only screen and (max-width: 991px) {
+    .team-mem{
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 32px;
     }
 }
