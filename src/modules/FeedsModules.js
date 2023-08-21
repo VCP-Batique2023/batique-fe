@@ -1,32 +1,75 @@
 import { v4 } from 'uuid';
 import { db, storage } from '@/modules/firebase_config';
+import toast from 'react-hot-toast';
 import {
   collection,
   getDoc,
-  getDocs,
   setDoc,
   doc,
   Timestamp,
+  query,
+  onSnapshot,
+  updateDoc,
+  // limit,
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
+async function checkImageOnMLAPI(selectedFile) {
+  try {
+    const reqData = new FormData();
+    reqData.append('file', selectedFile);
+    const response = await fetch(
+      'https://batique-be-fyelvmf6sq-et.a.run.app/scan',
+      {
+        method: 'POST',
+        body: reqData,
+      }
+    );
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = response.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 async function handleFirebaseUpload(
   caption,
   selectedFile,
-  setShowModalAddPostCb
+  selectedFilePath,
+  uid,
+  setShowModalAddPostCb,
+  setSelectedFileCb,
+  setSelectedFilePathCb,
+  setCaptionCb
 ) {
+  const result = await checkImageOnMLAPI(selectedFile);
+  if (!result.isBatik) {
+    // Return something to trigger the toast
+    toast.error('Silahkan upload gambar batik!');
+    setShowModalAddPostCb(-1);
+    return;
+  }
   const imageRef = ref(storage, `feeds/${v4()}`);
   const storageSnapShot = await uploadBytes(imageRef, selectedFile);
   const publicUrl = await getDownloadURL(storageSnapShot.ref);
 
-  await setDoc(doc(db, 'feeds', `username-${v4()}`), {
+  await setDoc(doc(db, 'feeds', `${uid}-${v4()}`), {
     caption: caption,
     createdAt: Timestamp.fromDate(new Date()),
     imageUrl: publicUrl,
     like: 0,
-    userId: 'TPs0P8qiG5M3nEakYxQLt1ZENNY2',
+    likedByAccount: [],
+    userId: uid,
   });
+  toast.success('Gambar berhasil di upload');
+
   setShowModalAddPostCb(-1);
+  setSelectedFileCb('');
+  setSelectedFilePathCb('');
+  setCaptionCb('Write your caption here!');
 }
 
 async function handleClientUpload(e, setSelectedFileCb, setSelectedFilePathCb) {
@@ -61,15 +104,38 @@ async function handleClientUpload(e, setSelectedFileCb, setSelectedFilePathCb) {
 //   }
 
 async function getAllFeeds(cb) {
-  const retrievedData = [];
-  const querySnapshot = await getDocs(collection(db, 'feeds'));
-  querySnapshot.forEach((doc) => {
-    retrievedData.push(doc.data());
+  const dataRef = collection(db, 'feeds');
+  // Tambahin limit kalau debugging
+  const feedsQuery = query(dataRef);
+  const dataSnapshot = onSnapshot(feedsQuery, (snapshot) => {
+    const retrievedData = [];
+    snapshot.forEach((doc) => {
+      let docId = doc.id;
+      let newObj = { feedId: docId, ...doc.data() };
+      retrievedData.push(newObj);
+    });
+    // console.log(retrievedData)
+    cb(retrievedData);
   });
-  cb(retrievedData);
+  return dataSnapshot;
 }
 
-async function getFeedById(userId, cb) {
+// async function getAllFeeds(cb) {
+//   const retrievedData = [];
+//   const feedsRef = collection(db, 'feeds');
+//   const feedsQuery = query(feedsRef, limit(5));
+//   const querySnapshot = await getDocs(feedsQuery);
+//   querySnapshot.forEach((doc) => {
+//     let docId = doc.id;
+//     // console.log(docId)
+//     let newObj = { feedId: docId, ...doc.data() };
+//     retrievedData.push(newObj);
+//   });
+//   // console.log(retrievedData)
+//   cb(retrievedData);
+// }
+
+async function getUserById(userId, cb) {
   const querySnapshot = await getDoc(doc(db, 'users', `${userId}`));
 
   if (querySnapshot.exists()) {
@@ -81,4 +147,63 @@ async function getFeedById(userId, cb) {
   return cb(null);
 }
 
-export { getAllFeeds, getFeedById, handleClientUpload, handleFirebaseUpload };
+async function likeHander(uid, feedId, like, setLikeCb) {
+  let likedByAccount = [];
+  const feedRef = doc(db, 'feeds', `${feedId}`);
+  const querySnapshot = await getDoc(feedRef);
+  console.log(querySnapshot);
+  if (querySnapshot.exists()) {
+    const retrievedData = querySnapshot.data();
+
+    if (!retrievedData.likedByAccount) {
+      likedByAccount = [];
+    } else {
+      likedByAccount = [...retrievedData.likedByAccount];
+    }
+    const index = likedByAccount.findIndex((likedBy) => {
+      return likedBy.trim() == uid;
+    });
+
+    let updatedLike = [];
+    if (index > -1) {
+      updatedLike = likedByAccount.filter((liked) => {
+        return liked.trim() != uid;
+      });
+      toast.success('Unliked');
+    } else {
+      updatedLike = [...likedByAccount, uid];
+      toast.success('Liked');
+    }
+
+    await updateDoc(feedRef, {
+      like: updatedLike.length,
+      likedByAccount: updatedLike,
+    });
+
+    return setLikeCb(!like);
+  }
+
+  return setLikeCb(like);
+}
+
+async function checkIsLiked(uid, listLikedByAcc, setIsLikedCb) {
+  if (!listLikedByAcc) {
+    setIsLikedCb(false);
+    return;
+  }
+
+  const index = listLikedByAcc.findIndex((likedBy) => {
+    return likedBy.trim() == uid;
+  });
+
+  return setIsLikedCb(index > -1 ? true : false);
+}
+
+export {
+  getAllFeeds,
+  getUserById,
+  handleClientUpload,
+  handleFirebaseUpload,
+  likeHander,
+  checkIsLiked,
+};

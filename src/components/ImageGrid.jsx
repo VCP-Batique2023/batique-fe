@@ -9,9 +9,15 @@ import '@/assets/style/ImageGrid.css';
 export default function ImageGrid({ feeds, onClick }) {
   let imagePerSlide = 15;
   const [count, setCount] = useState(imagePerSlide);
+
   const loadMoreImageHandler = () => {
-    setCount(count + imagePerSlide);
+    if (feeds.length - count < imagePerSlide) {
+      setCount(count + feeds.length - count);
+    } else if (feeds.length - count > imagePerSlide) {
+      setCount(count + imagePerSlide);
+    }
   };
+
   const breakpointColumnsObj = {
     default: 4,
     1000: 3,
@@ -30,7 +36,7 @@ export default function ImageGrid({ feeds, onClick }) {
           <ImageGalery feedInformation={feed} onClick={onClick} key={index} />
         ))}
       </Masonry>
-      {count <= feeds.length - imagePerSlide ? (
+      {count != feeds.length ? (
         <div style={ButtonStyle}>
           <Button
             children="Load More"

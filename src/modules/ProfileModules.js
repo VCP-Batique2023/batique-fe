@@ -1,11 +1,11 @@
 import { db, storage } from '@/modules/firebase_config';
 import toast from 'react-hot-toast';
-import {v4} from 'uuid'
+import { v4 } from 'uuid';
 import {
   collection,
   doc,
   getDoc,
-  getDocs,
+  onSnapshot,
   setDoc,
   updateDoc,
   query,
@@ -28,17 +28,20 @@ async function handleFirebaseUpdateProfile(
 ) {
   const userRef = doc(db, 'users', uid);
   try {
-    const imageRef = ref(storage, `profilePictures/profile-${uid}}`);
-    const storageSnapShot = await uploadBytes(imageRef, newAvatar);
-    const publicUrl = await getDownloadURL(storageSnapShot.ref);
+    let publicUrl;
+    if (!(typeof newAvatar == 'string')) {
+      const imageRef = ref(storage, `profilePictures/profile-${uid}}`);
+      const storageSnapShot = await uploadBytes(imageRef, newAvatar);
+      publicUrl = await getDownloadURL(storageSnapShot.ref);
+    }
 
     await updateDoc(userRef, {
       displayName: name,
-      profilePicture: publicUrl,
+      profilePicture: publicUrl ? publicUrl : avatar,
       username: username,
       description: bio,
     });
-    setAvatarCb(publicUrl);
+    setAvatarCb(publicUrl ? publicUrl : avatar);
     setNameCb(name);
     setUsernameCb(username);
     setBioCb(bio);
@@ -69,6 +72,18 @@ async function getCurrentUserDataByUid(
   return;
 }
 
+async function getUserById(userId, cb) {
+  const querySnapshot = await getDoc(doc(db, 'users', `${userId}`));
+
+  if (querySnapshot.exists()) {
+    const retrievedData = querySnapshot.data();
+    // console.log(retrievedData);
+    return cb(retrievedData);
+  }
+
+  return cb(null);
+}
+
 async function checkImageOnMLAPI(selectedFile) {
   try {
     const reqData = new FormData();
@@ -94,6 +109,9 @@ async function handleFirebaseUpload(
   uid,
   caption,
   selectedFile,
+  setSelectedFileCb,
+  setSelectedFilePathCb,
+  setCaptionCb,
   setShowModalAddPostCb
 ) {
   const result = await checkImageOnMLAPI(selectedFile);
@@ -109,13 +127,18 @@ async function handleFirebaseUpload(
   const storageSnapShot = await uploadBytes(imageRef, selectedFile);
   const publicUrl = await getDownloadURL(storageSnapShot.ref);
 
-  await setDoc(doc(db, 'feeds', `username-${v4()}`), {
+  await setDoc(doc(db, 'feeds', `${uid}-${v4()}`), {
     caption: caption,
     createdAt: Timestamp.fromDate(new Date()),
     imageUrl: publicUrl,
     like: 0,
+    likedByAccount: [],
     userId: uid,
   });
+  toast.success('Gambar berhasil di upload');
+  setSelectedFileCb('');
+  setSelectedFilePathCb('');
+  setCaptionCb('Write your caption here!');
   setShowModalAddPostCb(-1);
 }
 
@@ -138,18 +161,33 @@ async function handleClientUpload(e, setSelectedFileCb, setSelectedFilePathCb) {
 }
 
 async function getFeedsById(userId, cb) {
-  const retrievedData = [];
-
-  const feedsCollection = collection(db, 'feeds');
-  const q = query(feedsCollection, where('userId', '==', userId));
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    retrievedData.push(doc.data());
+  const dataRef = collection(db, 'feeds');
+  // Tambahin limit kalau debugging
+  const feedsQuery = query(dataRef, where('userId', '==', userId));
+  const dataSnapshot = onSnapshot(feedsQuery, (snapshot) => {
+    const retrievedData = [];
+    snapshot.forEach((doc) => {
+      let docId = doc.id;
+      let newObj = { feedId: docId, ...doc.data() };
+      retrievedData.push(newObj);
+    });
+    // console.log(retrievedData)
+    cb(retrievedData);
   });
-  return cb(retrievedData);
+  return dataSnapshot;
+  // const retrievedData = [];
+
+  // const feedsCollection = collection(db, 'feeds');
+  // const q = query(feedsCollection, where('userId', '==', userId));
+  // const querySnapshot = await getDocs(q);
+  // querySnapshot.forEach((doc) => {
+  //   retrievedData.push(doc.data());
+  // });
+  // return cb(retrievedData);
 }
 
 export {
+  getUserById,
   getFeedsById,
   handleClientUpload,
   handleFirebaseUpload,
