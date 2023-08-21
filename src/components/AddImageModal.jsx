@@ -57,8 +57,18 @@ export default function AddImageModal({
             <div className="profileInformation">
               <img
                 className="profilePicture"
-                style={{ backgroundColor: 'transparent', width: '60px' }}
-                src="https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
+                style={{
+                  objectFit: 'cover',
+                  backgroundColor: 'transparent',
+                  width: '60px',
+                  height: '60px',
+                  borderRadius: '50%',
+                }}
+                src={
+                  currentUser.displayName
+                    ? currentUser.profilePicture
+                    : 'https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png'
+                }
               />
               <h3>{currentUser.displayName}</h3>
             </div>
