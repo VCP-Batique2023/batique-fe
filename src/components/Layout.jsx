@@ -382,7 +382,7 @@ export default function Layout() {
                     {currentUser ? (
                       <>
                         <NavLink
-                          to="/profile"
+                          to="/profil"
                           onClick={() => {
                             setIsMenu(false);
                           }}
@@ -390,7 +390,7 @@ export default function Layout() {
                             return `nav-link ${isActive ? 'active' : ''}`;
                           }}
                         >
-                          Profile
+                          Profil
                         </NavLink>
                         <Button
                           onClick={() => handleSignOut()}
