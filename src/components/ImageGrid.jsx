@@ -74,7 +74,7 @@ export default function ImageGrid({ feeds, onClick }) {
           </Masonry>
         </AnimatePresence>
       </motion.div>
-      {imagePerSlide > feeds.length && (
+      {imagePerSlide < feeds.length && (
         <div style={ButtonStyle}>
           <Button
             children="Load More"

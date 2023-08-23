@@ -21,6 +21,7 @@ import '../assets/style/Display.css';
 import ImageGrid from '@/components/ImageGrid';
 import ImageModal from '@/components/ImageModal';
 import AddImageModal from '@/components/AddImageModal';
+import { GridLoader } from 'react-spinners';
 import Button from '@/components/Button';
 
 // Import Image Component
@@ -167,7 +168,19 @@ export default function Galery() {
     <>
       <Display />
       <h2 className="judulbatik">Galeri Batique</h2>
-      <ImageGrid feeds={feedsList} onClick={triggerShowModalDetailPost} />
+      {feedsList.length == 0 ? (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            margin: '50px 64px',
+          }}
+        >
+          <GridLoader color="#372B22" />
+        </div>
+      ) : (
+        <ImageGrid feeds={feedsList} onClick={triggerShowModalDetailPost} />
+      )}
       {isOpen && (
         <ImageModal
           detailPost={detailPost}
