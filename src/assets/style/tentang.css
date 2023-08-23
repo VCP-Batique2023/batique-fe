@@ -1,12 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Ysabeau+Infant:wght@400&display=swap');
-.header-tentang, .boundary{
-    background-image: url('/src/assets/img/batikilus.jpg');
-    height: 40vh;
-    background-size: cover;
-    background-attachment: fixed;
-    -moz-background-inline-policy: 10%;
-    background-position: right ;
-    /* background-color: #f0e0b0; */
+.header-tentang,
+.boundary {
+  background: linear-gradient(
+      0deg,
+      rgba(242, 242, 242, 0.15),
+      rgba(242, 242, 242, 0.15)
+    ),
+    url('/src/assets/img/tentang.jpg');
+  height: 40vh;
+  background-size: cover;
+  background-attachment: fixed;
+  -moz-background-inline-policy: 10%;
+  background-position: 50% 80%;
+  /* background-color: #f0e0b0; */
 }
 
 /* .header-text {
@@ -19,28 +25,27 @@
     text-align: center;
   } */
 
-.content-tentang{
-    width: 60%;
-    text-align: justify;
-    justify-content: center; 
-    align-items: center; 
-    margin: auto;
-    height: auto;
-    padding: 3% 0;
+.content-tentang {
+  width: 60%;
+  text-align: justify;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  height: auto;
+  padding: 3% 0;
 }
 
-.our-team{
-    height: 100vh;
-    padding: 5% 20%;
-
+.our-team {
+  height: 100vh;
+  padding: 5% 20%;
 }
-.team-head{
-    display: flex;
-    margin: auto;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    /* background: #000; */
+.team-head {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  /* background: #000; */
 }
 
 .team-mem{
@@ -50,23 +55,22 @@
     display: flex;
     justify-content: space-evenly;
     gap: 20%;
-    
 }
-.mem-pic{
-    height: 150px;
-    width: 150px;
-    border-radius: 100px;
-    object-fit: cover;
-    margin-bottom: 10%;
+.mem-pic {
+  height: 150px;
+  width: 150px;
+  border-radius: 100px;
+  object-fit: cover;
+  margin-bottom: 10%;
 }
 
 .team-mem span {
-    display: block; 
-    text-align: center; 
-    margin: auto; 
-    font-size: larger;
-    font-weight: bold;
-    font-family: 'Ysabeau Infant', 'sans-serif';
+  display: block;
+  text-align: center;
+  margin: auto;
+  font-size: larger;
+  font-weight: bold;
+  font-family: 'Ysabeau Infant', 'sans-serif';
 }
 @media only screen and (max-width: 575px) {
     .header-tentang, .boundary{

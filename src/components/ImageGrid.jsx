@@ -2,13 +2,16 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import { useState } from 'react';
 import Masonry from 'react-masonry-css';
+import { motion, AnimatePresence } from 'framer-motion';
 import ImageGalery from '@/components/ImageGalery.jsx';
 import Button from '@/components/Button.jsx';
 import '@/assets/style/ImageGrid.css';
 
 export default function ImageGrid({ feeds, onClick }) {
   let imagePerSlide = 15;
-  const [count, setCount] = useState(imagePerSlide);
+  const [count, setCount] = useState(
+    feeds.length < 15 ? feeds.length : imagePerSlide
+  );
 
   const loadMoreImageHandler = () => {
     if (feeds.length - count < imagePerSlide) {
@@ -24,18 +27,51 @@ export default function ImageGrid({ feeds, onClick }) {
     700: 2,
     500: 1,
   };
-
+  const container = {
+    hidden: {},
+    visible: {},
+  };
+  const item = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.75,
+      },
+    },
+  };
   return (
     <>
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        columnClassName="gridWrapperMasonryColumn"
-        className="gridWrapperMasonry"
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="visible"
+        transition={{
+          // delayChildren: 0.1,
+          staggerChildren: 0.1,
+          type: 'tween',
+        }}
       >
-        {feeds.slice(0, count).map((feed, index) => (
-          <ImageGalery feedInformation={feed} onClick={onClick} key={index} />
-        ))}
-      </Masonry>
+        <AnimatePresence>
+          <Masonry
+            breakpointCols={breakpointColumnsObj}
+            columnClassName="gridWrapperMasonryColumn"
+            className="gridWrapperMasonry"
+          >
+            {feeds.slice(0, count).map((feed, index) => (
+              <motion.div key={index} variants={item}>
+                <ImageGalery
+                  feedInformation={feed}
+                  onClick={onClick}
+                  key={index}
+                />
+              </motion.div>
+            ))}
+          </Masonry>
+        </AnimatePresence>
+      </motion.div>
       {count != feeds.length ? (
         <div style={ButtonStyle}>
           <Button
