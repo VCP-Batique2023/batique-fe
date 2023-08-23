@@ -72,11 +72,13 @@ export default function AddImageModalForNav({
               <input
                 className="captionInput"
                 type="text"
+                placeholder="Write your caption here!"
                 value={captionInput}
                 onChange={(event) => {
                   setCaptionInput(event);
                 }}
                 accept="image/png, image/jpeg, image/jpg"
+                required
               />
             </div>
           </div>

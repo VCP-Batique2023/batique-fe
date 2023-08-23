@@ -31,9 +31,7 @@ export default function Layout() {
   const [profile, setProfile] = useState(null);
 
   const [isOpenAdPostForNav, setIsOpenAdPostForNav] = useState(false);
-  const [captionForNav, setCaptionForNav] = useState(
-    'Write your caption here!'
-  );
+  const [captionForNav, setCaptionForNav] = useState('');
   const [selectedFileForNav, setSelectedFileForNav] = useState('');
   const [selectedFilePathForNav, setSelectedFilePathForNav] = useState('');
 

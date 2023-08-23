@@ -10,6 +10,7 @@ import {
   updateDoc,
   query,
   where,
+  orderBy,
   Timestamp,
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -115,12 +116,18 @@ async function handleFirebaseUpload(
   setShowModalAddPostCb
 ) {
   const result = await checkImageOnMLAPI(selectedFile);
+  if (caption == '') {
+    toast.error('Silahkan masukan caption');
+    return;
+  }
   if (!result.isBatik) {
     // Return something to trigger the toast
-    toast.error(`Silahkan upload gambar batik!`);
+    toast.error('Silahkan upload gambar batik!');
     setShowModalAddPostCb(-1);
-    // console.log('isnotbatik');
-    return;
+    setSelectedFileCb('');
+    setSelectedFilePathCb('');
+    setCaptionCb('');
+    return result.isBatik;
   }
 
   const imageRef = ref(storage, `feeds/${v4()}`);
@@ -163,7 +170,11 @@ async function handleClientUpload(e, setSelectedFileCb, setSelectedFilePathCb) {
 async function getFeedsById(userId, cb) {
   const dataRef = collection(db, 'feeds');
   // Tambahin limit kalau debugging
-  const feedsQuery = query(dataRef, where('userId', '==', userId));
+  const feedsQuery = query(
+    dataRef,
+    orderBy('createdAt', 'desc'),
+    where('userId', '==', userId)
+  );
   const dataSnapshot = onSnapshot(feedsQuery, (snapshot) => {
     const retrievedData = [];
     snapshot.forEach((doc) => {

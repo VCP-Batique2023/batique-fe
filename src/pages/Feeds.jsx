@@ -29,7 +29,7 @@ export default function Galery() {
   );
   const [feedsList, setFeedsList] = useState([]);
 
-  const [activeSort, setActiveSort] = useState('default');
+  const [activeSort, setActiveSort] = useState('recent');
   const [isOpen, setIsOpen] = useState(false);
   const [showModalAddPost, setShowModalAddPost] = useState(-1);
 
@@ -39,17 +39,13 @@ export default function Galery() {
   const [currentUserForAddFeed, setUserCurrentForAddFeed] = useState({});
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFilePath, setSelectedFilePath] = useState('');
-  const [caption, setCaption] = useState('Write your caption here!');
+  const [caption, setCaption] = useState('');
 
   // useEffect Fetch data from firebase
   useEffect(() => {
     getAllFeeds(setFeedsList);
     getUserById(currentUser.uid, setUserCurrentForAddFeed);
   }, []);
-
-  // useEffect(() => {
-  //   console.log(detailPost);
-  // }, [isOpen]);
 
   // Filter Feeds
   function sortFeedsByMostLikes() {
@@ -143,7 +139,7 @@ export default function Galery() {
                 onClick={sortFeedsByMostLikes}
               />
               <Button
-                children="Most Resent"
+                children="Most Recent"
                 style={
                   activeSort == 'recent' ? { backgroundColor: '#504237' } : ''
                 }

@@ -8,7 +8,9 @@ import '@/assets/style/ImageGrid.css';
 
 export default function ImageGrid({ feeds, onClick }) {
   let imagePerSlide = 15;
-  const [count, setCount] = useState(imagePerSlide);
+  const [count, setCount] = useState(
+    feeds.length < 15 ? feeds.length : imagePerSlide
+  );
 
   const loadMoreImageHandler = () => {
     if (feeds.length - count < imagePerSlide) {

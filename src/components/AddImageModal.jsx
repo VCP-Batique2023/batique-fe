@@ -76,6 +76,7 @@ export default function AddImageModal({
               <input
                 className="captionInput"
                 type="text"
+                placeholder="Write your caption here!"
                 value={captionInput}
                 onChange={(event) => {
                   setCaptionInput(event);
