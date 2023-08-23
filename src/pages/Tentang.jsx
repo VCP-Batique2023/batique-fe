@@ -1,20 +1,23 @@
 import '@/assets/style/tentang.css';
 import { color, motion, useScroll, useTransform } from 'framer-motion';
 import AnimatedText from '@/components/AnimatedText';
+import Tiara from '@/assets/img/tiara.jpg';
+import Calvin from '@/assets/img/calvin.jpg';
+import Fadil from '@/assets/img/fadil.png';
 
 export default function Tentang() {
   const team = [
     {
       name: 'Calvin Danyalson',
-      img: '/src/assets/img/calvin.jpg',
+      img: Calvin,
     },
     {
       name: 'Fadil Hisyam',
-      img: '/src/assets/img/fadil.png',
+      img: Fadil,
     },
     {
       name: 'Tiara Puspita',
-      img: '/src/assets/img/tiara.jpg',
+      img: Tiara,
     },
   ];
 
