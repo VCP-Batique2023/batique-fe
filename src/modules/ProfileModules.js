@@ -151,8 +151,9 @@ async function handleFirebaseUpload(
 
 async function handleClientUpload(e, setSelectedFileCb, setSelectedFilePathCb) {
   const file = e.target.files[0];
-  if (Math.round(file.size / 1048576) > 2) {
-    console.log('Keep it under 2MB');
+  if (Math.round(file.size / 1048576) > 10) {
+    toast.error('Silahkan masukan gambar dibawah 10MB');
+    // console.log('Silahkan masukan gambar dibawah 10MB');
     return;
   }
 
