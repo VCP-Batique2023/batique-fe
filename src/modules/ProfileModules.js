@@ -172,7 +172,11 @@ async function handleClientUpload(e, setSelectedFileCb, setSelectedFilePathCb) {
 async function getFeedsById(userId, cb) {
   const dataRef = collection(db, 'feeds');
   // Tambahin limit kalau debugging
-  const feedsQuery = query(dataRef, where('userId', '==', userId));
+  const feedsQuery = query(
+    dataRef,
+    orderBy('createdAt', 'desc'),
+    where('userId', '==', userId)
+  );
   const dataSnapshot = onSnapshot(feedsQuery, (snapshot) => {
     const retrievedData = [];
     snapshot.forEach((doc) => {

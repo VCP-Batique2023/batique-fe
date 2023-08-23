@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
 /* eslint-disable react/jsx-no-comment-textnodes */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Masonry from 'react-masonry-css';
 import { motion, AnimatePresence } from 'framer-motion';
 import ImageGalery from '@/components/ImageGalery.jsx';
@@ -9,9 +9,7 @@ import '@/assets/style/ImageGrid.css';
 
 export default function ImageGrid({ feeds, onClick }) {
   let imagePerSlide = 15;
-  const [count, setCount] = useState(
-    feeds.length < 15 ? feeds.length : imagePerSlide
-  );
+  const [count, setCount] = useState(0);
 
   const loadMoreImageHandler = () => {
     if (feeds.length - count < imagePerSlide) {
@@ -20,6 +18,10 @@ export default function ImageGrid({ feeds, onClick }) {
       setCount(count + imagePerSlide);
     }
   };
+
+  useEffect(() => {
+    setCount(feeds.length < imagePerSlide ? feeds.length : imagePerSlide);
+  }, [feeds]);
 
   const breakpointColumnsObj = {
     default: 4,
@@ -72,7 +74,7 @@ export default function ImageGrid({ feeds, onClick }) {
           </Masonry>
         </AnimatePresence>
       </motion.div>
-      {count != feeds.length ? (
+      {imagePerSlide > feeds.length && (
         <div style={ButtonStyle}>
           <Button
             children="Load More"
@@ -82,8 +84,6 @@ export default function ImageGrid({ feeds, onClick }) {
             style={{ marginBottom: '20px' }}
           />
         </div>
-      ) : (
-        <div></div>
       )}
     </>
   );
