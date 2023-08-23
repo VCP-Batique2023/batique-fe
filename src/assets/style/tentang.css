@@ -48,14 +48,13 @@
   /* background: #000; */
 }
 
-.team-mem {
-  width: calc(150px * 3 + 39%);
-  height: auto;
-  /* padding-top: 17%; */
-  margin: 17% auto;
-  display: flex;
-  /* background: #000; */
-  gap: 20%;
+.team-mem{
+    width: 100%;
+    height: auto;
+    margin: 17% auto;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20%;
 }
 .mem-pic {
   height: 150px;
@@ -74,26 +73,34 @@
   font-family: 'Ysabeau Infant', 'sans-serif';
 }
 @media only screen and (max-width: 575px) {
-  .header-tentang,
-  .boundary {
-    background-position: center;
-  }
-  .content-tentang {
-    padding-bottom: 10%;
-    width: 80%;
-  }
-  .our-team {
-    height: auto;
-  }
-  .team-mem {
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    margin: 20% auto 5% auto;
-    justify-content: center;
-  }
-  .member {
-    padding-bottom: 30%;
-  }
+    .header-tentang, .boundary{
+        background-position: center;
+    }
+    .content-tentang{
+        
+        padding-bottom: 10%;
+        width: 80%;
+
+    }
+    .our-team{
+        height: auto;
+    }
+    .team-mem{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        margin: 20% auto 5% auto;
+        justify-content: center;
+    }
+    .member{
+        padding-bottom: 30%;
+    }
+}
+@media only screen and (max-width: 991px) {
+    .team-mem{
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 32px;
+    }
 }
