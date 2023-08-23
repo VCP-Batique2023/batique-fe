@@ -46,14 +46,15 @@ async function handleFirebaseUpload(
   setSelectedFilePathCb,
   setCaptionCb
 ) {
-  const result = await checkImageOnMLAPI(selectedFile);
+  const toastLoading = toast.loading('Mohon tunggu...');
   if (caption == '') {
-    toast.error('Silahkan masukan caption');
+    toast.error('Silahkan masukan caption', { id: toastLoading });
     return true;
   }
+  const result = await checkImageOnMLAPI(selectedFile);
   if (!result.isBatik) {
     // Return something to trigger the toast
-    toast.error('Silahkan upload gambar batik!');
+    toast.error('Silahkan upload gambar batik!', { id: toastLoading });
     setShowModalAddPostCb(-1);
     setSelectedFileCb('');
     setSelectedFilePathCb('');
@@ -72,7 +73,7 @@ async function handleFirebaseUpload(
     likedByAccount: [],
     userId: uid,
   });
-  toast.success('Gambar berhasil di upload');
+  toast.success('Gambar berhasil di upload', { id: toastLoading });
   setShowModalAddPostCb(-1);
   setSelectedFileCb('');
   setSelectedFilePathCb('');

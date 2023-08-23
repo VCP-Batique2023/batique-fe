@@ -120,7 +120,7 @@ export default function Galery() {
   const [userDetail, setUserDetail] = useState({});
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFilePath, setSelectedFilePath] = useState('');
-  const [caption, setCaption] = useState('Write your caption here!');
+  const [caption, setCaption] = useState('');
 
   // useEffect Fetch data from firebase
   useEffect(() => {

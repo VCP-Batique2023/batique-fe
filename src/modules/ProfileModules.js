@@ -115,14 +115,15 @@ async function handleFirebaseUpload(
   setCaptionCb,
   setShowModalAddPostCb
 ) {
-  const result = await checkImageOnMLAPI(selectedFile);
+  const toastLoading = toast.loading('Mohon tunggu...');
   if (caption == '') {
-    toast.error('Silahkan masukan caption');
+    toast.error('Silahkan masukan caption', { id: toastLoading });
     return;
   }
+  const result = await checkImageOnMLAPI(selectedFile);
   if (!result.isBatik) {
     // Return something to trigger the toast
-    toast.error('Silahkan upload gambar batik!');
+    toast.error('Silahkan upload gambar batik!', { id: toastLoading });
     setShowModalAddPostCb(-1);
     setSelectedFileCb('');
     setSelectedFilePathCb('');
@@ -142,7 +143,7 @@ async function handleFirebaseUpload(
     likedByAccount: [],
     userId: uid,
   });
-  toast.success('Gambar berhasil di upload');
+  toast.success('Gambar berhasil di upload', { id: toastLoading });
   setSelectedFileCb('');
   setSelectedFilePathCb('');
   setCaptionCb('Write your caption here!');
@@ -171,11 +172,7 @@ async function handleClientUpload(e, setSelectedFileCb, setSelectedFilePathCb) {
 async function getFeedsById(userId, cb) {
   const dataRef = collection(db, 'feeds');
   // Tambahin limit kalau debugging
-  const feedsQuery = query(
-    dataRef,
-    orderBy('createdAt', 'desc'),
-    where('userId', '==', userId)
-  );
+  const feedsQuery = query(dataRef, where('userId', '==', userId));
   const dataSnapshot = onSnapshot(feedsQuery, (snapshot) => {
     const retrievedData = [];
     snapshot.forEach((doc) => {
